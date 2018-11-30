@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mygdx.game.desktop;
+package com.mygdx.game;
 
 /**
  *
  * @author prylz2189
  */
-public class Enemies {
+public class LevelDesign {
     
 }
