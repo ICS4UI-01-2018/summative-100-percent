@@ -16,8 +16,6 @@ import com.badlogic.gdx.math.Rectangle;
  */
 public class Player extends Entity {
 
-    private Rectangle player;
-
     // private HealthBar health
     private int armor;
     private int lives;
@@ -25,37 +23,32 @@ public class Player extends Entity {
     // private ArrayList<Weapon> weapons;
     // or
     // private Weapon weapon;
-    public Player(int HP, float speed, float x, float y, int width, int height) {
+    public Player(int HP, float speed, float x, float y, int width, int height, int armor, int lives) {
         super(HP, speed, x, y, width, height);
         this.armor = armor;
         this.lives = lives;
-        //DO WE HAVE TO MAKE A RECTANGLE HERE IF ITS ALREADY IN SUPERCLASS???
-
 //        this.speed = speed;
 //        this.HP = 100;
 //        this.armor = 0;
 //        player = new Rectangle(x, y, width, height);
     }
 
-
     // return Player parts in floats
     public float getLeft() {
-        return player.x;
+        return super.getX();
     }
 
     public float getRight() {
-        return player.x + player.width;
+        return super.getX() + super.getWidth();
     }
 
     public float getFront() {
-        return player.y + player.height;
+        return super.getY() + super.getHeight();
     }
 
     public float getBack() {
-        return player.y;
+        return super.getY();
     }
-
-    
 
     public int getArmor() {
         return this.armor;
@@ -74,7 +67,7 @@ public class Player extends Entity {
     }
 
     public void aim() {
-
+        
     }
 
     public void dead() {
@@ -83,29 +76,29 @@ public class Player extends Entity {
 
     // draw player out
     public void draw(ShapeRenderer shapeBatch) {
-        shapeBatch.rect(player.x, player.y, player.width, player.height);
+        shapeBatch.rect(super.getX(), super.getY(), super.getWidth(), super.getHeight());
     }
 
     @Override
     public void move() {
-        // move left
+        // move left if A is pressed
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            player.x = player.x - super.getSpeed();
+            super.setXLeft();
         }
 
-        // move right
+        // move right if D is pressed
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            player.x = player.x + super.getSpeed();
+            super.setXRight();
         }
 
-        // move up
+        // move up if W is press
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            player.y = player.y + super.getSpeed();
+            super.setYUp();
         }
 
-        // move down
+        // move down if S is pressed
         if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            player.y = player.y - super.getSpeed();
+            super.setYDown();
         }
     }
 
