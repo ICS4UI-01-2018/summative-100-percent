@@ -21,6 +21,7 @@ public class Bullet {
     private int damage;
     private int moveX;
     private int moveY;
+    private boolean isAlive;
 
     public Bullet(int speed, int damage) {
         //Set variables
@@ -30,7 +31,6 @@ public class Bullet {
         this.moveY = moveY;
     }
 //Move x
-
     public void moveX() {
         while (true) {
             x = x + moveX*speed;
@@ -42,6 +42,10 @@ public class Bullet {
         while (true) {
             y = y + (moveY * speed);
         }
+    }
+    //Collision
+    public void collision(){
+        //
     }
 //get moveY
     public int getMoveY() {
@@ -69,6 +73,10 @@ public class Bullet {
     //Get speed
     public int getSpeed(){
         return this.speed;
+    }
+    //Is the bullet alive
+    public boolean isAlive(){
+        return this.isAlive();
     }
 
 }
