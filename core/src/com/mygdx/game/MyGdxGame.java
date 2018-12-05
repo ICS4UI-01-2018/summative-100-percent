@@ -19,7 +19,7 @@ public class MyGdxGame extends ApplicationAdapter {
     private ShapeRenderer shapeBatch;
     private FitViewport viewport;
     private Wall wall;
-    private Wall[] walls = new Wall[10];
+    private Wall[] walls = new Wall[14];
     private Texture img;
 
     private Player player;
@@ -33,18 +33,28 @@ public class MyGdxGame extends ApplicationAdapter {
         cam = new OrthographicCamera();
         viewport = new FitViewport(2000, 1600, cam);
         viewport.apply();
-        cam.position.x = 1000;
-        cam.position.y = 800;
-        cam.update();
+       
         walls[0] = new Wall(100, 20, 1800, 80);
         walls[1] = new Wall(100, 1500, 1800, 80);
         walls[2] = new Wall(20, 20, 80, 630);
         walls[3] = new Wall(20, 950, 80, 630);
         walls[4] = new Wall(1900, 20, 80, 630);
-        walls[5] = new Wall(1900, 950, 80, 630);
-       player = new Player(100, 2, 400, 300, 10, 10, 0, 1);
-       enemy1 = new Enemies(100, 2, 300, 200, 15, 15, 0, 0);
+        walls[5] = new Wall(1900, 950, 80, 630);////
+        walls[6] = new Wall(1980,950,500,80);
+        walls[7] = new Wall(1980,570,500,80);
+        //
+        walls[8] = new Wall(1980, 20, 1800, 80);
+        walls[9] = new Wall(1980, 1500, 1800, 80);
+        walls[10] = new Wall(1900, 20, 80, 630);
+        walls[11] = new Wall(1900, 950, 80, 630);
+        walls[12] = new Wall(3780, 20, 80, 630);
+        walls[13] = new Wall(3780, 950, 80, 630);
+      
         // x y width 
+        
+         cam.position.x = player.getX();
+        cam.position.y = player.getY();
+        cam.update();
     }
 
    
@@ -59,25 +69,50 @@ public class MyGdxGame extends ApplicationAdapter {
         }
 
        enemy1.move(player);
-
+       
+         cam.position.x = player.getX();
+        cam.position.y = player.getY();
+        cam.update();
         shapeBatch.setProjectionMatrix(cam.combined);
         // start drawing mode
         // filled shapes
+        
+      
         shapeBatch.begin(ShapeRenderer.ShapeType.Filled);
 
-        shapeBatch.setColor(Color.FOREST);
-        shapeBatch.rect(0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
+        shapeBatch.setColor(Color.RED);
+      //  shapeBatch.rect(0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
 
         // change colour to white
+        shapeBatch.setColor(Color.GRAY);
+        walls[0].draw(shapeBatch);
+        walls[1].draw(shapeBatch);
+        walls[2].draw(shapeBatch);
+        walls[3].draw(shapeBatch);
+        walls[4].draw(shapeBatch);
+        walls[5].draw(shapeBatch);
+        walls[6].draw(shapeBatch);
+        walls[7].draw(shapeBatch);
+         walls[8].draw(shapeBatch);
+         walls[9].draw(shapeBatch);
+         walls[10].draw(shapeBatch);
+        walls[11].draw(shapeBatch);
+         walls[12].draw(shapeBatch);
+         walls[13].draw(shapeBatch);
+        
+        
+        
         shapeBatch.setColor(Color.WHITE);
 
         // draw shapes
         player.draw(shapeBatch);
-
+        enemy1.draw(shapeBatch);
+        
         shapeBatch.end();
 
         batch.setProjectionMatrix(cam.combined);
         batch.begin();
+        batch.end();
     }
     
         @Override

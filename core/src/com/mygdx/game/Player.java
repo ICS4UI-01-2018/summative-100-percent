@@ -78,8 +78,7 @@ public class Player extends Entity {
     public void draw(ShapeRenderer shapeBatch) {
         shapeBatch.rect(super.getX(), super.getY(), super.getWidth(), super.getHeight());
     }
-
-    @Override
+    
     public void move() {
         // move left if A is pressed
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {

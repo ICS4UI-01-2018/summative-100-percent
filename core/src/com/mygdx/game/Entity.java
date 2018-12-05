@@ -5,6 +5,7 @@
  */
 package com.mygdx.game;
 
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 
 /**
@@ -56,8 +57,10 @@ public abstract class Entity {
     }
 
     // each subclass needs their own move() method
-    public abstract void move();
+    // public abstract void move();
 
+    public abstract void draw(ShapeRenderer shapeBatch);
+    
     public void setXLeft() {
         // move left
         this.x = this.x - this.speed;
