@@ -73,6 +73,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
         // draw shapes
         player.draw(shapeBatch);
+        enemy1.draw(shapeBatch);
         
         shapeBatch.end();
         
