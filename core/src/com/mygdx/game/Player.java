@@ -9,6 +9,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector3;
 
 /**
  *
@@ -19,7 +20,8 @@ public class Player extends Entity {
     // private HealthBar health
     private int armor;
     private int lives;
-
+    
+    
     // private ArrayList<Weapon> weapons;
     // or
     // private Weapon weapon;
@@ -27,10 +29,6 @@ public class Player extends Entity {
         super(HP, speed, x, y, width, height);
         this.armor = armor;
         this.lives = lives;
-//        this.speed = speed;
-//        this.HP = 100;
-//        this.armor = 0;
-//        player = new Rectangle(x, y, width, height);
     }
 
     // return Player parts in floats
@@ -66,7 +64,7 @@ public class Player extends Entity {
 
     }
 
-    public void aim() {
+    public void rotate() {
         
     }
 
@@ -74,7 +72,7 @@ public class Player extends Entity {
 
     }
 
-    // draw player out
+    @Override
     public void draw(ShapeRenderer shapeBatch) {
         shapeBatch.rect(super.getX(), super.getY(), super.getWidth(), super.getHeight());
     }
@@ -100,5 +98,4 @@ public class Player extends Entity {
             super.setYDown();
         }
     }
-
 }

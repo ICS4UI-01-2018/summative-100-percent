@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import java.util.ArrayList;
 
@@ -24,15 +25,23 @@ public class MyGdxGame extends ApplicationAdapter {
 
     private Player player;
     private Enemies enemy1;
+    private Enemies enemy2;
+
+
 
     // add in walls here and be able to call them in a for loop
     @Override
     public void create() {
+        player = new Player(100, (float) 1.5, 400, 300, 20, 10, 0, 1);
+        enemy1 = new Enemies(100, (float) 0.5, 300, 200, 15, 15, 0, 0);
+        enemy2 = new Enemies(100, (float) 0.8, 500, 450, 15, 15, 0, 0);
+
         batch = new SpriteBatch();
         shapeBatch = new ShapeRenderer();
         cam = new OrthographicCamera();
         viewport = new FitViewport(2000, 1600, cam);
         viewport.apply();
+        cam.update();
        
         walls[0] = new Wall(100, 20, 1800, 80);
         walls[1] = new Wall(100, 1500, 1800, 80);
@@ -54,7 +63,6 @@ public class MyGdxGame extends ApplicationAdapter {
         
          cam.position.x = player.getX();
         cam.position.y = player.getY();
-        cam.update();
     }
 
    
@@ -68,11 +76,6 @@ public class MyGdxGame extends ApplicationAdapter {
             player.move();
         }
 
-       enemy1.move(player);
-       
-         cam.position.x = player.getX();
-        cam.position.y = player.getY();
-        cam.update();
         shapeBatch.setProjectionMatrix(cam.combined);
         // start drawing mode
         // filled shapes
@@ -80,8 +83,15 @@ public class MyGdxGame extends ApplicationAdapter {
       
         shapeBatch.begin(ShapeRenderer.ShapeType.Filled);
 
-        shapeBatch.setColor(Color.RED);
-      //  shapeBatch.rect(0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
+        enemy1.move(player);
+        enemy2.move(player);
+
+        // set camera position on player
+        cam.position.x = player.getX();
+        cam.position.y = player.getY();
+        // update camera
+        cam.update();
+
 
         // change colour to white
         shapeBatch.setColor(Color.GRAY);
@@ -107,17 +117,14 @@ public class MyGdxGame extends ApplicationAdapter {
         // draw shapes
         player.draw(shapeBatch);
         enemy1.draw(shapeBatch);
-        
+        enemy2.draw(shapeBatch);
+
         shapeBatch.end();
 
         batch.setProjectionMatrix(cam.combined);
         batch.begin();
+        shapeBatch.setColor(Color.RED);
+      //  shapeBatch.rect(0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
         batch.end();
     }
-    
-        @Override
-        public void resize
-        (int width, int height){
-            viewport.update(width, height);
-        }
     }

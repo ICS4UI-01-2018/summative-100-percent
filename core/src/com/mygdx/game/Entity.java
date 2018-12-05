@@ -32,10 +32,18 @@ public abstract class Entity {
         entity = new Rectangle(x, y, width, height);
     }
 
+    /**
+     * 
+     * @return the integer representing the HP.
+     */
     public int getHP() {
         return this.HP;
     }
 
+    /**
+     * 
+     * @return the float representing the speed. 
+     */
     public float getSpeed() {
         return this.speed;
     }
@@ -48,10 +56,18 @@ public abstract class Entity {
         return this.y;
     }
 
+    /**
+     * 
+     * @return the integer representing the width.
+     */
     public int getWidth() {
         return this.width;
     }
 
+    /**
+     * 
+     * @return the integer representing the height. 
+     */
     public int getHeight() {
         return this.height;
     }
@@ -59,6 +75,7 @@ public abstract class Entity {
     // each subclass needs their own move() method
     // public abstract void move();
 
+    // each subclass needs their own draw(ShapeRenderer shapeBatch) method
     public abstract void draw(ShapeRenderer shapeBatch);
     
     public void setXLeft() {
@@ -74,7 +91,6 @@ public abstract class Entity {
     public void setYUp() {
         // move up
         this.y = this.y + this.speed;
-
     }
 
     public void setYDown() {
