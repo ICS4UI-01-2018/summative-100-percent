@@ -42,8 +42,8 @@ public class MyGdxGame extends ApplicationAdapter {
         walls[3] = new Wall(20, 950, 80, 630);
         walls[4] = new Wall(1900, 20, 80, 630);
         walls[5] = new Wall(1900, 950, 80, 630);
-        player = new Player(100, 2, 400, 300, 10, 10, 0, 1);
-       // enemy1 = new Enemies(100, 2, 300, 200, 15, 15, 0, 0);
+       player = new Player(100, 2, 400, 300, 10, 10, 0, 1);
+       enemy1 = new Enemies(100, 2, 300, 200, 15, 15, 0, 0);
         // x y width 
     }
 
@@ -58,7 +58,7 @@ public class MyGdxGame extends ApplicationAdapter {
             player.move();
         }
 
-        enemy1.move(player);
+       enemy1.move(player);
 
         shapeBatch.setProjectionMatrix(cam.combined);
         // start drawing mode
