@@ -7,9 +7,10 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector3;
 
 /**
  *
@@ -20,8 +21,9 @@ public class Player extends Entity {
     // private HealthBar health
     private int armor;
     private int lives;
-    
-    
+    // private Rectangle r;
+    private Texture pic;
+
     // private ArrayList<Weapon> weapons;
     // or
     // private Weapon weapon;
@@ -29,6 +31,9 @@ public class Player extends Entity {
         super(HP, speed, x, y, width, height);
         this.armor = armor;
         this.lives = lives;
+        // this.r = new Rectangle(x, y, width, height);
+        pic = new Texture("badlogic.jpg");
+
     }
 
     // return Player parts in floats
@@ -65,7 +70,7 @@ public class Player extends Entity {
     }
 
     public void rotate() {
-        
+
     }
 
     public void dead() {
@@ -76,26 +81,34 @@ public class Player extends Entity {
     public void draw(ShapeRenderer shapeBatch) {
         shapeBatch.rect(super.getX(), super.getY(), super.getWidth(), super.getHeight());
     }
-    
+
+    public void draw(SpriteBatch batch) {
+        batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, 0, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
+    }
+
     public void move() {
         // move left if A is pressed
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             super.setXLeft();
-        }
-
-        // move right if D is pressed
+        } 
+        
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+            // else move right if D is pressed
             super.setXRight();
-        }
 
-        // move up if W is press
+        } 
+        
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+            // else move up if W is press
             super.setYUp();
-        }
 
-        // move down if S is pressed
+        } 
+        
         if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+            // else move down if S is pressed
             super.setYDown();
+
         }
     }
+
 }

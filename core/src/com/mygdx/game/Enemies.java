@@ -16,15 +16,15 @@ public class Enemies extends Entity {
     private boolean isDead;
     private int xDirection;
     private int yDirection;
-    
+
     // might not night xDirection and yDirection
-    public Enemies (int HP, float speed, float x, float y, int width, int height, int xDirection, int yDirection) {
+    public Enemies(int HP, float speed, float x, float y, int width, int height, int xDirection, int yDirection) {
         super(HP, speed, x, y, width, height);
         this.isDead = false;
         this.xDirection = 0;
         this.yDirection = 0;
     }
-    
+
 //    public void setDirectionToPlayer(Player player) {
 //        // if Enemy is left of Player
 //        if(super.getX() < player.getX()) {
@@ -43,43 +43,45 @@ public class Enemies extends Entity {
 //        }
 //        
 //    }
-    
+    /**
+     *
+     * @param player the Player that is being chased
+     */
     public void move(Player player) {
-        if(super.getX() < player.getX()) {
+        // if Enemies is left of player
+        if (super.getX() + super.getWidth() / 2 < player.getX() + player.getWidth() / 2) {
+            // move right
             super.setXRight();
-        } else if(super.getX() > player.getX()) {
+        } else if (super.getX() + super.getWidth() / 2 > player.getX() + player.getWidth() / 2) {
+            // else if Enemy is right of player, move left
             super.setXLeft();
         }
-        
-        if(super.getY() < player.getY()) {
+
+        // if Enemies is below player
+        if (super.getY() + super.getHeight() / 2 < player.getY() + player.getHeight() / 2) {
+            // move up
             super.setYUp();
-        } else if(super.getY() > player.getY()) {
+        } else if (super.getY() + super.getHeight() / 2 > player.getY() + player.getHeight() / 2) {
+            // else if Enemy is above player, move down
             super.setYDown();
         }
     }
-    
+
     @Override
     public void draw(ShapeRenderer shapeBatch) {
         shapeBatch.rect(super.getX(), super.getY(), super.getWidth(), super.getHeight());
     }
-    
+
     public void attack() {
-        
+
     }
-    
+
+    /**
+     *
+     * @return
+     */
     public boolean getIsDead() {
         return this.isDead;
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
 }

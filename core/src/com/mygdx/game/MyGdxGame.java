@@ -24,9 +24,12 @@ public class MyGdxGame extends ApplicationAdapter {
     private OrthographicCamera cam;
     private FitViewport viewport;
 
+    private Vector3 cursorPosition = new Vector3();
+    
+    
     @Override
     public void create() {
-        player = new Player(100, (float) 1.5, 400, 300, 20, 10, 0, 1);
+        player = new Player(100, (float) 1.5, 400, 300, 200, 100, 0, 1);
         enemy1 = new Enemies(100, (float) 0.5, 300, 200, 15, 15, 0, 0);
         enemy2 = new Enemies(100, (float) 0.8, 500, 450, 15, 15, 0, 0);
 
@@ -74,14 +77,14 @@ public class MyGdxGame extends ApplicationAdapter {
         // filled shapes
         shapeBatch.begin(ShapeRenderer.ShapeType.Filled);
 
-        shapeBatch.setColor(Color.FOREST);
+        shapeBatch.setColor(Color.RED);
         shapeBatch.rect(0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
 
         // change colour to white
         shapeBatch.setColor(Color.WHITE);
 
         // draw shapes
-        player.draw(shapeBatch);
+       // player.draw(shapeBatch);
         enemy1.draw(shapeBatch);
         enemy2.draw(shapeBatch);
 
@@ -89,7 +92,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
         batch.setProjectionMatrix(cam.combined);
         batch.begin();
-
+        player.draw(batch);
         batch.end();
     }
 
