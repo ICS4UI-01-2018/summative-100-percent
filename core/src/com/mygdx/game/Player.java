@@ -87,22 +87,38 @@ public class Player extends Entity {
     public void draw(SpriteBatch batch, float cursorX, float cursorY) {
         // trigonometry - inverse of tan
 
+//        // if mouse is on right side of player
+//        if (cursorX - super.getX() > 0) {
+//            float angle = (float) Math.atan((super.getY() - cursorY) / (cursorX - super.getX()));
+//            angle = (float) Math.toDegrees(angle);
+//
+//            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, (angle) - 90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
+//            System.out.println(angle);
+//        } else if (cursorX - super.getX() < 0) {
+//            // else if mouse is on left side of player
+//            float angle = (float) Math.atan((super.getY() - cursorY) / (cursorX - super.getX()));
+//            angle = (float) Math.toDegrees(angle);
+//
+//            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, (angle) +90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
+//            System.out.println(angle);
+//        }
+
         // if mouse is on right side of player
         if (cursorX - super.getX() > 0) {
-            float angle = (float) Math.atan((super.getY() - cursorY) / (cursorX - super.getX()));
+            float angle = (float) Math.atan((300 - cursorY) / (cursorX - 400));
             angle = (float) Math.toDegrees(angle);
 
             batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, (angle) - 90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
             System.out.println(angle);
         } else if (cursorX - super.getX() < 0) {
             // else if mouse is on left side of player
-            float angle = (float) Math.atan((super.getY() - cursorY) / (cursorX - super.getX()));
+            float angle = (float) Math.atan((300 - cursorY) / (cursorX - 400));
             angle = (float) Math.toDegrees(angle);
 
-            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, (angle) +90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
+            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, (angle) + 90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
             System.out.println(angle);
         }
-
+        
     }
 
     public void move() {
