@@ -20,7 +20,7 @@ public class MyGdxGame extends ApplicationAdapter {
     private ShapeRenderer shapeBatch;
     private FitViewport viewport;
     private Wall wall;
-    private Wall[] walls = new Wall[14];
+    private Wall[] walls = new Wall[20];
     private Texture img;
 
     private Player player;
@@ -44,20 +44,22 @@ public class MyGdxGame extends ApplicationAdapter {
         cam.update();
        
         walls[0] = new Wall(100, 20, 1800, 80);
-        walls[1] = new Wall(100, 1500, 1800, 80);
-        walls[2] = new Wall(20, 20, 80, 630);
-        walls[3] = new Wall(20, 950, 80, 630);
-        walls[4] = new Wall(1900, 20, 80, 630);
-        walls[5] = new Wall(1900, 950, 80, 630);////
-        walls[6] = new Wall(1980,950,500,80);
-        walls[7] = new Wall(1980,570,500,80);
+        walls[1] = new Wall(100, 1500, 650, 80); // top
+        walls[2] = new Wall(1150, 1500, 900, 80); // top 
+        walls[3] = new Wall(20, 20, 80, 630);
+        walls[4] = new Wall(20, 950, 80, 630);
+        walls[5] = new Wall(1900, 20, 80, 630);
+        walls[6] = new Wall(1900, 950, 80, 630);////
+        walls[7] = new Wall(1980,950,500,80);
+        walls[8] = new Wall(1980,570,500,80);
         //
-        walls[8] = new Wall(1980, 20, 1800, 80);
-        walls[9] = new Wall(1980, 1500, 1800, 80);
-        walls[10] = new Wall(1900, 20, 80, 630);
-        walls[11] = new Wall(1900, 950, 80, 630);
-        walls[12] = new Wall(3780, 20, 80, 630);
-        walls[13] = new Wall(3780, 950, 80, 630);
+        walls[9] = new Wall(1980, 20, 1800, 80);
+        walls[10] = new Wall(1980, 1500, 650, 80); // top 1
+         walls[11] = new Wall(3130, 1500, 650, 80); // top2 
+        walls[12] = new Wall(1900, 20, 80, 630);
+        walls[13] = new Wall(1900, 950, 80, 630);
+        walls[14] = new Wall(3780, 20, 80, 630 + 920);
+        walls[15] = new Wall(3780, 950, 80, 630);
       
         // x y width 
         
@@ -109,6 +111,8 @@ public class MyGdxGame extends ApplicationAdapter {
         walls[11].draw(shapeBatch);
          walls[12].draw(shapeBatch);
          walls[13].draw(shapeBatch);
+         walls[14].draw(shapeBatch);
+         walls[15].draw(shapeBatch);
         
         
         
