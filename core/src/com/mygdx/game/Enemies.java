@@ -5,6 +5,8 @@
  */
 package com.mygdx.game;
 
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+
 /**
  *
  * @author prylz2189
@@ -15,6 +17,7 @@ public abstract class Enemies extends Entity {
     private int xDirection;
     private int yDirection;
     
+    // might not night xDirection and yDirection
     public Enemies (int HP, float speed, float x, float y, int width, int height, int xDirection, int yDirection) {
         super(HP, speed, x, y, width, height);
         this.isDead = false;
@@ -22,30 +25,30 @@ public abstract class Enemies extends Entity {
         this.yDirection = 0;
     }
     
-    public void setDirectionToPlayer(Player player) {
-        // if Enemy is left of Player
-        if(super.getX() < player.getX()) {
-            xDirection = 1;
-        } else if(super.getX() > player.getX()) {
-            // else if enemy is right of Player
-            xDirection = -1;
-        }
-        
-        // if Enemy is below Player
-        if(super.getY() < player.getY()) {
-            yDirection = 1;
-        } else if(super.getY() > player.getY()) {
-            // else if enemy is above Player
-            yDirection = -1;
-        }
-        
-    }
+//    public void setDirectionToPlayer(Player player) {
+//        // if Enemy is left of Player
+//        if(super.getX() < player.getX()) {
+//            xDirection = 1;
+//        } else if(super.getX() > player.getX()) {
+//            // else if enemy is right of Player
+//            xDirection = -1;
+//        }
+//        
+//        // if Enemy is below Player
+//        if(super.getY() < player.getY()) {
+//            yDirection = 1;
+//        } else if(super.getY() > player.getY()) {
+//            // else if enemy is above Player
+//            yDirection = -1;
+//        }
+//        
+//    }
     
     public void move(Player player) {
         if(super.getX() < player.getX()) {
-            super.setXLeft();
-        } else if(super.getX() > player.getX()) {
             super.setXRight();
+        } else if(super.getX() > player.getX()) {
+            super.setXLeft();
         }
         
         if(super.getY() < player.getY()) {
@@ -53,6 +56,11 @@ public abstract class Enemies extends Entity {
         } else if(super.getY() > player.getY()) {
             super.setYDown();
         }
+    }
+    
+    @Override
+    public void draw(ShapeRenderer shapeBatch) {
+        shapeBatch.rect(super.getX(), super.getY(), super.getWidth(), super.getHeight());
     }
     
     public void attack() {

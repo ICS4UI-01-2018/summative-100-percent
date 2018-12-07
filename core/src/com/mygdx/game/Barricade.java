@@ -7,9 +7,8 @@ package com.mygdx.game;
 
 /**
  *
- * @author prylz2189
+ * @author Starm7481
  */
-public class Levels {
-                
-       
+public class Barricade {
+    
 }
