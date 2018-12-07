@@ -59,6 +59,9 @@ public class MyGdxGame extends ApplicationAdapter {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        cursorPosition.x = Gdx.input.getX();
+        cursorPosition.y = Gdx.input.getY();
+        
         if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.D)) {
             player.move();
         }
@@ -92,7 +95,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
         batch.setProjectionMatrix(cam.combined);
         batch.begin();
-        player.draw(batch);
+        player.draw(batch, cursorPosition.x, cursorPosition.y);
         batch.end();
     }
 
