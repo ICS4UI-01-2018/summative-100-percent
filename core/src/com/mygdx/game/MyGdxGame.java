@@ -61,6 +61,8 @@ public class MyGdxGame extends ApplicationAdapter {
 
         cursorPosition.x = Gdx.input.getX();
         cursorPosition.y = Gdx.input.getY();
+        cursorPosition.z = 0;
+        cam.unproject(cursorPosition);
         
         if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.D)) {
             player.move();

@@ -102,22 +102,23 @@ public class Player extends Entity {
 //            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, (angle) +90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
 //            System.out.println(angle);
 //        }
-
+        
         // if mouse is on right side of player
         if (cursorX - super.getX() > 0) {
-            float angle = (float) Math.atan((300 - cursorY) / (cursorX - 400));
+            float angle = (float) Math.atan((cursorY-(super.getY() - super.getHeight() / 2)) / (cursorX - (super.getX() - super.getWidth() / 2)));
             angle = (float) Math.toDegrees(angle);
-
-            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, (angle) - 90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
+            batch.draw(pic, super.getX() - (super.getWidth() / 2), super.getY() - (super.getHeight() / 2), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, (angle) - 90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
             System.out.println(angle);
         } else if (cursorX - super.getX() < 0) {
             // else if mouse is on left side of player
-            float angle = (float) Math.atan((300 - cursorY) / (cursorX - 400));
+            float angle = (float) Math.atan((cursorY-(super.getY() - super.getHeight() / 2)) / (cursorX - (super.getX() - super.getWidth() / 2)));
             angle = (float) Math.toDegrees(angle);
-
-            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, (angle) + 90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
+            batch.draw(pic, super.getX() - (super.getWidth() / 2), super.getY() - (super.getHeight() / 2), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, (angle) + 90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
             System.out.println(angle);
+            
+            
         }
+        
         
     }
 

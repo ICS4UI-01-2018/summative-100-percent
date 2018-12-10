@@ -49,19 +49,19 @@ public class Enemies extends Entity {
      */
     public void move(Player player) {
         // if Enemies is left of player
-        if (super.getX() + super.getWidth() / 2 < player.getX() + player.getWidth() / 2) {
+        if (super.getX() + super.getWidth() / 2 < player.getX() ) {
             // move right
             super.setXRight();
-        } else if (super.getX() + super.getWidth() / 2 > player.getX() + player.getWidth() / 2) {
+        } else if (super.getX() + super.getWidth() / 2 > player.getX() ) {
             // else if Enemy is right of player, move left
             super.setXLeft();
         }
 
         // if Enemies is below player
-        if (super.getY() + super.getHeight() / 2 < player.getY() + player.getHeight() / 2) {
+        if (super.getY() + super.getHeight() / 2 < player.getY()) {
             // move up
             super.setYUp();
-        } else if (super.getY() + super.getHeight() / 2 > player.getY() + player.getHeight() / 2) {
+        } else if (super.getY() + super.getHeight() / 2 > player.getY()) {
             // else if Enemy is above player, move down
             super.setYDown();
         }
