@@ -32,7 +32,7 @@ public class MyGdxGame extends ApplicationAdapter {
     // add in walls here and be able to call them in a for loop
     @Override
     public void create() {
-        player = new Player(100, (float) 1.5, 400, 300, 20, 10, 0, 1);
+        player = new Player(100, (float) 5, 400, 300, 20, 10, 0, 1);
         enemy1 = new Enemies(100, (float) 0.5, 300, 200, 15, 15, 0, 0);
         enemy2 = new Enemies(100, (float) 0.8, 500, 450, 15, 15, 0, 0);
 
@@ -78,6 +78,14 @@ public class MyGdxGame extends ApplicationAdapter {
             player.move();
         }
 
+           for (int i = 0; i < 16; i++) {
+            if(player.collidesWith(walls[i])){
+                 if(player.getY() >= walls[i].getY()+walls[i].getheight()){
+                     player.setYT();
+                 }  
+            }
+            
+        }
         shapeBatch.setProjectionMatrix(cam.combined);
         // start drawing mode
         // filled shapes
@@ -114,6 +122,7 @@ public class MyGdxGame extends ApplicationAdapter {
          walls[14].draw(shapeBatch);
          walls[15].draw(shapeBatch);
         
+      
         
         
         shapeBatch.setColor(Color.WHITE);
