@@ -47,6 +47,10 @@ public abstract class Entity {
     public float getSpeed() {
         return this.speed;
     }
+    
+    public Rectangle getRect(){
+        return entity;
+    }
 
     public float getX() {
         return this.x;
@@ -62,6 +66,22 @@ public abstract class Entity {
      */
     public int getWidth() {
         return this.width;
+    }
+    // if it hits left side 
+    public void setXL(Player p){
+       x = getX()-1;
+    }
+    // if it hits right side 
+    public void setXR(Player p){
+        x = getX()+1;
+    }
+    // if it hits top 
+    public void setYT(){
+        y = getY()+1;
+    }
+    // if it hits bottom 
+    public void setYB(){
+       y = getY()-1; 
     }
 
     /**

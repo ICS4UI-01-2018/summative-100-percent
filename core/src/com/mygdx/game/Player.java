@@ -35,6 +35,9 @@ public class Player extends Entity {
     public float getLeft() {
         return super.getX();
     }
+   public boolean collidesWith(Wall p){
+       return super.getRect().overlaps(p.getBounds());
+   }
 
     public float getRight() {
         return super.getX() + super.getWidth();
@@ -70,6 +73,9 @@ public class Player extends Entity {
 
     public void dead() {
 
+    }
+    public void setX(){
+   //  player.
     }
 
     @Override
