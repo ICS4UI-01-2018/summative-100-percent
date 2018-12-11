@@ -32,7 +32,7 @@ public class MyGdxGame extends ApplicationAdapter {
     // add in walls here and be able to call them in a for loop
     @Override
     public void create() {
-        player = new Player(100, (float) 5, 400, 300, 20, 10, 0, 1);
+        player = new Player(100, (float) 5, 400, 300, 20, 10, 0, 1, true);
         enemy1 = new Enemies(100, (float) 0.5, 300, 200, 15, 15, 0, 0);
         enemy2 = new Enemies(100, (float) 0.8, 500, 450, 15, 15, 0, 0);
 
@@ -78,14 +78,7 @@ public class MyGdxGame extends ApplicationAdapter {
             player.move();
         }
 
-           for (int i = 0; i < 16; i++) {
-            if(player.collidesWith(walls[i])){
-                 if(player.getY() >= walls[i].getY()+walls[i].getheight()){
-                     player.setYT();
-                 }  
-            }
-            
-        }
+       
         shapeBatch.setProjectionMatrix(cam.combined);
         // start drawing mode
         // filled shapes
@@ -95,7 +88,39 @@ public class MyGdxGame extends ApplicationAdapter {
 
         enemy1.move(player);
         enemy2.move(player);
+// loop for wall array
 
+
+/// problem w/ collision detection, multiple methods moving player back at same time 
+/// solution: only make one method usable at a time
+
+
+
+            for (int i = 0; i < 16; i++) {
+               System.out.println("made");
+               // if player touches a wall 
+            if(player.collidesWith(walls[i])){
+                System.out.println("made it ");
+                // if player hits top of wall
+                 if(player.getY() <= walls[i].getY()+walls[i].getheight()+5){
+                       player.setYT();
+                     System.out.println("hitting top");
+                 }else if(player.getY()+player.getHeight() >= walls[i].getY()-10){
+                     player.setYB();
+                     System.out.println("hitting bot");
+                 }else if(player.getX()+ player.getWidth() >= walls[i].getY()-10){
+                     player.setXL();
+                 }
+                
+                 // if player hits bottom of wall
+                // if(player.getY() >= walls[i].getY()-5){
+                  //   player.setYB();
+                    // System.out.println("hitting bot");
+                // }
+                 
+            }
+            
+        }
         // set camera position on player
         cam.position.x = player.getX();
         cam.position.y = player.getY();

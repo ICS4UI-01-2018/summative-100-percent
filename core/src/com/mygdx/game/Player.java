@@ -20,15 +20,17 @@ public class Player extends Entity {
     // private HealthBar health
     private int armor;
     private int lives;
+    private boolean canMove;
     
     
     // private ArrayList<Weapon> weapons;
     // or
     // private Weapon weapon;
-    public Player(int HP, float speed, float x, float y, int width, int height, int armor, int lives) {
+    public Player(int HP, float speed, float x, float y, int width, int height, int armor, int lives, boolean canMove) {
         super(HP, speed, x, y, width, height);
         this.armor = armor;
         this.lives = lives;
+        this.canMove = canMove;
     }
 
     // return Player parts in floats
@@ -36,6 +38,7 @@ public class Player extends Entity {
         return super.getX();
     }
    public boolean collidesWith(Wall p){
+       
        return super.getRect().overlaps(p.getBounds());
    }
 
@@ -77,6 +80,18 @@ public class Player extends Entity {
     public void setX(){
    //  player.
     }
+    
+    public boolean getMove(){
+        return this.canMove;
+    }
+    
+    public void setMoveFalse(){
+        canMove = false;
+    }
+    
+    public void setMoveTrue(){
+        canMove = true;
+    }
 
     @Override
     public void draw(ShapeRenderer shapeBatch) {
@@ -86,22 +101,30 @@ public class Player extends Entity {
     public void move() {
         // move left if A is pressed
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+            if(canMove == true){
             super.setXLeft();
+            }
         }
 
         // move right if D is pressed
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+            if(canMove == true){
             super.setXRight();
+            }
         }
 
         // move up if W is press
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+            if(canMove == true){
             super.setYUp();
+            }
         }
 
         // move down if S is pressed
         if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+            if(canMove == true){
             super.setYDown();
+            }
         }
     }
 }

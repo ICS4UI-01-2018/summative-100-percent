@@ -49,6 +49,8 @@ public abstract class Entity {
     }
     
     public Rectangle getRect(){
+        entity.x = this.x;
+        entity.y = this.y;
         return entity;
     }
 
@@ -68,20 +70,20 @@ public abstract class Entity {
         return this.width;
     }
     // if it hits left side 
-    public void setXL(Player p){
-       x = getX()-1;
+    public void setXL(){
+       x = getX()-8;
     }
     // if it hits right side 
-    public void setXR(Player p){
-        x = getX()+1;
+    public void setXR(){
+        x = getX()+8;
     }
     // if it hits top 
     public void setYT(){
-        y = getY()+1;
+        y = getY()+8;
     }
     // if it hits bottom 
     public void setYB(){
-       y = getY()-1; 
+       y = getY()-8; 
     }
 
     /**
