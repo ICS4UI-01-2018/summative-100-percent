@@ -86,65 +86,40 @@ public class Player extends Entity {
     // pass in SpriteBatch and cursor coordinates
     public void draw(SpriteBatch batch, float cursorX, float cursorY) {
         // trigonometry - inverse of tan
-
-//        // if mouse is on right side of player
-//        if (cursorX - super.getX() > 0) {
-//            float angle = (float) Math.atan((super.getY() - cursorY) / (cursorX - super.getX()));
-//            angle = (float) Math.toDegrees(angle);
-//
-//            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, (angle) - 90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
-//            System.out.println(angle);
-//        } else if (cursorX - super.getX() < 0) {
-//            // else if mouse is on left side of player
-//            float angle = (float) Math.atan((super.getY() - cursorY) / (cursorX - super.getX()));
-//            angle = (float) Math.toDegrees(angle);
-//
-//            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, (angle) +90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
-//            System.out.println(angle);
-//        }
-////         if mouse is on right side of player
-//        if (cursorX - super.getX() > 0) {
-//            float angle = (float) Math.atan((cursorY - (super.getY() - super.getHeight() / 2)) / (cursorX - (super.getX() - super.getWidth() / 2)));
-//            angle = (float) Math.toDegrees(angle);
-//            batch.draw(pic, super.getX() - (super.getWidth() / 2), super.getY() - (super.getHeight() / 2), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, (angle) - 90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
-//            System.out.println(cursorY);
-//        
-//        } else if (cursorX - super.getX() < 0) {
-//            // else if mouse is on left side of player
-//            float angle = (float) Math.atan((cursorY - (super.getY() - super.getHeight() / 2)) / (cursorX - (super.getX() - super.getWidth() / 2)));
-//            angle = (float) Math.toDegrees(angle);
-//            batch.draw(pic, super.getX() - (super.getWidth() / 2), super.getY() - (super.getHeight() / 2), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, (angle) + 90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
-//            System.out.println(cursorY);
-//
-//        }
-        // quadrant 1
-        if (cursorX > 400 && cursorY > 300) {
+        // if cursor in quadrant 1
+        if (cursorX > super.getX() && cursorY > super.getY()) {
             float angle = (float) Math.atan((cursorY - (super.getY())) / (cursorX - (super.getX())));
             angle = Math.abs((float) Math.toDegrees(angle));
             batch.draw(pic, super.getX() - (super.getWidth() / 2), super.getY() - (super.getHeight() / 2), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, (angle) - 90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
-        
-        } else if (cursorX < 400 && cursorY > 300) {
-            // else if quadrant 2
+        } else if (cursorX < super.getX() && cursorY > super.getY()) {
+            // else if in quadrant 2
             float angle = (float) Math.atan((cursorY - (super.getY())) / ((super.getX()) - cursorX));
             angle = Math.abs((float) Math.toDegrees(angle));
             batch.draw(pic, super.getX() - (super.getWidth() / 2), super.getY() - (super.getHeight() / 2), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, 90 - (angle), 0, 0, pic.getWidth(), pic.getHeight(), false, false);
-        
-        } else if (cursorX < 400 && cursorY < 300) {
-            // else if quadrant 3
+        } else if (cursorX < super.getX() && cursorY < super.getY()) {
+            // else if in quadrant 3
             float angle = (float) Math.atan(((super.getY()) - cursorY) / ((super.getX()) - cursorX));
-
             angle = Math.abs((float) Math.toDegrees(angle));
             batch.draw(pic, super.getX() - (super.getWidth() / 2), super.getY() - (super.getHeight() / 2), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, angle + 90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
-        
-        } else if (cursorX > 400 && cursorY < 300) {
-            // else if quadrant 4
+        } else if (cursorX > super.getX() && cursorY < super.getY()) {
+            // else if in quadrant 4
             float angle = (float) Math.atan(((super.getY()) - cursorY) / (cursorX - (super.getX())));
             angle = Math.abs((float) Math.toDegrees(angle));
             batch.draw(pic, super.getX() - (super.getWidth() / 2), super.getY() - (super.getHeight() / 2), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, 270 - angle, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
-            
+        } else if (cursorX == super.getX() && cursorY > super.getY()) {
+            // else if directly above
+            batch.draw(pic, super.getX() - (super.getWidth() / 2), super.getY() - (super.getHeight() / 2), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, 0, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
+        } else if (cursorX == super.getX() && cursorY < super.getY()) {
+            // else if directly below
+            batch.draw(pic, super.getX() - (super.getWidth() / 2), super.getY() - (super.getHeight() / 2), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, 180, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
+        } else if (cursorX > super.getX() && cursorY == super.getY()) {
+            // else if directly right
+            batch.draw(pic, super.getX() - (super.getWidth() / 2), super.getY() - (super.getHeight() / 2), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, -90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
+        } else if (cursorX < super.getX() && cursorY == super.getY()) {
+            // else if directly left
+            batch.draw(pic, super.getX() - (super.getWidth() / 2), super.getY() - (super.getHeight() / 2), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, 90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
         }
-        System.out.println(cursorY);
-        
+
     }
 
     public void move() {
