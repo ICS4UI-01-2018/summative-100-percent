@@ -55,7 +55,7 @@ public class MyGdxGame extends ApplicationAdapter {
         //
         walls[9] = new Wall(1980, 20, 1800, 80);
         walls[10] = new Wall(1980, 1500, 650, 80); // top 1
-         walls[11] = new Wall(3130, 1500, 650, 80); // top2 
+        walls[11] = new Wall(3130, 1500, 650, 80); // top2 
         walls[12] = new Wall(1900, 20, 80, 630);
         walls[13] = new Wall(1900, 950, 80, 630);
         walls[14] = new Wall(3780, 20, 80, 630 + 920);
@@ -97,19 +97,27 @@ public class MyGdxGame extends ApplicationAdapter {
 
 
             for (int i = 0; i < 16; i++) {
-               System.out.println("made");
+            
                // if player touches a wall 
             if(player.collidesWith(walls[i])){
-                System.out.println("made it ");
+                
+                System.out.println(walls[i].getBounds().contains(player.getRect()));
                 // if player hits top of wall
-                 if(player.getY() <= walls[i].getY()+walls[i].getheight()+5){
+                 if(player.getY() <= walls[i].getY()+walls[i].getheight() && player.getY() > walls[i].getY()){
                        player.setYT();
                      System.out.println("hitting top");
-                 }else if(player.getY()+player.getHeight() >= walls[i].getY()-10){
+                 }
+                 if(player.getY()+player.getHeight() >= walls[i].getY() && player.getY()+player.getHeight() <= walls[i].getY() + walls[i].getheight()){
                      player.setYB();
                      System.out.println("hitting bot");
-                 }else if(player.getX()+ player.getWidth() >= walls[i].getY()-10){
+                 }
+                 if(player.getX()+ player.getWidth() >= walls[i].getX() && player.getX()+ player.getWidth() <= walls[i].getX()+ walls[i].getwidth()){
                      player.setXL();
+                     System.out.println("hitting left");
+                 }
+                 if(player.getX() <= walls[i].getX()+walls[i].getwidth() && player.getX() >= walls[i].getX()){
+                     player.setXR();
+                     System.out.println("hitting right");
                  }
                 
                  // if player hits bottom of wall
