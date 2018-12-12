@@ -22,7 +22,8 @@ public class Player extends Entity {
     // private HealthBar health
     private int armor;
     private int lives;
-    // private Rectangle r;
+    
+    // image file
     private Texture pic;
 
     // private ArrayList<Weapon> weapons;
@@ -33,7 +34,7 @@ public class Player extends Entity {
         this.armor = armor;
         this.lives = lives;
         // this.r = new Rectangle(x, y, width, height);
-        pic = new Texture("badlogic.jpg");
+        this.pic = new Texture("badlogic.jpg");
 
     }
 

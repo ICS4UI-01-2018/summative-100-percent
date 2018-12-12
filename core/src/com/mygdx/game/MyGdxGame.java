@@ -29,9 +29,9 @@ public class MyGdxGame extends ApplicationAdapter {
     
     @Override
     public void create() {
-        player = new Player(100, (float) 1.5, 400, 300, 200, 100, 0, 1);
-        enemy1 = new Enemies(100, (float) 0.5, 300, 200, 15, 15, 0, 0);
-        enemy2 = new Enemies(100, (float) 0.8, 500, 450, 15, 15, 0, 0);
+        player = new Player(100, (float) 1.5, 400, 300, 100, 100, 0, 1);
+        enemy1 = new Enemies(100, (float) 0.5, 300, 200, 30, 30, 0, 0);
+        enemy2 = new Enemies(100, (float) 0.8, 500, 450, 30, 30, 0, 0);
 
         batch = new SpriteBatch();
 //		img = new Texture("badlogic.jpg");
@@ -90,13 +90,16 @@ public class MyGdxGame extends ApplicationAdapter {
 
         // draw shapes
        // player.draw(shapeBatch);
-        enemy1.draw(shapeBatch);
-        enemy2.draw(shapeBatch);
+//        enemy1.draw(shapeBatch);
+//        enemy2.draw(shapeBatch);
 
         shapeBatch.end();
 
         batch.setProjectionMatrix(cam.combined);
         batch.begin();
+        
+        enemy1.draw(batch, player);
+        enemy2.draw(batch, player);
         player.draw(batch, cursorPosition.x, cursorPosition.y);
         batch.end();
     }
