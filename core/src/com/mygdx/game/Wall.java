@@ -44,4 +44,8 @@ public class Wall {
      public void draw(ShapeRenderer shapeBatch){
         shapeBatch.rect(shape.x, shape.y, shape.width, shape.height);
     }
+     
+    public Rectangle getBounds(){
+       return shape;
+   }
 }
