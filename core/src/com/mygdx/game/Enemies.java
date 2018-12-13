@@ -6,6 +6,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 
 /**
  *
@@ -24,6 +25,9 @@ public class Enemies extends Entity {
         this.xDirection = 0;
         this.yDirection = 0;
     }
+    public Rectangle getBounds(){
+       return super.getRect();
+   }
     
 //    public void setDirectionToPlayer(Player player) {
 //        // if Enemy is left of Player

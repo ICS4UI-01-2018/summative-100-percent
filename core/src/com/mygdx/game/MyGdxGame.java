@@ -20,7 +20,8 @@ public class MyGdxGame extends ApplicationAdapter {
     private ShapeRenderer shapeBatch;
     private FitViewport viewport;
     private Wall wall;
-    private Wall[] walls = new Wall[20];
+    private Wall[] walls = new Wall[25];
+    private Enemies[] enemies = new Enemies[2];
     private Texture img;
 
     private Player player;
@@ -33,8 +34,8 @@ public class MyGdxGame extends ApplicationAdapter {
     @Override
     public void create() {
         player = new Player(100, (float) 5, 400, 300, 20, 10, 0, 1, true);
-        enemy1 = new Enemies(100, (float) 0.5, 300, 200, 15, 15, 0, 0);
-        enemy2 = new Enemies(100, (float) 0.8, 500, 450, 15, 15, 0, 0);
+        enemies[0] = new Enemies(100, (float) 0.5, 300, 200, 15, 15, 0, 0);
+        enemies[1] = new Enemies(100, (float) 0.8, 500, 450, 15, 15, 0, 0);
 
         batch = new SpriteBatch();
         shapeBatch = new ShapeRenderer();
@@ -60,6 +61,12 @@ public class MyGdxGame extends ApplicationAdapter {
         walls[13] = new Wall(1900, 950, 80, 630);
         walls[14] = new Wall(3780, 20, 80, 630 + 920);
         walls[15] = new Wall(3780, 950, 80, 630);
+        walls[16] = new Wall(750,1500,80,700);//left large 
+        walls[17] = new Wall(1150,1500,80,300); // left small 
+        walls[18] = new Wall(2630,1500,80,300);// right small
+        walls[19] = new Wall(3130,1500,80,700);// right large
+        walls[20] = new Wall(1150,1800,1560, 80);
+        walls[21] = new Wall(750,2200,2460,80);
       
         // x y width 
         
@@ -93,10 +100,16 @@ public class MyGdxGame extends ApplicationAdapter {
 
 /// problem w/ collision detection, multiple methods moving player back at same time 
 /// solution: only make one method usable at a time
+// starting zombie collision
+//            for(int i = 0; i < 2; i++){
+//                if(player.collidesWithZ(enemies[i])){
+//                    
+//                }
+//            }
 
 
 
-            for (int i = 0; i < 16; i++) {
+            for (int i = 0; i < 22; i++) {
             
                // if player touches a wall 
             if(player.collidesWith(walls[i])){
@@ -154,7 +167,12 @@ public class MyGdxGame extends ApplicationAdapter {
          walls[13].draw(shapeBatch);
          walls[14].draw(shapeBatch);
          walls[15].draw(shapeBatch);
-        
+         walls[16].draw(shapeBatch);
+          walls[17].draw(shapeBatch);
+            walls[18].draw(shapeBatch);
+              walls[19].draw(shapeBatch);
+        walls[20].draw(shapeBatch);
+          walls[21].draw(shapeBatch);
       
         
         
