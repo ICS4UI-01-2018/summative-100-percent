@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Rectangle;
  *
  * @author prylz2189
  */
-public abstract class Enemies extends Entity {
+public  class Enemies extends Entity {
 
     private boolean isDead;
     private int xDirection;
