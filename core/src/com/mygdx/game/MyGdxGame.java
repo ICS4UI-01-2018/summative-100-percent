@@ -34,8 +34,8 @@ public class MyGdxGame extends ApplicationAdapter {
     @Override
     public void create() {
         player = new Player(100, (float) 5, 400, 300, 20, 10, 0, 1, true);
-        enemies[0] = new Enemies(100, (float) 0.5, 300, 200, 15, 15, 0, 0);
-        enemies[1] = new Enemies(100, (float) 0.8, 500, 450, 15, 15, 0, 0);
+        enemies[0] = new Enemies(100, (float) 0.5, 300, 200, 15, 15, 0, 0, true);
+        enemies[1] = new Enemies(100, (float) 0.8, 500, 450, 15, 15, 0, 0, true);
 
         batch = new SpriteBatch();
         shapeBatch = new ShapeRenderer();
@@ -93,19 +93,23 @@ public class MyGdxGame extends ApplicationAdapter {
       
         shapeBatch.begin(ShapeRenderer.ShapeType.Filled);
 
-        enemy1.move(player);
-        enemy2.move(player);
+        enemies[0].move(player);
+        enemies[1].move(player);
 // loop for wall array
 
 
 /// problem w/ collision detection, multiple methods moving player back at same time 
 /// solution: only make one method usable at a time
 // starting zombie collision
-//            for(int i = 0; i < 2; i++){
-//                if(player.collidesWithZ(enemies[i])){
-//                    
-//                }
-//            }
+
+    // zombies set to freeze when hit player 
+          for(int i = 0; i <2; i++){
+               if(player.collidesWithZ(enemies[i])){
+                   enemies[i].setMoveF();
+                   System.out.println("enemy hit");
+               }
+    
+           }
 
 
 
@@ -118,19 +122,19 @@ public class MyGdxGame extends ApplicationAdapter {
                 // if player hits top of wall
                  if(player.getY() <= walls[i].getY()+walls[i].getheight() && player.getY() > walls[i].getY()){
                        player.setYT();
-                     System.out.println("hitting top");
+                   
                  }
                  if(player.getY()+player.getHeight() >= walls[i].getY() && player.getY()+player.getHeight() <= walls[i].getY() + walls[i].getheight()){
                      player.setYB();
-                     System.out.println("hitting bot");
+                 
                  }
                  if(player.getX()+ player.getWidth() >= walls[i].getX() && player.getX()+ player.getWidth() <= walls[i].getX()+ walls[i].getwidth()){
                      player.setXL();
-                     System.out.println("hitting left");
+           
                  }
                  if(player.getX() <= walls[i].getX()+walls[i].getwidth() && player.getX() >= walls[i].getX()){
                      player.setXR();
-                     System.out.println("hitting right");
+                
                  }
                 
                  // if player hits bottom of wall
@@ -180,8 +184,8 @@ public class MyGdxGame extends ApplicationAdapter {
 
         // draw shapes
         player.draw(shapeBatch);
-        enemy1.draw(shapeBatch);
-        enemy2.draw(shapeBatch);
+        enemies[0].draw(shapeBatch);
+        enemies[1].draw(shapeBatch);
 
         shapeBatch.end();
 

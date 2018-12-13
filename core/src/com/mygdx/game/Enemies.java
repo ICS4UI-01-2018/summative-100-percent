@@ -17,17 +17,30 @@ public class Enemies extends Entity {
     private boolean isDead;
     private int xDirection;
     private int yDirection;
+    private boolean canMove;
     
     // might not night xDirection and yDirection
-    public Enemies (int HP, float speed, float x, float y, int width, int height, int xDirection, int yDirection) {
+    public Enemies (int HP, float speed, float x, float y, int width, int height, int xDirection, int yDirection, boolean canMove) {
         super(HP, speed, x, y, width, height);
         this.isDead = false;
         this.xDirection = 0;
         this.yDirection = 0;
+        this.canMove = true;
     }
     public Rectangle getBounds(){
        return super.getRect();
    }
+    
+    public boolean getMove(){
+        return this.canMove;
+    }
+    
+    public void setMoveF(){
+        canMove = false;
+    }
+    public void setMoveT(){
+        canMove = true;
+    }
     
 //    public void setDirectionToPlayer(Player player) {
 //        // if Enemy is left of Player
@@ -49,6 +62,7 @@ public class Enemies extends Entity {
 //    }
     
     public void move(Player player) {
+        if(canMove == true){
         if(super.getX() < player.getX()) {
             super.setXRight();
         } else if(super.getX() > player.getX()) {
@@ -59,6 +73,7 @@ public class Enemies extends Entity {
             super.setYUp();
         } else if(super.getY() > player.getY()) {
             super.setYDown();
+        }
         }
     }
     
