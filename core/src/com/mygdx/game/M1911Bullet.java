@@ -10,11 +10,8 @@ package com.mygdx.game;
  * @author prylz2189
  */
 public class M1911Bullet extends Bullet{
-    //Initialise and set variables
-    int speed = 5;
-    int damage = 5;
-    public M1911Bullet(int speed, int damage) {
+    public M1911Bullet(float x, float y, int moveX, int moveY) {
         //Send variables to super class
-        super(speed, damage);
+        super(10, 5, x, y, 10, 10);
 }
 }

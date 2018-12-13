@@ -11,24 +11,10 @@ package com.mygdx.game;
  */
 
 public class M1911 extends Weapon{
-    //Initialise variables
-    private int rateOfFire = 1;
-    private int clipSize = 11;
-    private int reloadTime = 5;
-    public M1911(int rateOfFire, int reloadTime, int clipSize){
+
+    public M1911(float x, float y){
         //Send variables to super class
- super(rateOfFire, reloadTime, clipSize);
+ super(1, 11, 5, 30, x, y);
 }
-    //Get rate of fire
-    public int getRateOfFire(){
-        return this.rateOfFire;
-    }
-    //Get reload time
-    public int getReloadTime(){
-        return this.reloadTime;
-    }
-    //Get clip size
-    public int getclipSize(){
-        return this.clipSize;
-    }
+    
 }

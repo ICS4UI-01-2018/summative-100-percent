@@ -5,6 +5,7 @@
  */
 package com.mygdx.game;
 
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import java.util.ArrayList;
 
 /**
@@ -21,27 +22,28 @@ public class Bullet {
     private int damage;
     private int moveX;
     private int moveY;
-    private boolean isAlive;
+    private boolean isAlive = false;
 
-    public Bullet(int speed, int damage) {
+    public Bullet(int speed, int damage, float x, float y, int moveX, int moveY) {
         //Set variables
         this.speed = speed;
         this.damage = damage;
+        this.x = x;
+        this.y = y;
         this.moveX = moveX;
         this.moveY = moveY;
     }
 //Move x
     public void moveX() {
-        while (true) {
-            x = x + moveX*speed;
-        }
+           x = x + (moveX*speed);
+        
     }
 
     //Move y
     public void moveY() {
-        while (true) {
+       
             y = y + (moveY * speed);
-        }
+        
     }
     //Collision
     public void collision(){
@@ -75,8 +77,28 @@ public class Bullet {
         return this.speed;
     }
     //Is the bullet alive
-    public boolean isAlive(){
-        return this.isAlive();
+    public boolean getIsAlive(){
+        return this.isAlive;
+    }
+    //Draw bullet
+     public void drawBullet(ShapeRenderer shapeBatch, float x, float y){
+        shapeBatch.circle(this.x, this.y, 5);
+    }
+     public void undrawBullet(ShapeRenderer shapeBatch, Bullet bullet){
+         
+     }
+     //Shoot bullet
+    public void bulletIsShot(){
+        this.isAlive=true;
+          //  if this collides with a zombie or barrier set to is not alive
+          if(this.getX()>800||this.getX()<0||this.getY()<0||this.getY()>600){
+   this.isAlive = false;
+         }
+        }
+    public void setGunLocation(Weapon firstGun){
+        this.x = firstGun.getX();
+        this.y = firstGun.getY();
+    }
     }
 
-}
+
