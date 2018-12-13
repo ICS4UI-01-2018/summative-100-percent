@@ -41,6 +41,10 @@ public class Player extends Entity {
        
        return super.getRect().overlaps(p.getBounds());
    }
+   public boolean collidesWithZ(Enemies p){
+       
+       return super.getRect().overlaps(p.getBounds());
+   }
 
     public float getRight() {
         return super.getX() + super.getWidth();
