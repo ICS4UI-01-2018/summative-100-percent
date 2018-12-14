@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class MyGdxGame extends ApplicationAdapter {
 
-    private SpriteBatch batch;
+    SpriteBatch batch;
     private OrthographicCamera cam;
     private ShapeRenderer shapeBatch;
     private FitViewport viewport;
@@ -27,8 +27,7 @@ public class MyGdxGame extends ApplicationAdapter {
     private Player player;
     private Enemies enemy1;
     private Enemies enemy2;
-
-
+    
 
     // add in walls here and be able to call them in a for loop
     @Override
