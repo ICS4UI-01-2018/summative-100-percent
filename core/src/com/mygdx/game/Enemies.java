@@ -55,19 +55,19 @@ public class Enemies extends Entity {
      */
     public void move(Player player) {
         // if Enemies is left of player
-        if (super.getX() + super.getWidth() / 2 < player.getX()) {
+        if (super.getX() < player.getX() + (player.getWidth() / 2) - (super.getWidth() / 2)) {
             // move right
             super.setXRight();
-        } else if (super.getX() + super.getWidth() / 2 > player.getX()) {
+        } else if (super.getX() > player.getX() + (player.getWidth() / 2) - (super.getWidth() / 2)) {
             // else if Enemy is right of player, move left
             super.setXLeft();
         }
 
         // if Enemies is below player
-        if (super.getY() + super.getHeight() / 2 < player.getY()) {
+        if (super.getY() < player.getY() + (player.getHeight() / 2) - (super.getHeight() / 2)) {
             // move up
             super.setYUp();
-        } else if (super.getY() + super.getHeight() / 2 > player.getY()) {
+        } else if (super.getY() > player.getY() + (player.getHeight() / 2) - (super.getHeight() / 2)) {
             // else if Enemy is above player, move down
             super.setYDown();
         }
@@ -79,44 +79,57 @@ public class Enemies extends Entity {
     }
 
     /**
-     * 
+     * Follows the centre of the player.
+     *
      * @param batch
-     * @param player the Player being chased 
+     * @param player the Player being chased
      */
     public void draw(SpriteBatch batch, Player player) {
+        // calculate angles using inverse of tan
         // if Player in quadrant 1
-        if (player.getX() > super.getX() && player.getY() > super.getY()) {
-            float angle = (float) Math.atan((player.getY() - (super.getY())) / (player.getX() - (super.getX())));
+        if (player.getX() + (player.getWidth() / 2) > super.getX() + (super.getWidth() / 2) && player.getY() + (player.getHeight() / 2) > super.getY() + (super.getHeight() / 2)) {
+            float angle = (float) Math.atan(((player.getY() + player.getHeight() / 2) - (super.getY() + super.getHeight() / 2)) / ((player.getX() + player.getWidth() / 2) - (super.getX() + super.getWidth() / 2)));
             angle = Math.abs((float) Math.toDegrees(angle));
-            batch.draw(pic, super.getX() - (super.getWidth() / 2), super.getY() - (super.getHeight() / 2), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, (angle) - 90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
-        } else if (player.getX() < super.getX() && player.getY() > super.getY()) {
+            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, (angle) - 90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
+
+        } else if (player.getX() + (player.getWidth() / 2) < super.getX() + (super.getWidth() / 2) && player.getY() + (player.getHeight() / 2) > super.getY() + (super.getHeight() / 2)) {
             // else if in quadrant 2
-            float angle = (float) Math.atan((player.getY() - (super.getY())) / ((super.getX()) - player.getX()));
+            float angle = (float) Math.atan(((player.getY() + player.getHeight() / 2) - (super.getY() + super.getHeight() / 2)) / ((super.getX() + super.getWidth() / 2) - (player.getX() + player.getWidth() / 2)));
             angle = Math.abs((float) Math.toDegrees(angle));
-            batch.draw(pic, super.getX() - (super.getWidth() / 2), super.getY() - (super.getHeight() / 2), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, 90 - (angle), 0, 0, pic.getWidth(), pic.getHeight(), false, false);
-        } else if (player.getX() < super.getX() && player.getY() < super.getY()) {
+            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, 90 - (angle), 0, 0, pic.getWidth(), pic.getHeight(), false, false);
+
+        } else if (player.getX() + (player.getWidth() / 2) < super.getX() + (super.getWidth() / 2) && player.getY() + (player.getHeight() / 2) < super.getY() + (super.getHeight() / 2)) {
             // else if in quadrant 3
-            float angle = (float) Math.atan(((super.getY()) - player.getY()) / ((super.getX()) - player.getX()));
+            float angle = (float) Math.atan(((super.getY() + super.getHeight() / 2) - (player.getY() + player.getHeight() / 2)) / ((super.getX() + super.getWidth() / 2) - (player.getX() + player.getWidth() / 2)));
             angle = Math.abs((float) Math.toDegrees(angle));
-            batch.draw(pic, super.getX() - (super.getWidth() / 2), super.getY() - (super.getHeight() / 2), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, angle + 90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
-        } else if (player.getX() > super.getX() && player.getY() < super.getY()) {
+            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, angle + 90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
+
+        } else if (player.getX() + (player.getWidth() / 2) > super.getX() + (super.getWidth() / 2) && player.getY() + (player.getHeight() / 2) < super.getY() + (super.getHeight() / 2)) {
             // else if in quadrant 4
-            float angle = (float) Math.atan(((super.getY()) - player.getY()) / (player.getX() - (super.getX())));
+            float angle = (float) Math.atan(((super.getY() + super.getHeight() / 2) - (player.getY() + player.getHeight() / 2)) / ((player.getX() + player.getWidth() / 2) - (super.getX() + super.getWidth() / 2)));
             angle = Math.abs((float) Math.toDegrees(angle));
-            batch.draw(pic, super.getX() - (super.getWidth() / 2), super.getY() - (super.getHeight() / 2), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, 270 - angle, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
-        } else if (player.getX() == super.getX() && player.getY() > super.getY()) {
+            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, 270 - angle, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
+
+        } else if (player.getX() + (player.getWidth() / 2) == super.getX() + (super.getWidth() / 2) && player.getY() + (player.getHeight() / 2) > super.getY() + (super.getHeight() / 2)) {
             // else if directly above
-            batch.draw(pic, super.getX() - (super.getWidth() / 2), super.getY() - (super.getHeight() / 2), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, 0, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
-        } else if (player.getX() == super.getX() && player.getY() < super.getY()) {
+            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, 0, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
+
+        } else if (player.getX() + (player.getWidth() / 2) == super.getX() + (super.getWidth() / 2) && player.getY() + (player.getHeight() / 2) < super.getY() + (super.getHeight() / 2)) {
             // else if directly below
-            batch.draw(pic, super.getX() - (super.getWidth() / 2), super.getY() - (super.getHeight() / 2), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, 180, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
-        } else if (player.getX() > super.getX() && player.getY() == super.getY()) {
+            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, 180, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
+
+        } else if (player.getX() + (player.getWidth() / 2) > super.getX() + (super.getWidth() / 2) && player.getY() + (player.getHeight() / 2) == super.getY() + (super.getHeight() / 2)) {
             // else if directly right
-            batch.draw(pic, super.getX() - (super.getWidth() / 2), super.getY() - (super.getHeight() / 2), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, -90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
-        } else if (player.getX() < super.getX() && player.getY() == super.getY()) {
+            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, -90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
+
+        } else if (player.getX() + (player.getWidth() / 2) < super.getX() + (super.getWidth() / 2) && player.getY() + (player.getHeight() / 2) == super.getY() + (super.getHeight() / 2)) {
             // else if directly left
-            batch.draw(pic, super.getX() - (super.getWidth() / 2), super.getY() - (super.getHeight() / 2), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, 90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
+            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, 90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
+        } else if (player.getX() + (player.getWidth() / 2) == super.getX() + (super.getWidth() / 2) && player.getY() + (player.getHeight() / 2) == super.getY() + (super.getHeight() / 2)) {
+            // else if directly on centre of Player
+            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, 180, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
         }
+
     }
 
     public void attack() {

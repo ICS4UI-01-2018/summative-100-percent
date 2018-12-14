@@ -42,8 +42,8 @@ public class MyGdxGame extends ApplicationAdapter {
         viewport = new FitViewport(2000, 1600, cam);
         viewport.apply();
         // x y width 
-        cam.position.x = player.getX() + (player.getWidth()/2);
-        cam.position.y = player.getY() + (player.getHeight()/2);
+        cam.position.x = player.getX() + (player.getWidth() / 2);
+        cam.position.y = player.getY() + (player.getHeight() / 2);
         cam.update();
 
         walls[0] = new Wall(100, 20, 1800, 80);
@@ -127,13 +127,14 @@ public class MyGdxGame extends ApplicationAdapter {
         Matrix4 defaultMatrix = shapeBatch.getProjectionMatrix();
         shapeBatch.setProjectionMatrix(cam.combined);
         // start drawing mode
+        // draw shapes
         // filled shapes
         shapeBatch.begin(ShapeRenderer.ShapeType.Filled);
 
         shapeBatch.setColor(Color.RED);
         shapeBatch.rect(0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
 
-        // change colour to white
+        // change colour to gray
         shapeBatch.setColor(Color.GRAY);
         walls[0].draw(shapeBatch);
         walls[1].draw(shapeBatch);
@@ -152,21 +153,21 @@ public class MyGdxGame extends ApplicationAdapter {
         walls[14].draw(shapeBatch);
         walls[15].draw(shapeBatch);
 
-        shapeBatch.setColor(Color.WHITE);
-
-        // draw shapes
-        player.draw(shapeBatch);
+        shapeBatch.setColor(Color.BLUE);
         enemy1.draw(shapeBatch);
         enemy2.draw(shapeBatch);
-        
-       
-        
+
+        // change colour to white
+        shapeBatch.setColor(Color.WHITE);
+
+        player.draw(shapeBatch);
+
         shapeBatch.end();
-        
+
         shapeBatch.setProjectionMatrix(defaultMatrix);
         shapeBatch.begin(ShapeRenderer.ShapeType.Filled);
         shapeBatch.setColor(Color.MAGENTA);
-        shapeBatch.rect(viewport.getWorldWidth()/2-2, 0, 4, viewport.getWorldHeight());
+        shapeBatch.rect(viewport.getWorldWidth() / 2 - 2, 0, 4, viewport.getWorldHeight());
         shapeBatch.end();
 
         batch.setProjectionMatrix(cam.combined);
@@ -175,10 +176,7 @@ public class MyGdxGame extends ApplicationAdapter {
         enemy1.draw(batch, player);
         enemy2.draw(batch, player);
         player.draw(batch, cursorPosition.x, cursorPosition.y);
-        
-       
-        
-        
+
         batch.end();
     }
 }
