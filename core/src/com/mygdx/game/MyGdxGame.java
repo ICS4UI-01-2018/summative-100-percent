@@ -14,16 +14,19 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public class MyGdxGame extends ApplicationAdapter {
 
-    private SpriteBatch batch;
-    private Texture img;
+    SpriteBatch batch;
+    private OrthographicCamera cam;
     private ShapeRenderer shapeBatch;
+    private FitViewport viewport;
+    private Wall wall;
+    private Wall[] walls = new Wall[25];
+    private Enemies[] enemies = new Enemies[2];
+    private Texture img;
 
     private Player player;
     private Enemies enemy1;
     private M1911 firstGun;
     private M1911Bullet bullet;
-    private OrthographicCamera cam;
-    private FitViewport viewport;
     private int bulletMoveX;
     private int bulletMoveY;
 
