@@ -32,17 +32,19 @@ public class Player extends Entity {
         this.lives = lives;
         this.canMove = canMove;
     }
-
+ public Rectangle getBounds(){
+       return super.getRect();
+   }
     // return Player parts in floats
     public float getLeft() {
         return super.getX();
     }
    public boolean collidesWith(Wall p){
-       
+       // wall collision detection
        return super.getRect().overlaps(p.getBounds());
    }
    public boolean collidesWithZ(Enemies p){
-       
+       // zombie collision detection
        return super.getRect().overlaps(p.getBounds());
    }
 

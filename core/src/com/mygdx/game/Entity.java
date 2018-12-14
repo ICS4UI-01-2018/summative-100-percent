@@ -30,6 +30,11 @@ public abstract class Entity {
         this.width = width;
         this.height = height;
         entity = new Rectangle(x, y, width, height);
+        this.speed = speed;
+    }
+
+    public void setSpeed(float x){
+        this.speed = this.speed + x;
     }
 
     /**
@@ -71,19 +76,19 @@ public abstract class Entity {
     }
     // if it hits left side 
     public void setXL(){
-       x = getX()-8;
+       x = getX()-6;
     }
     // if it hits right side 
     public void setXR(){
-        x = getX()+8;
+        x = getX()+6;
     }
     // if it hits top 
     public void setYT(){
-        y = getY()+8;
+        y = getY()+6;
     }
     // if it hits bottom 
     public void setYB(){
-       y = getY()-8; 
+       y = getY()-6; 
     }
 
     /**

@@ -34,8 +34,8 @@ public class MyGdxGame extends ApplicationAdapter {
     @Override
     public void create() {
         player = new Player(100, (float) 5, 400, 300, 20, 10, 0, 1, true);
-        enemies[0] = new Enemies(100, (float) 0.5, 300, 200, 15, 15, 0, 0, true);
-        enemies[1] = new Enemies(100, (float) 0.8, 500, 450, 15, 15, 0, 0, true);
+        enemies[0] = new Enemies(100, (float) 2, 300, 200, 15, 15, 0, 0, true);
+        enemies[1] = new Enemies(100, (float) 2, 500, 450, 15, 15, 0, 0, true);
 
         batch = new SpriteBatch();
         shapeBatch = new ShapeRenderer();
@@ -95,57 +95,66 @@ public class MyGdxGame extends ApplicationAdapter {
 
         enemies[0].move(player);
         enemies[1].move(player);
-// loop for wall array
-
-
-/// problem w/ collision detection, multiple methods moving player back at same time 
-/// solution: only make one method usable at a time
-// starting zombie collision
-
-    // zombies set to freeze when hit player 
+    // zombies set to slowdown  when hit player 
+    // currently set to only slow down to a certain speed (also speed can't go negative or it will glitch) 
           for(int i = 0; i <2; i++){
                if(player.collidesWithZ(enemies[i])){
-                   enemies[i].setMoveF();
                    System.out.println("enemy hit");
+                   if(enemies[i].getSpeed()-0.05 > 0.7){
+                   enemies[i].setSpeed((float)-0.05);
+                   }
                }
-    
            }
-
-
-
-            for (int i = 0; i < 22; i++) {
-            
+          // for loop running through array of walls 
+            for (int i = 0; i < 22; i++) {            
                // if player touches a wall 
-            if(player.collidesWith(walls[i])){
-                
-                System.out.println(walls[i].getBounds().contains(player.getRect()));
+            if(player.collidesWith(walls[i])){             
                 // if player hits top of wall
                  if(player.getY() <= walls[i].getY()+walls[i].getheight() && player.getY() > walls[i].getY()){
-                       player.setYT();
-                   
+                       player.setYT();     
                  }
+                 // if player hits bottom of wall 
                  if(player.getY()+player.getHeight() >= walls[i].getY() && player.getY()+player.getHeight() <= walls[i].getY() + walls[i].getheight()){
-                     player.setYB();
-                 
+                     player.setYB(); 
                  }
+                 // if player hits left of wall 
                  if(player.getX()+ player.getWidth() >= walls[i].getX() && player.getX()+ player.getWidth() <= walls[i].getX()+ walls[i].getwidth()){
                      player.setXL();
-           
                  }
+                 // if player hits right of wall 
                  if(player.getX() <= walls[i].getX()+walls[i].getwidth() && player.getX() >= walls[i].getX()){
                      player.setXR();
-                
+                     }
                  }
-                
-                 // if player hits bottom of wall
-                // if(player.getY() >= walls[i].getY()-5){
-                  //   player.setYB();
-                    // System.out.println("hitting bot");
-                // }
-                 
             }
-            
+                 // zombie collision   
+             // for loop runs through wall array    
+                 for (int g = 0; g < 22; g++) {
+                     // nested for loop runs through enemiy array 
+                     for(int m = 0; m<2;m++){
+                 // if an enemy hits a wall 
+             if(enemies[m].collidesWith(walls[g])){
+                System.out.println(walls[g].getBounds().contains(player.getRect()));
+                // if enemy hits top of wall
+                 if(enemies[m].getY() <= walls[g].getY()+walls[g].getheight() && enemies[m].getY() > walls[g].getY()){
+                       enemies[m].setYT();
+                 }
+                 // if enemy hits bottom of a wall 
+                 if(enemies[m].getY()+enemies[m].getHeight() >= walls[g].getY() && enemies[m].getY()+enemies[m].getHeight() <= walls[g].getY() + walls[g].getheight()){
+                     enemies[m].setYB();
+                 }
+                 //if enemy hits left side of a wall 
+                 if(enemies[m].getX()+ enemies[m].getWidth() >= walls[g].getX() && enemies[m].getX()+ enemies[m].getWidth() <= walls[g].getX()+ walls[g].getwidth()){
+                     enemies[m].setXL();   
+                 }
+                 // if enemy hits right side of a wall 
+                 if(enemies[m].getX() <= walls[g].getX()+walls[g].getwidth() && enemies[m].getX() >= walls[g].getX()){
+                     enemies[m].setXR();
+                  }
+             }    
         }
+             
+                 }
         // set camera position on player
         cam.position.x = player.getX();
         cam.position.y = player.getY();
@@ -153,31 +162,12 @@ public class MyGdxGame extends ApplicationAdapter {
         cam.update();
 
 
-        // change colour to white
+       //drawing the array of walls 
         shapeBatch.setColor(Color.GRAY);
-        walls[0].draw(shapeBatch);
-        walls[1].draw(shapeBatch);
-        walls[2].draw(shapeBatch);
-        walls[3].draw(shapeBatch);
-        walls[4].draw(shapeBatch);
-        walls[5].draw(shapeBatch);
-        walls[6].draw(shapeBatch);
-        walls[7].draw(shapeBatch);
-         walls[8].draw(shapeBatch);
-         walls[9].draw(shapeBatch);
-         walls[10].draw(shapeBatch);
-        walls[11].draw(shapeBatch);
-         walls[12].draw(shapeBatch);
-         walls[13].draw(shapeBatch);
-         walls[14].draw(shapeBatch);
-         walls[15].draw(shapeBatch);
-         walls[16].draw(shapeBatch);
-          walls[17].draw(shapeBatch);
-            walls[18].draw(shapeBatch);
-              walls[19].draw(shapeBatch);
-        walls[20].draw(shapeBatch);
-          walls[21].draw(shapeBatch);
-      
+        for(int z = 0; z < 22; z++){
+            walls[z].draw(shapeBatch);
+        }
+  
         
         
         shapeBatch.setColor(Color.WHITE);
@@ -196,3 +186,4 @@ public class MyGdxGame extends ApplicationAdapter {
         batch.end();
     }
     }
+    

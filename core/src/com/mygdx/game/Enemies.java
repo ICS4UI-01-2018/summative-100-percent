@@ -26,9 +26,15 @@ public class Enemies extends Entity {
         this.xDirection = 0;
         this.yDirection = 0;
         this.canMove = true;
+        
     }
     public Rectangle getBounds(){
        return super.getRect();
+   }
+    
+    public boolean collidesWith(Wall p){
+       
+       return super.getRect().overlaps(p.getBounds());
    }
     
     public boolean getMove(){
