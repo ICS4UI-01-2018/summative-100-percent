@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector3;
 
 /**
  *
@@ -42,10 +41,6 @@ public class Player extends Entity {
     public float getLeft() {
         return super.getX();
     }
-   public boolean collidesWith(Wall p){
-       
-       return super.getRect().overlaps(p.getBounds());
-   }
 
     public float getRight() {
         return super.getX() + super.getWidth();
@@ -90,7 +85,7 @@ public class Player extends Entity {
     
     
 
-    @Override
+    // draw player out
     public void draw(ShapeRenderer shapeBatch) {
         shapeBatch.rect(super.getX(), super.getY(), super.getWidth(), super.getHeight());
     }

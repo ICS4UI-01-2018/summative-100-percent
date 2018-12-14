@@ -12,21 +12,25 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import java.util.ArrayList;
 
 public class MyGdxGame extends ApplicationAdapter {
 
-    private SpriteBatch batch;
+    SpriteBatch batch;
     private OrthographicCamera cam;
     private ShapeRenderer shapeBatch;
     private FitViewport viewport;
-    // private Wall wall;
-    private Wall[] walls = new Wall[20];
-    // private Texture img;
+    private Wall wall;
+    private Wall[] walls = new Wall[25];
+    private Enemies[] enemies = new Enemies[2];
+    private Texture img;
 
     private Player player;
     private Enemies enemy1;
     private Enemies enemy2;
+    private M1911 firstGun;
+    private M1911Bullet bullet;
+    private int bulletMoveX;
+    private int bulletMoveY;
 
     private Vector3 cursorPosition = new Vector3();
 
@@ -78,6 +82,8 @@ public class MyGdxGame extends ApplicationAdapter {
 
         if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.D)) {
             player.move();
+//            firstGun.moveX(player);
+//            firstGun.moveY(player);
         }
 
         enemy1.move(player);
@@ -86,38 +92,38 @@ public class MyGdxGame extends ApplicationAdapter {
 
 /// problem w/ collision detection, multiple methods moving player back at same time 
 /// solution: only make one method usable at a time
-        for (int i = 0; i < 16; i++) {
-
-            // if player touches a wall 
-            if (player.collidesWith(walls[i])) {
-
-                System.out.println(walls[i].getBounds().contains(player.getRect()));
-                // if player hits top of wall
-                if (player.getY() <= walls[i].getY() + walls[i].getheight() && player.getY() > walls[i].getY()) {
-                    player.setYT();
-                    System.out.println("hitting top");
-                }
-                if (player.getY() + player.getHeight() >= walls[i].getY() && player.getY() + player.getHeight() <= walls[i].getY() + walls[i].getheight()) {
-                    player.setYB();
-                    System.out.println("hitting bot");
-                }
-                if (player.getX() + player.getWidth() >= walls[i].getX() && player.getX() + player.getWidth() <= walls[i].getX() + walls[i].getwidth()) {
-                    player.setXL();
-                    System.out.println("hitting left");
-                }
-                if (player.getX() <= walls[i].getX() + walls[i].getwidth() && player.getX() >= walls[i].getX()) {
-                    player.setXR();
-                    System.out.println("hitting right");
-                }
-
-                // if player hits bottom of wall
-                // if(player.getY() >= walls[i].getY()-5){
-                //   player.setYB();
-                // System.out.println("hitting bot");
-                // }
-            }
-
-        }
+//        for (int i = 0; i < 16; i++) {
+//
+//            // if player touches a wall 
+//            if (player.collidesWith(walls[i])) {
+//
+//                System.out.println(walls[i].getBounds().contains(player.getRect()));
+//                // if player hits top of wall
+//                if (player.getY() <= walls[i].getY() + walls[i].getheight() && player.getY() > walls[i].getY()) {
+//                    player.setYT();
+//                    System.out.println("hitting top");
+//                }
+//                if (player.getY() + player.getHeight() >= walls[i].getY() && player.getY() + player.getHeight() <= walls[i].getY() + walls[i].getheight()) {
+//                    player.setYB();
+//                    System.out.println("hitting bot");
+//                }
+//                if (player.getX() + player.getWidth() >= walls[i].getX() && player.getX() + player.getWidth() <= walls[i].getX() + walls[i].getwidth()) {
+//                    player.setXL();
+//                    System.out.println("hitting left");
+//                }
+//                if (player.getX() <= walls[i].getX() + walls[i].getwidth() && player.getX() >= walls[i].getX()) {
+//                    player.setXR();
+//                    System.out.println("hitting right");
+//                }
+//
+//                // if player hits bottom of wall
+//                // if(player.getY() >= walls[i].getY()-5){
+//                //   player.setYB();
+//                // System.out.println("hitting bot");
+//                // }
+//            }
+//
+//        }
         // set camera position on player
         cam.position.x = player.getX();
         cam.position.y = player.getY();
@@ -155,7 +161,37 @@ public class MyGdxGame extends ApplicationAdapter {
 
         shapeBatch.setColor(Color.BLUE);
         enemy1.draw(shapeBatch);
-        enemy2.draw(shapeBatch);
+        // firstGun.drawGun(shapeBatch, player);
+
+//        if (Gdx.input.isTouched()) {
+//            
+//          bullet.setGunLocation(firstGun);
+//            shapeBatch.setColor(Color.GOLD);
+//            if (cursorPosition.x > bullet.getX()) {
+//                bulletMoveX = 100;
+//            } else if (bullet.getX() == cursorPosition.x) {
+//                bulletMoveX = 0;
+//            } else {
+//                bulletMoveX = -100;
+//            }
+//            if (cursorPosition.y > bullet.getY()) {
+//                bulletMoveY = 100;
+//            } else if (bullet.getY() == cursorPosition.y) {
+//                bulletMoveY = 0;
+//            } else {
+//                bulletMoveY = -100;
+//            }
+//
+//            firstGun.shoot(bullet);
+//        }
+//        if (bullet.getIsAlive() == true) {
+//            firstGun.moveBullet(bullet);
+//             bullet.getX();
+//            bullet.getY();
+//            bullet.drawBullet(shapeBatch, bullet.getX(), bullet.getY());
+//        }
+//        System.out.println(bullet.getX());
+//        System.out.println(bullet.getY());
 
         // change colour to white
         shapeBatch.setColor(Color.WHITE);
@@ -178,5 +214,11 @@ public class MyGdxGame extends ApplicationAdapter {
         player.draw(batch, cursorPosition.x, cursorPosition.y);
 
         batch.end();
+    }
+
+    @Override
+    public void dispose() {
+        batch.dispose();
+
     }
 }

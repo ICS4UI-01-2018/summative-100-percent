@@ -9,6 +9,9 @@ package com.mygdx.game;
  *
  * @author prylz2189
  */
-public class Bullets {
-    
+public class M1911Bullet extends Bullet{
+    public M1911Bullet(float x, float y, int moveX, int moveY) {
+        //Send variables to super class
+        super(10, 5, x, y, 10, 10);
+}
 }
