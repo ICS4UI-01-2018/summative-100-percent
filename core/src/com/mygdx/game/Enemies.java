@@ -37,9 +37,16 @@ public class Enemies extends Entity {
        return super.getRect().overlaps(p.getBounds());
    }
     
+     public boolean collidesWith(Enemies p){
+       
+       return super.getRect().overlaps(p.getBounds());
+   }
+    
     public boolean getMove(){
         return this.canMove;
     }
+    
+    
     
     public void setMoveF(){
         canMove = false;

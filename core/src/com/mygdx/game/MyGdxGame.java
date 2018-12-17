@@ -99,12 +99,45 @@ public class MyGdxGame extends ApplicationAdapter {
     // currently set to only slow down to a certain speed (also speed can't go negative or it will glitch) 
           for(int i = 0; i <2; i++){
                if(player.collidesWithZ(enemies[i])){
-                   System.out.println("enemy hit");
-                   if(enemies[i].getSpeed()-0.05 > 0.7){
-                   enemies[i].setSpeed((float)-0.05);
+                   player.setHP(5);
+                   System.out.println(player.getHP());
+                   
+                   if(enemies[i].getSpeed()-0.15 > 0.7){
+                   enemies[i].setSpeed((float)-0.15);
                    }
                }
            }
+//     
+           
+          // zombie zombie collision 
+           for (int i = 0; i < 2; i++) {
+            for(int x = 0; x <2; x++){
+                if(enemies[i].collidesWith(enemies[x]) && enemies[i] != enemies[x]){
+                    // if they hit top 
+                     if(enemies[i].getSpeed() < 1.95 || enemies[x].getSpeed() < 1.95){
+                //         System.out.println(enemies[i].getSpeed() + " " + enemies[x].getSpeed());
+                   enemies[i].setSpeed((float)+0.15);
+                   enemies[x].setSpeed((float)+0.15);
+                   }
+                   if(enemies[i].getY() <= enemies[x].getY()+enemies[x].getHeight() && enemies[i].getY() > enemies[x].getY()){
+                       enemies[i].setYT();
+                   }
+                   // hits bottom 
+                     if(enemies[i].getY()+enemies[i].getHeight() >= enemies[x].getY() && enemies[i].getY()+enemies[i].getHeight() <= enemies[x].getY() + enemies[x].getHeight()){
+                     enemies[i].setYB(); 
+                 }
+                     // hits left 
+                      if(enemies[i].getX()+ enemies[i].getWidth() >= enemies[x].getX() && enemies[i].getX()+ enemies[i].getWidth() <= enemies[x].getX()+ enemies[x].getWidth()){
+                     enemies[i].setXL();
+                 }
+                       // if  hits right of wall 
+                 if(enemies[i].getX() <= enemies[x].getX()+enemies[x].getWidth() && enemies[i].getX() >= enemies[x].getX()){
+                     enemies[i].setXR();
+                     }
+                }
+            }
+            
+        }
           // for loop running through array of walls 
             for (int i = 0; i < 22; i++) {            
                // if player touches a wall 

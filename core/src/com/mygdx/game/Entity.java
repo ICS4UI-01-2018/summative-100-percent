@@ -44,6 +44,10 @@ public abstract class Entity {
     public int getHP() {
         return this.HP;
     }
+    public void setHP(int x){
+        HP = this.HP-x;
+    }
+
 
     /**
      * 
@@ -71,6 +75,10 @@ public abstract class Entity {
      * 
      * @return the integer representing the width.
      */
+    public int getHeight(){
+        return this.height;
+    }
+    
     public int getWidth() {
         return this.width;
     }
@@ -95,9 +103,7 @@ public abstract class Entity {
      * 
      * @return the integer representing the height. 
      */
-    public int getHeight() {
-        return this.height;
-    }
+    
 
     // each subclass needs their own move() method
     // public abstract void move();
