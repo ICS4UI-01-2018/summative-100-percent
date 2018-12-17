@@ -36,7 +36,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
     @Override
     public void create() {
-        player = new Player(100, (float) 1.5, 950, 750, 100, 100, 0, 1);
+        player = new Player(100, (float) 1.5, 1000, 800, 100, 100, 0, 1);
         enemy1 = new Enemies(100, (float) 0.5, 300, 200, 30, 30, 0, 0);
         enemy2 = new Enemies(100, (float) 0.8, 500, 450, 30, 30, 0, 0);
 
