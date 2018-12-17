@@ -39,7 +39,9 @@ public class MyGdxGame extends ApplicationAdapter {
         player = new Player(100, (float) 1.5, 1000, 800, 100, 100, 0, 1);
         enemy1 = new Enemies(100, (float) 0.5, 300, 200, 30, 30, 0, 0);
         enemy2 = new Enemies(100, (float) 0.8, 500, 450, 30, 30, 0, 0);
-
+        firstGun = new M1911(2, 12, 3, 36, 1200, 1000);
+        bullet = new M1911Bullet(10, 5, 1200, 1000, 10, 10);
+        
         batch = new SpriteBatch();
         shapeBatch = new ShapeRenderer();
         cam = new OrthographicCamera(2000, 1600);
@@ -82,8 +84,8 @@ public class MyGdxGame extends ApplicationAdapter {
 
         if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.D)) {
             player.move();
-//            firstGun.moveX(player);
-//            firstGun.moveY(player);
+            firstGun.moveX(player);
+            firstGun.moveY(player);
         }
 
         enemy1.move(player);
@@ -92,7 +94,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
 /// problem w/ collision detection, multiple methods moving player back at same time 
 /// solution: only make one method usable at a time
-//        for (int i = 0; i < 16; i++) {
+//        for (int i = 0; i < walls.length - 1; i++) {
 //
 //            // if player touches a wall 
 //            if (player.collidesWith(walls[i])) {
@@ -161,47 +163,54 @@ public class MyGdxGame extends ApplicationAdapter {
 
         shapeBatch.setColor(Color.BLUE);
         enemy1.draw(shapeBatch);
-        // firstGun.drawGun(shapeBatch, player);
-
-//        if (Gdx.input.isTouched()) {
-//            
-//          bullet.setGunLocation(firstGun);
-//            shapeBatch.setColor(Color.GOLD);
-//            if (cursorPosition.x > bullet.getX()) {
-//                bulletMoveX = 100;
-//            } else if (bullet.getX() == cursorPosition.x) {
-//                bulletMoveX = 0;
-//            } else {
-//                bulletMoveX = -100;
-//            }
-//            if (cursorPosition.y > bullet.getY()) {
-//                bulletMoveY = 100;
-//            } else if (bullet.getY() == cursorPosition.y) {
-//                bulletMoveY = 0;
-//            } else {
-//                bulletMoveY = -100;
-//            }
-//
-//            firstGun.shoot(bullet);
-//        }
-//        if (bullet.getIsAlive() == true) {
-//            firstGun.moveBullet(bullet);
-//             bullet.getX();
-//            bullet.getY();
-//            bullet.drawBullet(shapeBatch, bullet.getX(), bullet.getY());
-//        }
-//        System.out.println(bullet.getX());
-//        System.out.println(bullet.getY());
-
+        enemy2.draw(shapeBatch);
+        
         // change colour to white
         shapeBatch.setColor(Color.WHITE);
 
         player.draw(shapeBatch);
+        
+        // draw gun
+        shapeBatch.setColor(Color.BLUE);
+        firstGun.drawGun(shapeBatch, player);
 
-        shapeBatch.end();
+        // draw bullet
+        shapeBatch.setColor(Color.YELLOW);
+        bullet.drawBullet(shapeBatch, bulletMoveX, bulletMoveY);
+        
+        if (Gdx.input.isTouched()) {
+            bullet.setGunLocation(firstGun);
+            shapeBatch.setColor(Color.GOLD);
+            if (cursorPosition.x > bullet.getX()) {
+                bulletMoveX = 100;
+            } else if (bullet.getX() == cursorPosition.x) {
+                bulletMoveX = 0;
+            } else {
+                bulletMoveX = -100;
+            }
+            if (cursorPosition.y > bullet.getY()) {
+                bulletMoveY = 100;
+            } else if (bullet.getY() == cursorPosition.y) {
+                bulletMoveY = 0;
+            } else {
+                bulletMoveY = -100;
+            }
+
+            firstGun.shoot(bullet);
+        }
+        if (bullet.getIsAlive() == true) {
+            firstGun.moveBullet(bullet);
+            bullet.getX();
+            bullet.getY();
+            bullet.drawBullet(shapeBatch, bullet.getX(), bullet.getY());
+        }
+        System.out.println(bullet.getX());
+        System.out.println(bullet.getY());
+        
+
+        
 
         shapeBatch.setProjectionMatrix(defaultMatrix);
-        shapeBatch.begin(ShapeRenderer.ShapeType.Filled);
         shapeBatch.setColor(Color.MAGENTA);
         shapeBatch.rect(viewport.getWorldWidth() / 2 - 2, 0, 4, viewport.getWorldHeight());
         shapeBatch.end();

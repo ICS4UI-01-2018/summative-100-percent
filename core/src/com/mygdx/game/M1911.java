@@ -9,12 +9,11 @@ package com.mygdx.game;
  *
  * @author prylz2189
  */
+public class M1911 extends Weapon {
 
-public class M1911 extends Weapon{
-
-    public M1911(float x, float y){
+    public M1911(int rateOfFire, int clipSize, int reloadTime, int totalAmmo, float x, float y) {
         //Send variables to super class
- super(1, 11, 5, 30, x, y);
-}
-    
+        super(rateOfFire, clipSize, reloadTime, totalAmmo, x, y);
+    }
+
 }

@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author prylz2189
  */
-public class Bullet {
+public abstract class Bullet {
 
     //Initialise variables
     private ArrayList Weapon;
@@ -34,22 +34,25 @@ public class Bullet {
         this.moveY = moveY;
     }
 //Move x
+
     public void moveX() {
-           x = x + (moveX*speed);
-        
+        x = x + (moveX * speed);
+
     }
 
     //Move y
     public void moveY() {
-       
-            y = y + (moveY * speed);
-        
+
+        y = y + (moveY * speed);
+
     }
+
     //Collision
-    public void collision(){
+    public void collision() {
         //
     }
 //get moveY
+
     public int getMoveY() {
         return this.moveY;
     }
@@ -68,37 +71,42 @@ public class Bullet {
     public float getY() {
         return this.y;
     }
+
     //Get damage
-    public int getDamage(){
+    public int getDamage() {
         return this.damage;
     }
+
     //Get speed
-    public int getSpeed(){
+    public int getSpeed() {
         return this.speed;
     }
+
     //Is the bullet alive
-    public boolean getIsAlive(){
+    public boolean getIsAlive() {
         return this.isAlive;
     }
+
     //Draw bullet
-     public void drawBullet(ShapeRenderer shapeBatch, float x, float y){
+    public void drawBullet(ShapeRenderer shapeBatch, float x, float y) {
         shapeBatch.circle(this.x, this.y, 5);
     }
-     public void undrawBullet(ShapeRenderer shapeBatch, Bullet bullet){
-         
-     }
-     //Shoot bullet
-    public void bulletIsShot(){
-        this.isAlive=true;
-          //  if this collides with a zombie or barrier set to is not alive
-          if(this.getX()>800||this.getX()<0||this.getY()<0||this.getY()>600){
-   this.isAlive = false;
-         }
+
+    public void undrawBullet(ShapeRenderer shapeBatch, Bullet bullet) {
+
+    }
+    //Shoot bullet
+
+    public void bulletIsShot() {
+        this.isAlive = true;
+        //  if this collides with a zombie or barrier set to is not alive
+        if (this.getX() > 800 || this.getX() < 0 || this.getY() < 0 || this.getY() > 600) {
+            this.isAlive = false;
         }
-    public void setGunLocation(Weapon firstGun){
+    }
+
+    public void setGunLocation(Weapon firstGun) {
         this.x = firstGun.getX();
         this.y = firstGun.getY();
     }
-    }
-
-
+}
