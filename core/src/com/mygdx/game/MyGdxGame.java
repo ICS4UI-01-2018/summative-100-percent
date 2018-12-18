@@ -100,7 +100,7 @@ public class MyGdxGame extends ApplicationAdapter {
           for(int i = 0; i <2; i++){
                if(player.collidesWithZ(enemies[i])){
                    player.setHP(5);
-                   System.out.println(player.getHP());
+                 //  System.out.println(player.getHP());
                    
                    if(enemies[i].getSpeed()-0.15 > 0.7){
                    enemies[i].setSpeed((float)-0.15);
@@ -114,8 +114,8 @@ public class MyGdxGame extends ApplicationAdapter {
             for(int x = 0; x <2; x++){
                 if(enemies[i].collidesWith(enemies[x]) && enemies[i] != enemies[x]){
                     // if they hit top 
-                     if(enemies[i].getSpeed() < 1.95 || enemies[x].getSpeed() < 1.95){
-                //         System.out.println(enemies[i].getSpeed() + " " + enemies[x].getSpeed());
+                     if(enemies[i].getSpeed() < 2.00 && enemies[x].getSpeed() < 2.00){
+                 System.out.println(enemies[i].getSpeed() + " " + enemies[x].getSpeed());
                    enemies[i].setSpeed((float)+0.15);
                    enemies[x].setSpeed((float)+0.15);
                    }
