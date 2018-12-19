@@ -13,7 +13,7 @@ import java.util.ArrayList;
  *
  * @author prylz2189
  */
-public class Weapon {
+public abstract class Weapon {
 
     //Initialise variables
     private ArrayList Player;
@@ -26,9 +26,10 @@ public class Weapon {
     private int bulletsInClip;
     private int reloadTime;
     private int totalAmmo;
-    private boolean isClipEmpty = false;
-    private boolean canShoot = true;
-
+    private boolean isClipEmpty;
+    private boolean canShoot;
+    private ArrayList<Bullet> bullets;
+    
     public Weapon(int rateOfFire, int clipSize, int reloadTime, int totalAmmo, float x, float y) {
         //Set variables
         this.rateOfFire = rateOfFire;
@@ -37,6 +38,8 @@ public class Weapon {
         this.totalAmmo = totalAmmo;
         this.x = x;
         this.y = y;
+        this.isClipEmpty = false;
+        this.canShoot = false;
     }
 
     //Get number of bullets in clip
@@ -91,7 +94,7 @@ public class Weapon {
             this.totalAmmo = this.totalAmmo - 1;
             bullet.bulletIsShot();
         }
-
+       
         //Dont allow gun to fire too often
         //  while(Gdx.graphics.getDeltaTime() <= setTime + this.rateOfFire){
         //  this.canShoot = false;

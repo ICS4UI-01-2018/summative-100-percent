@@ -41,7 +41,7 @@ public class MyGdxGame extends ApplicationAdapter {
         enemy2 = new Enemies(100, (float) 0.8, 500, 450, 30, 30, 0, 0);
 
         firstGun = new M1911(1, 12, 2, 36, player.getX(), player.getY());
-        bullet = new M1911Bullet(2, 10, firstGun.getX(), firstGun.getY(), 0, 0);
+        bullet = new M1911Bullet(2, 10, firstGun.getX(), firstGun.getY(), 1, 1);
 
         batch = new SpriteBatch();
         shapeBatch = new ShapeRenderer();
@@ -95,7 +95,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
 /// problem w/ collision detection, multiple methods moving player back at same time 
 /// solution: only make one method usable at a time
-//        for (int i = 0; i < 16; i++) {
+//        for (int i = 0; i < walls.length - 1; i++) {
 //
 //            // if player touches a wall 
 //            if (player.collidesWith(walls[i])) {
@@ -164,17 +164,22 @@ public class MyGdxGame extends ApplicationAdapter {
 
         shapeBatch.setColor(Color.BLUE);
         enemy1.draw(shapeBatch);
-
+        enemy2.draw(shapeBatch);
+        
         // change colour to white
         shapeBatch.setColor(Color.WHITE);
 
         player.draw(shapeBatch);
-
+        
+        // draw gun
         shapeBatch.setColor(Color.BLUE);
         firstGun.drawGun(shapeBatch, player);
 
-        if (Gdx.input.isTouched()) {
-
+        // draw bullet
+        shapeBatch.setColor(Color.YELLOW);
+        bullet.drawBullet(shapeBatch, bulletMoveX, bulletMoveY);
+        
+        if (Gdx.input.justTouched()) {
             bullet.setGunLocation(firstGun);
             shapeBatch.setColor(Color.GOLD);
             if (cursorPosition.x > bullet.getX()) {
@@ -198,15 +203,15 @@ public class MyGdxGame extends ApplicationAdapter {
             firstGun.moveBullet(bullet);
             bullet.getX();
             bullet.getY();
-            shapeBatch.setColor(Color.YELLOW);
             bullet.drawBullet(shapeBatch, bullet.getX(), bullet.getY());
         }
-        
         System.out.println(bullet.getX());
         System.out.println(bullet.getY());
+        
+
+        
 
         shapeBatch.setProjectionMatrix(defaultMatrix);
-
         shapeBatch.setColor(Color.MAGENTA);
         shapeBatch.rect(viewport.getWorldWidth() / 2 - 2, 0, 4, viewport.getWorldHeight());
         shapeBatch.end();

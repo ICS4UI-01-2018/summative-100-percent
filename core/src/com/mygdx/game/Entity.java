@@ -32,6 +32,10 @@ public abstract class Entity {
         entity = new Rectangle(x, y, width, height);
     }
 
+    public Rectangle getRect() {
+        return entity;
+    }
+    
     public int getHP() {
         return this.HP;
     }

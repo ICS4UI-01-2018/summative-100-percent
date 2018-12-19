@@ -12,17 +12,16 @@ import java.util.ArrayList;
  *
  * @author prylz2189
  */
-public class Bullet {
+public abstract class Bullet {
 
     //Initialise variables
-    private ArrayList Weapon;
     private int speed;
     private float x;
     private float y;
     private int damage;
     private int moveX;
     private int moveY;
-    private boolean isAlive = false;
+    private boolean isAlive;
 
     public Bullet(int speed, int damage, float x, float y, int moveX, int moveY) {
         //Set variables
@@ -32,18 +31,19 @@ public class Bullet {
         this.y = y;
         this.moveX = moveX;
         this.moveY = moveY;
+        this.isAlive = true;
     }
 //Move x
 
     public void moveX() {
-        x = x + (moveX * speed);
+        this.x = this.x + (this.speed);
 
     }
 
     //Move y
     public void moveY() {
 
-        y = y + (moveY * speed);
+        this.y = this.y + (this.speed);
 
     }
 
