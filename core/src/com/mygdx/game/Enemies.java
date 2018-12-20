@@ -8,6 +8,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 
 /**
  *
@@ -29,6 +30,22 @@ public class Enemies extends Entity {
         this.xDirection = 0;
         this.yDirection = 0;
         this.pic = new Texture("badlogic.jpg");
+        // this.canMove = true;
+
+    }
+
+    public Rectangle getBounds() {
+        return super.getRect();
+    }
+
+    public boolean collidesWith(Wall p) {
+
+        return super.getRect().overlaps(p.getBounds());
+    }
+
+    public boolean collidesWith(Enemies p) {
+
+        return super.getRect().overlaps(p.getBounds());
     }
 
 //    public void setDirectionToPlayer(Player player) {
@@ -49,10 +66,6 @@ public class Enemies extends Entity {
 //        }
 //        
 //    }
-    /**
-     *
-     * @param player the Player that is being chased
-     */
     public void move(Player player) {
         // if Enemies is left of player
         if (super.getX() + (super.getWidth() / 2) < player.getX() + (player.getWidth() / 2)) {
@@ -73,8 +86,9 @@ public class Enemies extends Entity {
         }
     }
 
-    @Override
-    public void draw(ShapeRenderer shapeBatch) {
+
+@Override
+        public void draw(ShapeRenderer shapeBatch) {
         shapeBatch.rect(super.getX(), super.getY(), super.getWidth(), super.getHeight());
     }
 
