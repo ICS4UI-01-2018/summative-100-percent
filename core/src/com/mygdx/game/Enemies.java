@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
  *
  * @author prylz2189
  */
-public  class Enemies extends Entity {
+public class Enemies extends Entity {
 
     private boolean isDead;
     private int xDirection;
