@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import java.util.ArrayList;
@@ -27,6 +28,8 @@ public class MyGdxGame extends ApplicationAdapter {
     private Player player;
     private Enemies enemy1;
     private Enemies enemy2;
+    
+    private Vector3 cursorPosition = new Vector3();
 
 
 
@@ -34,8 +37,8 @@ public class MyGdxGame extends ApplicationAdapter {
     @Override
     public void create() {
         player = new Player(100, (float) 5, 400, 300, 20, 10, 0, 1, true);
-        enemies[0] = new Enemies(100, (float) 2, 300, 200, 15, 15, 0, 0, true);
-        enemies[1] = new Enemies(100, (float) 2, 500, 450, 15, 15, 0, 0, true);
+        enemies[0] = new Enemies(100, (float) 2, (float)300,(float) 200, 15, 15, 0, 0);
+        enemies[1] = new Enemies(100, (float) 2, (float)500, (float)450, 15, 15, 0, 0);
 
         batch = new SpriteBatch();
         shapeBatch = new ShapeRenderer();
@@ -80,7 +83,11 @@ public class MyGdxGame extends ApplicationAdapter {
     public void render() {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+        
+        cursorPosition.y = Gdx.input.getY();
+        cursorPosition.x = Gdx.input.getX();
+        cursorPosition.x = 0;
+        cam.unproject(cursorPosition);
         if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.D)) {
             player.move();
         }
@@ -88,6 +95,7 @@ public class MyGdxGame extends ApplicationAdapter {
        
         shapeBatch.setProjectionMatrix(cam.combined);
         // start drawing mode
+        // draw shapes
         // filled shapes
         
       
@@ -205,7 +213,6 @@ public class MyGdxGame extends ApplicationAdapter {
         
         shapeBatch.setColor(Color.WHITE);
 
-        // draw shapes
         player.draw(shapeBatch);
         enemies[0].draw(shapeBatch);
         enemies[1].draw(shapeBatch);
@@ -214,6 +221,10 @@ public class MyGdxGame extends ApplicationAdapter {
 
         batch.setProjectionMatrix(cam.combined);
         batch.begin();
+        
+        enemies[0].draw(batch,player);
+        enemies[1].draw(batch,player);
+        player.draw(batch,cursorPosition.x,cursorPosition.y);
         shapeBatch.setColor(Color.RED);
       //  shapeBatch.rect(0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
         batch.end();

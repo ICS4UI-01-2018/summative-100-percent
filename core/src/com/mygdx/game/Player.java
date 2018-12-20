@@ -7,6 +7,8 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
@@ -20,9 +22,10 @@ public class Player extends Entity {
     // private HealthBar health
     private int armor;
     private int lives;
-    private boolean canMove;
     
-    
+    // image file
+    private Texture pic;
+private float angle;
     // private ArrayList<Weapon> weapons;
     // or
     // private Weapon weapon;
@@ -30,7 +33,10 @@ public class Player extends Entity {
         super(HP, speed, x, y, width, height);
         this.armor = armor;
         this.lives = lives;
-        this.canMove = canMove;
+        // this.r = new Rectangle(x, y, width, height);
+        this.pic = new Texture("square.jpg");
+        this.angle = 0;
+
     }
  public Rectangle getBounds(){
        return super.getRect();
@@ -77,7 +83,7 @@ public class Player extends Entity {
     }
 
     public void rotate() {
-        
+
     }
 
     public void dead() {
@@ -87,50 +93,78 @@ public class Player extends Entity {
    //  player.
     }
     
-    public boolean getMove(){
-        return this.canMove;
-    }
     
-    public void setMoveFalse(){
-        canMove = false;
-    }
     
-    public void setMoveTrue(){
-        canMove = true;
-    }
+    
 
     @Override
     public void draw(ShapeRenderer shapeBatch) {
         shapeBatch.rect(super.getX(), super.getY(), super.getWidth(), super.getHeight());
     }
-    
+
+    // pass in SpriteBatch and cursor coordinates
+    public void draw(SpriteBatch batch, float cursorX, float cursorY) {
+        // trigonometry - inverse of tan
+        // if cursor in quadrant 1
+        if (cursorX > super.getX() + (super.getWidth()/2) && cursorY > super.getY() + (super.getHeight()/2)) {
+            float angle = (float) Math.atan((cursorY - (super.getY() + (super.getHeight()/2))) / (cursorX - (super.getX() + (super.getWidth()/2))));
+            angle = Math.abs((float) Math.toDegrees(angle));
+            batch.draw(pic, super.getX() , super.getY() , super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, (angle) - 90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
+        } else if (cursorX < super.getX() + (super.getWidth()/2) && cursorY > super.getY() + (super.getHeight()/2)) {
+            // else if in quadrant 2
+            float angle = (float) Math.atan((cursorY - (super.getY() + (super.getHeight()/2))) / ((super.getX() + (super.getWidth()/2)) - cursorX));
+            angle = Math.abs((float) Math.toDegrees(angle));
+            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, 90 - (angle), 0, 0, pic.getWidth(), pic.getHeight(), false, false);
+        } else if (cursorX < super.getX() + (super.getWidth()/2) && cursorY < super.getY() + (super.getHeight()/2)) {
+            // else if in quadrant 3
+            float angle = (float) Math.atan(((super.getY() + (super.getHeight()/2)) - cursorY) / ((super.getX() + (super.getWidth()/2)) - cursorX));
+            angle = Math.abs((float) Math.toDegrees(angle));
+            batch.draw(pic, super.getX() , super.getY() , super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, angle + 90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
+        } else if (cursorX > super.getX() + (super.getWidth()/2) && cursorY < super.getY() + (super.getHeight()/2)) {
+            // else if in quadrant 4
+            float angle = (float) Math.atan(((super.getY() + (super.getHeight()/2)) - cursorY) / (cursorX - (super.getX() + (super.getWidth()/2))));
+            angle = Math.abs((float) Math.toDegrees(angle));
+            batch.draw(pic, super.getX(), super.getY() , super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, 270 - angle, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
+        } else if (cursorX == super.getX() + (super.getWidth()/2) && cursorY > super.getY() + (super.getHeight()/2)) {
+            // else if directly above
+            batch.draw(pic, super.getX() , super.getY() , super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, 0, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
+        } else if (cursorX == super.getX() + (super.getWidth()/2) && cursorY < super.getY() + (super.getHeight()/2)) {
+            // else if directly below
+            batch.draw(pic, super.getX() , super.getY() , super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, 180, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
+        } else if (cursorX > super.getX() + (super.getWidth()/2) && cursorY == super.getY() + (super.getHeight()/2)) {
+            // else if directly right
+            batch.draw(pic, super.getX() , super.getY() , super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, -90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
+        } else if (cursorX < super.getX() + (super.getWidth()/2) && cursorY == super.getY() + (super.getHeight()/2)) {
+            // else if directly left
+            batch.draw(pic, super.getX() , super.getY() , super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, 90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
+        }
+
+    }
+
     public void move() {
         // move left if A is pressed
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            if(canMove == true){
+            
             super.setXLeft();
-            }
+            
         }
 
-        // move right if D is pressed
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            if(canMove == true){
+            // else move right if D is pressed
             super.setXRight();
-            }
+
         }
 
-        // move up if W is press
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            if(canMove == true){
+            // else move up if W is press
             super.setYUp();
-            }
+
         }
 
-        // move down if S is pressed
         if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            if(canMove == true){
+            // else move down if S is pressed
             super.setYDown();
-            }
+
         }
     }
 }
