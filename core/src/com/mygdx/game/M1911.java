@@ -5,15 +5,26 @@
  */
 package com.mygdx.game;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 /**
  *
  * @author prylz2189
  */
 public class M1911 extends Weapon {
 
-    public M1911(int rateOfFire, int clipSize, int reloadTime, int totalAmmo, float x, float y) {
+    private Texture pic;
+    
+    public M1911(int rateOfFire, float x, float y, int width, int height, int clipSize, float reloadTime, int totalAmmo) {
         //Send variables to super class
-        super(rateOfFire, clipSize, reloadTime, totalAmmo, x, y);
+        super(rateOfFire, x, y, width, height, clipSize, reloadTime, totalAmmo);
+        this.pic = new Texture("pistol.jpg");
+    }
+
+    @Override
+    public void draw(SpriteBatch batch, Player player) {
+        batch.draw(pic, super.getX(), super.getY(), player.getX() + (player.getWidth()/2), player.getY() + (player.getHeight()/2), super.getWidth(), super.getHeight(), 1, 1, player.getAngle(), 0, 0, pic.getWidth(), pic.getHeight(), false, false);
     }
 
 }

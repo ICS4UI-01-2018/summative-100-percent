@@ -14,60 +14,35 @@ import java.util.ArrayList;
  */
 public abstract class Bullet {
 
-    //Initialise variables
-    private int speed;
+
+    private float speed;
     private float x;
     private float y;
     private int damage;
-    private int moveX;
-    private int moveY;
+    private float radius;
     private boolean isAlive;
 
-    public Bullet(int speed, int damage, float x, float y, int moveX, int moveY) {
+    public Bullet(int speed, float x, float y, int damage, float radius) {
         //Set variables
         this.speed = speed;
-        this.damage = damage;
         this.x = x;
         this.y = y;
-        this.moveX = moveX;
-        this.moveY = moveY;
-        this.isAlive = true;
-    }
-//Move x
-
-    public void moveX() {
-        this.x = this.x + (this.speed);
-
+        this.damage = damage;
+        this.radius = radius;
+        this.isAlive = false;
     }
 
-    //Move y
-    public void moveY() {
-
-        this.y = this.y + (this.speed);
-
+    // pass in  gun???
+    public void move(Weapon weapon) {
+        // set initial position to gun
+        
     }
-
-    //Collision
-    public void collision() {
-        //
-    }
-//get moveY
-
-    public int getMoveY() {
-        return this.moveY;
-    }
-
-    //get moveX
-    public int getMoveX() {
-        return this.moveX;
-    }
-
-    //get the bullets X value
+    
     public float getX() {
         return this.x;
     }
 
-    //get the bullets y value
+    
     public float getY() {
         return this.y;
     }
@@ -78,7 +53,7 @@ public abstract class Bullet {
     }
 
     //Get speed
-    public int getSpeed() {
+    public float getSpeed() {
         return this.speed;
     }
 
@@ -88,25 +63,22 @@ public abstract class Bullet {
     }
 
     //Draw bullet
-    public void drawBullet(ShapeRenderer shapeBatch, float x, float y) {
-        shapeBatch.circle(this.x, this.y, 5);
+    public void drawBullet(ShapeRenderer shapeBatch) {
+        shapeBatch.circle(this.x, this.y, this.radius);
     }
 
-    public void undrawBullet(ShapeRenderer shapeBatch, Bullet bullet) {
-
-    }
+//    public void undrawBullet(ShapeRenderer shapeBatch, Bullet bullet) {
+//
+//    }
+    
     //Shoot bullet
-
     public void bulletIsShot() {
         this.isAlive = true;
-        //  if this collides with a zombie or barrier set to is not alive
-        if (this.getX() > 800 || this.getX() < 0 || this.getY() < 0 || this.getY() > 600) {
-            this.isAlive = false;
-        }
+        
     }
 
     public void setGunLocation(Weapon firstGun) {
-        this.x = firstGun.getX();
-        this.y = firstGun.getY();
+//        this.x = firstGun.getX();
+//        this.y = firstGun.getY();
     }
 }

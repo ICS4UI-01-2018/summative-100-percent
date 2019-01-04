@@ -25,8 +25,8 @@ public class MyGdxGame extends ApplicationAdapter {
     private Enemies[] enemies = new Enemies[2];
     private Texture img;
 
-    private M1911 firstGun;
-    private Bullet bullet;
+    private M1911 pistol;
+//    private Bullet bullet;
 
     private Player player;
     private Enemies enemy1;
@@ -40,9 +40,11 @@ public class MyGdxGame extends ApplicationAdapter {
         player = new Player(100, (float) 5, 400, 300, 100, 100, 0, 1);
         enemies[0] = new Enemies(100, (float) 2, (float) 300, (float) 200, 30, 30, 0, 0);
         enemies[1] = new Enemies(100, (float) 2, (float) 500, (float) 450, 30, 30, 0, 0);
-
-        firstGun = new M1911(1, 12, 2, 36, player.getX(), player.getY());
-        bullet = new M1911Bullet(2, 10, firstGun.getX(), firstGun.getY(), 1, 1);
+        pistol = new M1911(1, player.getX() + (player.getWidth()/2) - 5, player.getY() + player.getHeight(), 50, 100, 12, (float) 2.5, 36);
+        
+        
+//        firstGun = new M1911(1, 12, 2, 36, player.getX(), player.getY());
+//        bullet = new M1911Bullet(2, 10, firstGun.getX(), firstGun.getY(), 1, 1);
 
         batch = new SpriteBatch();
         shapeBatch = new ShapeRenderer();
@@ -107,6 +109,9 @@ public class MyGdxGame extends ApplicationAdapter {
 
         enemies[0].move(player);
         enemies[1].move(player);
+        
+        pistol.move(player);
+        
         // zombies set to slowdown  when hit player 
         // currently set to only slow down to a certain speed (also speed can't go negative or it will glitch) 
         for (int i = 0; i < 2; i++) {
@@ -206,14 +211,19 @@ public class MyGdxGame extends ApplicationAdapter {
         // update camera
         cam.update();
 
+        shapeBatch.setColor(Color.RED);
+        shapeBatch.rect(0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
+        
         //drawing the array of walls 
         shapeBatch.setColor(Color.GRAY);
         for (int z = 0; z < 22; z++) {
             walls[z].draw(shapeBatch);
         }
 
-        shapeBatch.setColor(Color.WHITE);
+        shapeBatch.setColor(Color.YELLOW);
 
+        pistol.draw(shapeBatch, player);
+        
         // player.draw(shapeBatch);
         // enemies[1].draw(shapeBatch);
 
@@ -256,16 +266,22 @@ public class MyGdxGame extends ApplicationAdapter {
         // shapeBatch.setProjectionMatrix(defaultMatrix);
         shapeBatch.setColor(Color.MAGENTA);
         shapeBatch.rect(viewport.getWorldWidth() / 2 - 2, 0, 4, viewport.getWorldHeight());
+        
+        
         shapeBatch.end();
 
         batch.setProjectionMatrix(cam.combined);
         batch.begin();
 
-        enemies[0].draw(batch, player);
-        enemies[1].draw(batch, player);
+//        enemies[0].draw(batch, player);
+//        enemies[1].draw(batch, player);
         player.draw(batch, cursorPosition.x, cursorPosition.y);
-        shapeBatch.setColor(Color.RED);
-        //  shapeBatch.rect(0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
+        
+        pistol.draw(batch, player);
+        
+        
+        
+        
         batch.end();
     }
 }
