@@ -128,7 +128,7 @@ public abstract class Weapon {
     }
 
     // each gun will have their own draw method (different images)
-    public abstract void draw(SpriteBatch batch, Player player);
+    public abstract void draw(SpriteBatch batch, Player player, float cursorX, float cursorY);
     
     //Get rate of fire
     public float getRateOfFire() {

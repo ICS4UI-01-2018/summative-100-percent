@@ -37,7 +37,7 @@ public class Player extends Entity {
         this.armor = armor;
         this.lives = lives;
         // this.r = new Rectangle(x, y, width, height);
-        this.pic = new Texture("badlogic.jpg");
+        this.pic = new Texture("square.jpg");
         this.angle = 0;
     }
 
@@ -111,23 +111,23 @@ public class Player extends Entity {
         // if cursor in quadrant 1
         if (cursorX > super.getX() + (super.getWidth() / 2) && cursorY > super.getY() + (super.getHeight() / 2)) {
             float angle = (float) Math.atan((cursorY - (super.getY() + (super.getHeight() / 2))) / (cursorX - (super.getX() + (super.getWidth() / 2))));
-            this.angle = Math.abs((float) Math.toDegrees(angle));
-            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, (this.angle) - 90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
+            this.angle = (Math.abs((float) Math.toDegrees(angle))) - 90;
+            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, this.angle, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
         } else if (cursorX < super.getX() + (super.getWidth() / 2) && cursorY > super.getY() + (super.getHeight() / 2)) {
             // else if in quadrant 2
             float angle = (float) Math.atan((cursorY - (super.getY() + (super.getHeight() / 2))) / ((super.getX() + (super.getWidth() / 2)) - cursorX));
-            this.angle = Math.abs((float) Math.toDegrees(angle));
-            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, 90 - (this.angle), 0, 0, pic.getWidth(), pic.getHeight(), false, false);
+            this.angle = 90 -  (Math.abs((float) Math.toDegrees(angle)));
+            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, this.angle, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
         } else if (cursorX < super.getX() + (super.getWidth() / 2) && cursorY < super.getY() + (super.getHeight() / 2)) {
             // else if in quadrant 3
             float angle = (float) Math.atan(((super.getY() + (super.getHeight() / 2)) - cursorY) / ((super.getX() + (super.getWidth() / 2)) - cursorX));
-            this.angle = Math.abs((float) Math.toDegrees(angle));
-            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, this.angle + 90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
+            this.angle = (Math.abs((float) Math.toDegrees(angle))) + 90;
+            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, this.angle, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
         } else if (cursorX > super.getX() + (super.getWidth() / 2) && cursorY < super.getY() + (super.getHeight() / 2)) {
             // else if in quadrant 4
             float angle = (float) Math.atan(((super.getY() + (super.getHeight() / 2)) - cursorY) / (cursorX - (super.getX() + (super.getWidth() / 2))));
-            this.angle = Math.abs((float) Math.toDegrees(angle));
-            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, 270 - this.angle, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
+            this.angle = 270 - (Math.abs((float) Math.toDegrees(angle)));
+            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, this.angle, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
         } else if (cursorX == super.getX() + (super.getWidth() / 2) && cursorY > super.getY() + (super.getHeight() / 2)) {
             // else if directly above
             batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, 0, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
@@ -141,7 +141,7 @@ public class Player extends Entity {
             // else if directly left
             batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, 90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
         }
-
+        System.out.println(this.angle);
     }
 
     public void move() {

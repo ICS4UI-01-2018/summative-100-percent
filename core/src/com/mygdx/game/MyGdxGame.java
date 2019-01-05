@@ -40,6 +40,8 @@ public class MyGdxGame extends ApplicationAdapter {
         player = new Player(100, (float) 5, 400, 300, 100, 100, 0, 1);
         enemies[0] = new Enemies(100, (float) 2, (float) 300, (float) 200, 30, 30, 0, 0);
         enemies[1] = new Enemies(100, (float) 2, (float) 500, (float) 450, 30, 30, 0, 0);
+        
+        // centre gun on player
         pistol = new M1911(1, player.getX() + (player.getWidth()/2) - 5, player.getY() + player.getHeight(), 50, 100, 12, (float) 2.5, 36);
         
         
@@ -132,7 +134,7 @@ public class MyGdxGame extends ApplicationAdapter {
                 if (enemies[i].collidesWith(enemies[x]) && enemies[i] != enemies[x]) {
                     // if they hit top 
                     if (enemies[i].getSpeed() < 2.00 && enemies[x].getSpeed() < 2.00) {
-                        System.out.println(enemies[i].getSpeed() + " " + enemies[x].getSpeed());
+                        // System.out.println(enemies[i].getSpeed() + " " + enemies[x].getSpeed());
                         enemies[i].setSpeed((float) +0.15);
                         enemies[x].setSpeed((float) +0.15);
                     }
@@ -277,7 +279,7 @@ public class MyGdxGame extends ApplicationAdapter {
 //        enemies[1].draw(batch, player);
         player.draw(batch, cursorPosition.x, cursorPosition.y);
         
-        pistol.draw(batch, player);
+        pistol.draw(batch, player, cursorPosition.x, cursorPosition.y);
         
         
         
