@@ -24,6 +24,7 @@ public class M1911 extends Weapon {
 
     @Override
     public void draw(SpriteBatch batch, Player player, float cursorX, float cursorY) {
+        // origin of rotation is centre of player
         batch.draw(pic, super.getX(), super.getY(), 0 + (super.getWidth()/2), 0 - (player.getHeight()/2), super.getWidth(), super.getHeight(), 1, 1, player.getAngle(), 0, 0, pic.getWidth(), pic.getHeight(), false, false);
     }
 

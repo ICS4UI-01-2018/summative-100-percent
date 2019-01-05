@@ -21,6 +21,8 @@ public abstract class Bullet {
     private int damage;
     private float radius;
     private boolean isAlive;
+    private float xDirection;
+    private float yDirection;
 
     public Bullet(int speed, float x, float y, int damage, float radius) {
         //Set variables
@@ -30,11 +32,20 @@ public abstract class Bullet {
         this.damage = damage;
         this.radius = radius;
         this.isAlive = false;
+        this.xDirection = 0;
+        this.yDirection = 0;
     }
 
-    // pass in  gun???
-    public void move(Weapon weapon) {
-        // set initial position to gun
+    // pass in Player
+    public void move(Player player, float cursorX, float cursorY) {
+        // set initial position to centre of player
+        this.x = player.getX() + (player.getWidth()/2);
+        this.y = player.getY() + (player.getHeight()/2);
+        
+        this.x = (this.x + this.xDirection) * this.speed;
+        this.y = (this.y + this.yDirection) * this.speed;
+        
+        // calculate xDirection and yDirection
         
     }
     

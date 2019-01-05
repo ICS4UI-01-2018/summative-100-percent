@@ -28,6 +28,8 @@ public abstract class Weapon {
     private int totalAmmo;
     private boolean isClipEmpty;
     private boolean canShoot;
+    
+    
     private ArrayList<Bullet> bullets;
     
     public Weapon(float rateOfFire, float x, float y, int width, int height, int clipSize, float reloadTime, int totalAmmo) {
@@ -41,6 +43,9 @@ public abstract class Weapon {
         this.totalAmmo = totalAmmo;
         this.isClipEmpty = false;
         this.canShoot = false;
+        
+        
+        this.bullets = new ArrayList<Bullet>();
     }
 
     //Get number of bullets in clip
@@ -127,7 +132,7 @@ public abstract class Weapon {
         shapeBatch.rect(this.x , this.y , this.width, this.height);
     }
 
-    // each gun will have their own draw method (different images)
+    // each gun will have their own sprite draw method (different images)
     public abstract void draw(SpriteBatch batch, Player player, float cursorX, float cursorY);
     
     //Get rate of fire
