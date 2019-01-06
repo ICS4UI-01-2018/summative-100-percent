@@ -37,7 +37,7 @@ public class Player extends Entity {
         this.armor = armor;
         this.lives = lives;
         // this.r = new Rectangle(x, y, width, height);
-        this.pic = new Texture("square.jpg");
+        this.pic = new Texture("player.jpg");
         this.angle = 0;
     }
 

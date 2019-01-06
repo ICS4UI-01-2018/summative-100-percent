@@ -235,7 +235,6 @@ public class MyGdxGame extends ApplicationAdapter {
         
         // shooting code
         if (Gdx.input.justTouched()) {
-            System.out.println("CLICK");
             pistol.addBullet(testBulletInfo);
             // store cursor coordinates into corresponding lists
             cursorXPositions.add(cursorPosition.x);
