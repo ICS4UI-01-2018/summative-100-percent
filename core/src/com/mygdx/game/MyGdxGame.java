@@ -26,7 +26,7 @@ public class MyGdxGame extends ApplicationAdapter {
     private Texture img;
 
     private M1911 pistol;
-//    private Bullet bullet;
+    private M1911Bullet testBulletInfo;
 
     private Player player;
     private Enemies enemy1;
@@ -34,6 +34,10 @@ public class MyGdxGame extends ApplicationAdapter {
 
     private Vector3 cursorPosition = new Vector3();
 
+    // mouse clicks that correspond to each bullet
+    private ArrayList<Float> cursorXPositions;
+    private ArrayList<Float> cursorYPositions;
+    
     // add in walls here and be able to call them in a for loop
     @Override
     public void create() {
@@ -43,8 +47,11 @@ public class MyGdxGame extends ApplicationAdapter {
 
         // centre gun on player
         pistol = new M1911(1, player.getX() + (25), player.getY() + (37), 50, 75, 12, (float) 2.5, 36);
+        testBulletInfo = new M1911Bullet(10, player.getX() + (player.getWidth()/2), player.getY() + (player.getHeight()/2), 12, 10);
 
-
+        cursorXPositions = new ArrayList<Float>();
+        cursorYPositions = new ArrayList<Float>();
+        
         batch = new SpriteBatch();
         shapeBatch = new ShapeRenderer();
         cam = new OrthographicCamera();
@@ -223,24 +230,33 @@ public class MyGdxGame extends ApplicationAdapter {
 
         // test draw of gun
         // pistol.draw(shapeBatch, player);
-        
-
         // player.draw(shapeBatch);
         // enemies[1].draw(shapeBatch);
-
-
+        
         // shooting code
-        
-        
-        // updater on all bullets
-        
-        
+        if (Gdx.input.justTouched()) {
+            System.out.println("CLICK");
+            pistol.addBullet(testBulletInfo);
+            // store cursor coordinates into corresponding lists
+            cursorXPositions.add(cursorPosition.x);
+            cursorYPositions.add(cursorPosition.y);
+            
+        }
 
+        // update bullets
+        for (M1911Bullet bullet : pistol.getList()) {
+            
+            bullet.move(player, cursorXPositions.get(pistol.getList().indexOf(bullet)), cursorYPositions.get(pistol.getList().indexOf(bullet)));
+            bullet.setAlive();
+            
+            bullet.drawBullet(shapeBatch);
+        }
+
+        
 
         // MIDDLE LINE
 //        shapeBatch.setColor(Color.MAGENTA);
 //        shapeBatch.rect(viewport.getWorldWidth() / 2 - 2, 0, 4, viewport.getWorldHeight());
-        
         shapeBatch.end();
 
         // sprite drawings

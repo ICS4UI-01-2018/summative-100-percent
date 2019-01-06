@@ -141,7 +141,7 @@ public class Player extends Entity {
             // else if directly left
             batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, 90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
         }
-        System.out.println(this.angle);
+        
     }
 
     public void move() {

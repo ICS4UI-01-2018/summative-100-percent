@@ -30,7 +30,7 @@ public abstract class Weapon {
     private boolean canShoot;
     
     
-    private ArrayList<Bullet> bullets;
+//    private ArrayList<Bullet> bullets;
     
     public Weapon(float rateOfFire, float x, float y, int width, int height, int clipSize, float reloadTime, int totalAmmo) {
         this.rateOfFire = rateOfFire;
@@ -45,7 +45,7 @@ public abstract class Weapon {
         this.canShoot = false;
         
         
-        this.bullets = new ArrayList<Bullet>();
+//        this.bullets = new ArrayList<Bullet>();
     }
 
     //Get number of bullets in clip
@@ -65,6 +65,10 @@ public abstract class Weapon {
     }
     
 
+//    public ArrayList<Bullet> getList() {
+//        return this.bullets;
+//    }
+    
 //    //Shoot
 //    public void shoot(Bullet bullet) {
 //        if (this.isClipEmpty == false || this.canShoot == true) {
@@ -82,8 +86,19 @@ public abstract class Weapon {
 //        //this.canShoot = true;
 //    }
 
-    
 
+//    public void moveBullets(Player player, float cursorX, float cursorY) {
+//        for (Bullet bullet: this.bullets) {
+//            if(bullet.getIsAlive() == false) {
+//                bullet.move(player, cursorX, cursorY);
+//                bullet.setAlive();
+//            }
+//        }
+//    }
+
+//    public abstract void addBullet();
+        
+    
     //Reload
     public void reload() {
         //Record time
@@ -149,5 +164,7 @@ public abstract class Weapon {
     public int getclipSize() {
         return this.clipSize;
     }
+
+    
 
 }
