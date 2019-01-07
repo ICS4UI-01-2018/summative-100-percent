@@ -34,7 +34,7 @@ private float angle;
         this.armor = armor;
         this.lives = lives;
         // this.r = new Rectangle(x, y, width, height);
-        this.pic = new Texture("square.jpg");
+        this.pic = new Texture("badlogic.jpg");
         this.angle = 0;
 
     }
