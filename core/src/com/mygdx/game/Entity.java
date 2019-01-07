@@ -99,16 +99,11 @@ public abstract class Entity {
        y = getY()-6; 
     }
 
+    // each subclass needs their own draw(ShapeRenderer shapeBatch) method
     /**
      * 
-     * @return the integer representing the height. 
+     * @param shapeBatch 
      */
-    
-
-    // each subclass needs their own move() method
-    // public abstract void move();
-
-    // each subclass needs their own draw(ShapeRenderer shapeBatch) method
     public abstract void draw(ShapeRenderer shapeBatch);
     
     public void setXLeft() {

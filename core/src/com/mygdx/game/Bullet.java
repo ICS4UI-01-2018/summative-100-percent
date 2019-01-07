@@ -6,6 +6,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import java.util.ArrayList;
 
 /**
@@ -23,6 +24,8 @@ public abstract class Bullet {
     private boolean isAlive;
     private float xDirection;
     private float yDirection;
+    
+    private Rectangle bullet;
 
     public Bullet(float speed, float x, float y, int damage, float radius) {
         //Set variables
@@ -35,6 +38,9 @@ public abstract class Bullet {
         this.isAlive = false;
         this.xDirection = 0;
         this.yDirection = 0;
+        
+        // create rectangle to deal with collision later
+        bullet = new Rectangle(x, y, radius, radius);
     }
 
     // pass in Player and cursor coordinates
@@ -92,13 +98,14 @@ public abstract class Bullet {
         shapeBatch.circle(this.x, this.y, this.radius);
     }
 
-//    public void undrawBullet(ShapeRenderer shapeBatch, Bullet bullet) {
-//
-//    }
-    //Shoot bullet
-    public void bulletIsShot() {
-        this.isAlive = true;
-
+    /**
+     * Returns the rectangle of the bullet.
+     * @return the rectangle representing the bullet.
+     */
+    public Rectangle getShape() {
+        bullet.x = this.x;
+        bullet.y = this.y;
+        return bullet;
     }
 
 }

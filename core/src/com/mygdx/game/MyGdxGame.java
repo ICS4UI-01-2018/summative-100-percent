@@ -249,6 +249,18 @@ public class MyGdxGame extends ApplicationAdapter {
             bullet.setAlive();
             
             bullet.drawBullet(shapeBatch);
+            
+//            // bullet collision with walls
+//            for (int i = 0; i < 22; i++) {
+//                // if a bullet collides with a wall
+//                if(walls[i].getBounds().contains(bullet.getShape())) {
+//                    // remove it from the bullet list
+//                    pistol.getList().remove(bullet);
+//                    break;
+//                }
+//                
+//            }
+            
         }
 
         
