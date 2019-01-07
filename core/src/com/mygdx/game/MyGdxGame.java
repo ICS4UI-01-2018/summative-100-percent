@@ -22,7 +22,7 @@ public class MyGdxGame extends ApplicationAdapter {
     private FitViewport viewport;
     private Wall wall;
     private Wall[] walls = new Wall[25];
-    private Enemies[] enemies = new Enemies[2];
+    private Enemies[] enemies = new Enemies[5];
     private Texture img;
 
     private M1911 pistol;
@@ -41,11 +41,15 @@ public class MyGdxGame extends ApplicationAdapter {
     // add in walls here and be able to call them in a for loop
     @Override
     public void create() {
-        player = new Player(100, (float) 5, 400, 300, 100, 100, 0, 1);
-        enemies[0] = new Enemies(100, (float) 2, (float) 300, (float) 200, 30, 30, 0, 0);
-        enemies[1] = new Enemies(100, (float) 2, (float) 500, (float) 450, 30, 30, 0, 0);
-
+        player = new Player(100, (float) 5, 600, 500, 100, 100, 0, 1);
+        
+        enemies[0] = new Enemies(100, (float) 2, (float) Math.random()*(600 - 300)+300, (float)Math.random() *(500 - 200)+200, 30, 30, 0, 0);
+        enemies[1] = new Enemies(100, (float) 2, (float) Math.random()*(600 - 300)+300, (float) Math.random() *(500 - 200)+200, 30, 30, 0, 0);
+         enemies[2] = new Enemies(100, (float) 2, (float) Math.random()*(600 - 300)+300, (float) Math.random() *(500 - 200)+200, 30, 30, 0, 0);
+          enemies[3] = new Enemies(100, (float) 2, (float) Math.random()*(600 - 300)+300, (float) Math.random() *(500 - 200)+200, 30, 30, 0, 0);
+ enemies[4] = new Enemies(100, (float) 2, (float) Math.random()*(600 - 300)+300, (float) Math.random() *(500 - 200)+200, 30, 30, 0, 0);// x are 300-600 and y are 200-500
         // centre gun on player
+        System.out.println(enemies.length);
         pistol = new M1911(1, player.getX() + (25), player.getY() + (37), 50, 75, 12, (float) 2.5, 36);
         testBulletInfo = new M1911Bullet(10, player.getX() + (player.getWidth()/2), player.getY() + (player.getHeight()/2), 12, 10);
 
@@ -66,22 +70,22 @@ public class MyGdxGame extends ApplicationAdapter {
         walls[4] = new Wall(20, 950, 80, 630);
         walls[5] = new Wall(1900, 20, 80, 630);
         walls[6] = new Wall(1900, 950, 80, 630);////
-        walls[7] = new Wall(1980, 950, 500, 80);
-        walls[8] = new Wall(1980, 570, 500, 80);
+      //  walls[7] = new Wall(1980, 950, 500, 80);
+       // walls[8] = new Wall(1980, 570, 500, 80);
         //
-        walls[9] = new Wall(1980, 20, 1800, 80);
-        walls[10] = new Wall(1980, 1500, 650, 80); // top 1
-        walls[11] = new Wall(3130, 1500, 650, 80); // top2 
-        walls[12] = new Wall(1900, 20, 80, 630);
-        walls[13] = new Wall(1900, 950, 80, 630);
-        walls[14] = new Wall(3780, 20, 80, 630 + 920);
-        walls[15] = new Wall(3780, 950, 80, 630);
-        walls[16] = new Wall(750, 1500, 80, 700);//left large 
-        walls[17] = new Wall(1150, 1500, 80, 300); // left small 
-        walls[18] = new Wall(2630, 1500, 80, 300);// right small
-        walls[19] = new Wall(3130, 1500, 80, 700);// right large
-        walls[20] = new Wall(1150, 1800, 1560, 80);
-        walls[21] = new Wall(750, 2200, 2460, 80);
+        walls[7] = new Wall(1980, 20, 1800, 80);
+        walls[8] = new Wall(1980, 1500, 650, 80); // top 1
+        walls[9] = new Wall(3130, 1500, 650, 80); // top2 
+        walls[10] = new Wall(1900, 20, 80, 630);
+        walls[11] = new Wall(1900, 950, 80, 630);
+        walls[12] = new Wall(3780, 20, 80, 630 + 920);
+        walls[13] = new Wall(3780, 950, 80, 630);
+        walls[14] = new Wall(750, 1500, 80, 700);//left large 
+        walls[15] = new Wall(1150, 1500, 80, 300); // left small 
+        walls[16] = new Wall(2630, 1500, 80, 300);// right small
+        walls[17] = new Wall(3130, 1500, 80, 700);// right large
+        walls[18] = new Wall(1150, 1800, 1560, 80);
+        walls[19] = new Wall(750, 2200, 2460, 80);
 
         // x y width 
         cam.position.x = player.getX();
@@ -113,14 +117,17 @@ public class MyGdxGame extends ApplicationAdapter {
 
         shapeBatch.begin(ShapeRenderer.ShapeType.Filled);
 
-        enemies[0].move(player);
-        enemies[1].move(player);
+        for (int i = 0; i < enemies.length; i++) {
+             enemies[i].move(player);
+            
+        }
+      
 
         pistol.move(player);
 
         // zombies set to slowdown  when hit player 
         // currently set to only slow down to a certain speed (also speed can't go negative or it will glitch) 
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < enemies.length; i++) {
             if (player.collidesWithZ(enemies[i])) {
                 player.setHP(5);
                 //  System.out.println(player.getHP());
@@ -133,8 +140,8 @@ public class MyGdxGame extends ApplicationAdapter {
 //     
 
         // zombie zombie collision 
-        for (int i = 0; i < 2; i++) {
-            for (int x = 0; x < 2; x++) {
+        for (int i = 0; i < enemies.length; i++) {
+            for (int x = 0; x < enemies.length; x++) {
                 if (enemies[i].collidesWith(enemies[x]) && enemies[i] != enemies[x]) {
                     // if they hit top 
                     if (enemies[i].getSpeed() < 2.00 && enemies[x].getSpeed() < 2.00) {
@@ -162,7 +169,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
         }
         // for loop running through array of walls 
-        for (int i = 0; i < 22; i++) {
+        for (int i = 0; i < 20; i++) {
             // if player touches a wall 
             if (player.collidesWith(walls[i])) {
                 // if player hits top of wall
@@ -181,13 +188,17 @@ public class MyGdxGame extends ApplicationAdapter {
                 if (player.getX() <= walls[i].getX() + walls[i].getwidth() && player.getX() >= walls[i].getX()) {
                     player.setXR();
                 }
+                if(player.getY() <= walls[i].getY() + walls[i].getheight() && player.getY() > walls[i].getY() && player.getX() <= walls[i].getX() + walls[i].getwidth() && player.getX() >= walls[i].getX()){
+                    player.setXR();
+                    player.setYT();
+                }
             }
         }
         // zombie collision   
         // for loop runs through wall array    
-        for (int g = 0; g < 22; g++) {
+        for (int g = 0; g < 20; g++) {
             // nested for loop runs through enemiy array 
-            for (int m = 0; m < 2; m++) {
+            for (int m = 0; m < enemies.length; m++) {
                 // if an enemy hits a wall 
                 if (enemies[m].collidesWith(walls[g])) {
                     System.out.println(walls[g].getBounds().contains(player.getRect()));
@@ -222,7 +233,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
         //drawing the array of walls 
         shapeBatch.setColor(Color.GRAY);
-        for (int z = 0; z < 22; z++) {
+        for (int z = 0; z < 20; z++) {
             walls[z].draw(shapeBatch);
         }
 
@@ -273,9 +284,11 @@ public class MyGdxGame extends ApplicationAdapter {
         // sprite drawings
         batch.setProjectionMatrix(cam.combined);
         batch.begin();
-
-        enemies[0].draw(batch, player);
-        enemies[1].draw(batch, player);
+        
+        for (int i = 0; i < enemies.length; i++) {
+            enemies[i].draw(batch,player);   
+        }
+ 
         player.draw(batch, cursorPosition.x, cursorPosition.y);
 
         pistol.draw(batch, player, cursorPosition.x, cursorPosition.y);
