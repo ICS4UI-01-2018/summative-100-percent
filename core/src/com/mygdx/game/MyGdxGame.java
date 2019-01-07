@@ -248,18 +248,26 @@ public class MyGdxGame extends ApplicationAdapter {
             bullet.move(player, cursorXPositions.get(pistol.getList().indexOf(bullet)), cursorYPositions.get(pistol.getList().indexOf(bullet)));
             bullet.setAlive();
             
-            bullet.drawBullet(shapeBatch);
+            if(bullet.getCollided() == false) {
+                bullet.drawBullet(shapeBatch);
+            }
             
-//            // bullet collision with walls
-//            for (int i = 0; i < 22; i++) {
-//                // if a bullet collides with a wall
-//                if(walls[i].getBounds().contains(bullet.getShape())) {
-//                    // remove it from the bullet list
-//                    pistol.getList().remove(bullet);
-//                    break;
-//                }
-//                
-//            }
+            // bullet collision with walls
+            for (int i = 0; i < 22; i++) {
+                // if a bullet collides with a wall
+                if(walls[i].getBounds().contains(bullet.getShape())) {
+                    bullet.setCollided();
+                    
+                }
+                
+            }
+            
+            // bullet collision with zombies
+            for (int i = 0; i < 2; i++) {
+                if(enemies[i].getBounds().contains(bullet.getShape())) {
+                    bullet.setCollided();
+                }
+            }
             
         }
 
