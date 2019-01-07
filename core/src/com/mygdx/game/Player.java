@@ -76,10 +76,6 @@ public class Player extends Entity {
         return this.armor;
     }
 
-    public void shoot(Weapon weapon) {
-
-    }
-
     public void reload() {
 
     }
@@ -94,10 +90,6 @@ public class Player extends Entity {
 
     public void dead() {
 
-    }
-
-    public void setX() {
-        //  player.
     }
 
     @Override
