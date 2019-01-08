@@ -50,11 +50,15 @@ public abstract class Entity {
     public int getHP() {
         return this.HP;
     }
-    public void setHP(int x){
-        HP = this.HP-x;
+   
+    public void calculateHP(int damage) {
+        this.HP = this.HP - damage;
     }
 
-
+    public void setHPZero() {
+        this.HP = 0;
+    }
+    
     /**
      * 
      * @return the float representing the speed. 

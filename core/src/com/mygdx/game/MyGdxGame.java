@@ -22,7 +22,9 @@ public class MyGdxGame extends ApplicationAdapter {
     private FitViewport viewport;
     private Wall wall;
     private Wall[] walls = new Wall[25];
-    private Enemies[] enemies = new Enemies[2];
+    
+    private ArrayList<Enemies> enemies;
+//    private Enemies[] enemies = new Enemies[2];
     private Texture img;
 
     private M1911 pistol;
@@ -42,8 +44,13 @@ public class MyGdxGame extends ApplicationAdapter {
     @Override
     public void create() {
         player = new Player(100, (float) 5, 400, 300, 100, 100, 0, 1);
-        enemies[0] = new Enemies(100, (float) 2, (float) 300, (float) 200, 30, 30, 0, 0);
-        enemies[1] = new Enemies(100, (float) 2, (float) 500, (float) 450, 30, 30, 0, 0);
+        
+        enemies = new ArrayList<Enemies>();
+        enemies.add(new Enemies(100, (float) 2, (float) 300, (float) 200, 30, 30, 0, 0, 5));
+        enemies.add(new Enemies(100, (float) 2, (float) 500, (float) 450, 30, 30, 0, 0, 5));
+        
+//        enemies[0] = new Enemies(100, (float) 2, (float) 300, (float) 200, 30, 30, 0, 0);
+//        enemies[1] = new Enemies(100, (float) 2, (float) 500, (float) 450, 30, 30, 0, 0);
 
         // centre gun on player
         pistol = new M1911(1, player.getX() + (25), player.getY() + (37), 50, 75, 12, (float) 2.5, 36);
@@ -100,67 +107,93 @@ public class MyGdxGame extends ApplicationAdapter {
         cursorPosition.z = 0;
         cam.unproject(cursorPosition);
 
+        // player movement using WASD
         if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.D)) {
             player.move();
-//            firstGun.moveX(player);
-//            firstGun.moveY(player);
         }
 
         shapeBatch.setProjectionMatrix(cam.combined);
-        // start drawing mode
-        // draw shapes
+        // start shapeBatch drawing mode
         // filled shapes
-
         shapeBatch.begin(ShapeRenderer.ShapeType.Filled);
 
-        enemies[0].move(player);
-        enemies[1].move(player);
+        // move zombies if they aren't dead
+        for (Enemies enemy : enemies) {
+            if(enemy.getIsDead() == false) {
+                enemy.move(player);
+            }
+        }
 
         pistol.move(player);
 
         // zombies set to slowdown  when hit player 
         // currently set to only slow down to a certain speed (also speed can't go negative or it will glitch) 
-        for (int i = 0; i < 2; i++) {
-            if (player.collidesWithZ(enemies[i])) {
-                
-                //  System.out.println(player.getHP());
-
-                if (enemies[i].getSpeed() - 0.15 > 0.7) {
-                    enemies[i].setSpeed((float) -0.15);
+        for (Enemies enemy : enemies) {
+            if (player.collidesWithZ(enemy)) {
+                if (enemy.getSpeed() - 0.15 > 0.7) {
+                    enemy.setSpeed((float) -0.15);
                 }
             }
         }
-//     
 
         // zombie zombie collision 
-        for (int i = 0; i < 2; i++) {
-            for (int x = 0; x < 2; x++) {
-                if (enemies[i].collidesWith(enemies[x]) && enemies[i] != enemies[x]) {
+//        for (int i = 0; i < 2; i++) {
+//            for (int x = 0; x < 2; x++) {
+//                if (enemies[i].collidesWith(enemies[x]) && enemies[i] != enemies[x]) {
+//                    // if they hit top 
+//                    if (enemies[i].getSpeed() < 2.00 && enemies[x].getSpeed() < 2.00) {
+//                        // System.out.println(enemies[i].getSpeed() + " " + enemies[x].getSpeed());
+//                        enemies[i].setSpeed((float) +0.15);
+//                        enemies[x].setSpeed((float) +0.15);
+//                    }
+//                    if (enemies[i].getY() <= enemies[x].getY() + enemies[x].getHeight() && enemies[i].getY() > enemies[x].getY()) {
+//                        enemies[i].setYT();
+//                    }
+//                    // hits bottom 
+//                    if (enemies[i].getY() + enemies[i].getHeight() >= enemies[x].getY() && enemies[i].getY() + enemies[i].getHeight() <= enemies[x].getY() + enemies[x].getHeight()) {
+//                        enemies[i].setYB();
+//                    }
+//                    // hits left 
+//                    if (enemies[i].getX() + enemies[i].getWidth() >= enemies[x].getX() && enemies[i].getX() + enemies[i].getWidth() <= enemies[x].getX() + enemies[x].getWidth()) {
+//                        enemies[i].setXL();
+//                    }
+//                    // if  hits right of wall 
+//                    if (enemies[i].getX() <= enemies[x].getX() + enemies[x].getWidth() && enemies[i].getX() >= enemies[x].getX()) {
+//                        enemies[i].setXR();
+//                    }
+//                }
+//            }
+//        }
+        
+        for (Enemies enemy : enemies) {
+            for (Enemies enemy2 : enemies) {
+                if (enemy.collidesWith(enemy2) && enemy != enemy2) {
                     // if they hit top 
-                    if (enemies[i].getSpeed() < 2.00 && enemies[x].getSpeed() < 2.00) {
+                    if (enemy.getSpeed() < 2.00 && enemy2.getSpeed() < 2.00) {
                         // System.out.println(enemies[i].getSpeed() + " " + enemies[x].getSpeed());
-                        enemies[i].setSpeed((float) +0.15);
-                        enemies[x].setSpeed((float) +0.15);
+                        enemy.setSpeed((float) +0.15);
+                        enemy2.setSpeed((float) +0.15);
                     }
-                    if (enemies[i].getY() <= enemies[x].getY() + enemies[x].getHeight() && enemies[i].getY() > enemies[x].getY()) {
-                        enemies[i].setYT();
+                    if (enemy.getY() <= enemy2.getY() + enemy2.getHeight() && enemy.getY() > enemy2.getY()) {
+                        enemy.setYT();
                     }
                     // hits bottom 
-                    if (enemies[i].getY() + enemies[i].getHeight() >= enemies[x].getY() && enemies[i].getY() + enemies[i].getHeight() <= enemies[x].getY() + enemies[x].getHeight()) {
-                        enemies[i].setYB();
+                    if (enemy.getY() + enemy.getHeight() >= enemy2.getY() && enemy.getY() + enemy.getHeight() <= enemy2.getY() + enemy2.getHeight()) {
+                        enemy.setYB();
                     }
                     // hits left 
-                    if (enemies[i].getX() + enemies[i].getWidth() >= enemies[x].getX() && enemies[i].getX() + enemies[i].getWidth() <= enemies[x].getX() + enemies[x].getWidth()) {
-                        enemies[i].setXL();
+                    if (enemy.getX() + enemy.getWidth() >= enemy2.getX() && enemy.getX() + enemy.getWidth() <= enemy2.getX() + enemy2.getWidth()) {
+                        enemy.setXL();
                     }
                     // if  hits right of wall 
-                    if (enemies[i].getX() <= enemies[x].getX() + enemies[x].getWidth() && enemies[i].getX() >= enemies[x].getX()) {
-                        enemies[i].setXR();
+                    if (enemy.getX() <= enemy2.getX() + enemy2.getWidth() && enemy.getX() >= enemy2.getX()) {
+                        enemy.setXR();
                     }
                 }
             }
-
+            
         }
+
         // for loop running through array of walls 
         for (int i = 0; i < 22; i++) {
             // if player touches a wall 
@@ -186,30 +219,33 @@ public class MyGdxGame extends ApplicationAdapter {
         // zombie collision   
         // for loop runs through wall array    
         for (int g = 0; g < 22; g++) {
+
             // nested for loop runs through enemiy array 
-            for (int m = 0; m < 2; m++) {
+            for (Enemies enemy : enemies) {
                 // if an enemy hits a wall 
-                if (enemies[m].collidesWith(walls[g])) {
+                if (enemy.collidesWith(walls[g])) {
                     System.out.println(walls[g].getBounds().contains(player.getRect()));
                     // if enemy hits top of wall
-                    if (enemies[m].getY() <= walls[g].getY() + walls[g].getheight() && enemies[m].getY() > walls[g].getY()) {
-                        enemies[m].setYT();
+                    if (enemy.getY() <= walls[g].getY() + walls[g].getheight() && enemy.getY() > walls[g].getY()) {
+                        enemy.setYT();
                     }
                     // if enemy hits bottom of a wall 
-                    if (enemies[m].getY() + enemies[m].getHeight() >= walls[g].getY() && enemies[m].getY() + enemies[m].getHeight() <= walls[g].getY() + walls[g].getheight()) {
-                        enemies[m].setYB();
+                    if (enemy.getY() + enemy.getHeight() >= walls[g].getY() && enemy.getY() + enemy.getHeight() <= walls[g].getY() + walls[g].getheight()) {
+                        enemy.setYB();
                     }
                     //if enemy hits left side of a wall 
-                    if (enemies[m].getX() + enemies[m].getWidth() >= walls[g].getX() && enemies[m].getX() + enemies[m].getWidth() <= walls[g].getX() + walls[g].getwidth()) {
-                        enemies[m].setXL();
+                    if (enemy.getX() + enemy.getWidth() >= walls[g].getX() && enemy.getX() + enemy.getWidth() <= walls[g].getX() + walls[g].getwidth()) {
+                        enemy.setXL();
                     }
                     // if enemy hits right side of a wall 
-                    if (enemies[m].getX() <= walls[g].getX() + walls[g].getwidth() && enemies[m].getX() >= walls[g].getX()) {
-                        enemies[m].setXR();
+                    if (enemy.getX() <= walls[g].getX() + walls[g].getwidth() && enemy.getX() >= walls[g].getX()) {
+                        enemy.setXR();
                     }
                 }
+                
             }
-
+            
+            
         }
         // set camera position on player
         cam.position.x = player.getX();
@@ -240,7 +276,6 @@ public class MyGdxGame extends ApplicationAdapter {
             // store cursor coordinates into corresponding lists
             cursorXPositions.add(cursorPosition.x);
             cursorYPositions.add(cursorPosition.y);
-            
         }
 
         // update bullets
@@ -262,9 +297,17 @@ public class MyGdxGame extends ApplicationAdapter {
             }
             
             // bullet collision with zombies
-            for (int i = 0; i < 2; i++) {
-                if(enemies[i].getBounds().contains(bullet.getShape())) {
+            for (Enemies enemy : enemies) {
+                if(enemy.getBounds().contains(bullet.getShape())) {
+                    // damage enemy first
+                    enemy.calculateHP(bullet.getDamage());
+                    // set bullet to collided state
                     bullet.setCollided();
+                    
+                    // if zombie HP is less than or equal to 0
+                    if(enemy.getHP() <= 0) {
+                        enemy.setDead();
+                    }
                 }
             }
         }
@@ -280,16 +323,20 @@ public class MyGdxGame extends ApplicationAdapter {
         batch.setProjectionMatrix(cam.combined);
         batch.begin();
 
-        enemies[0].draw(batch, player);
-        enemies[1].draw(batch, player);
+        // draw zombies
+        for (Enemies enemy : enemies) {
+            // if they are alive
+            
+                enemy.draw(batch, player);
+                enemy.drawHP(batch);
+            
+        }
+        
+        // draw player
         player.draw(batch, cursorPosition.x, cursorPosition.y);
-
         player.drawHP(batch);
-        
-        enemies[0].drawHP(batch);
-        enemies[1].drawHP(batch);
 
-        
+        // draw pistol
         pistol.draw(batch, player, cursorPosition.x, cursorPosition.y);
 
         batch.end();
