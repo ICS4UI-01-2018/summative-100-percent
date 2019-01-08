@@ -47,6 +47,10 @@ public class Enemies extends Entity {
 
         return super.getRect().overlaps(p.getBounds());
     }
+    
+    public Boolean collidesWith(Room p){
+        return super.getRect().overlaps(p.getBounds());
+    }
 
 //    public void setDirectionToPlayer(Player player) {
 //        // if Enemy is left of Player
@@ -81,6 +85,26 @@ public class Enemies extends Entity {
             // move up
             super.setYUp();
         } else if (super.getY() + (super.getHeight() / 2) > player.getY() + (player.getHeight() / 2)) {
+            // else if Enemy is above player, move down
+            super.setYDown();
+        }
+    }
+    
+    public void MoveCoord(int x, int y) {
+        // if Enemies is left of player
+        if (super.getX() + (super.getWidth() / 2) < x){
+            // move right
+            super.setXRight();
+        } else if (super.getX() + (super.getWidth() / 2) > x) {
+            // else if Enemy is right of player, move left
+            super.setXLeft();
+        }
+
+        // if Enemies is below player
+        if (super.getY() + (super.getHeight() / 2) < y) {
+            // move up
+            super.setYUp();
+        } else if (super.getY() + (super.getHeight() / 2) > y) {
             // else if Enemy is above player, move down
             super.setYDown();
         }

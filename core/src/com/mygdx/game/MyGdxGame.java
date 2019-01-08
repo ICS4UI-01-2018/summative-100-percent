@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import java.util.ArrayList;
@@ -31,17 +32,25 @@ public class MyGdxGame extends ApplicationAdapter {
     private Player player;
     private Enemies enemy1;
     private Enemies enemy2;
-
+    
+    private Room leftMain;
+    private Room rightMain;
+    private Room topMain;
+    
     private Vector3 cursorPosition = new Vector3();
 
     // mouse clicks that correspond to each bullet
     private ArrayList<Float> cursorXPositions;
     private ArrayList<Float> cursorYPositions;
-    
+   
     // add in walls here and be able to call them in a for loop
     @Override
     public void create() {
         player = new Player(100, (float) 5, 600, 500, 100, 100, 0, 1);
+        leftMain = new Room(100,20,1880,1500);
+        rightMain = new Room(1980,20,1880,1500);
+        topMain = new Room(750,1480,2460,700);
+        
         
         enemies[0] = new Enemies(100, (float) 2, (float) Math.random()*(600 - 300)+300, (float)Math.random() *(500 - 200)+200, 30, 30, 0, 0);
         enemies[1] = new Enemies(100, (float) 2, (float) Math.random()*(600 - 300)+300, (float) Math.random() *(500 - 200)+200, 30, 30, 0, 0);
@@ -118,8 +127,17 @@ public class MyGdxGame extends ApplicationAdapter {
         shapeBatch.begin(ShapeRenderer.ShapeType.Filled);
 
         for (int i = 0; i < enemies.length; i++) {
+            if((enemies[i].collidesWith(leftMain) && player.collidesWith(leftMain)) || (enemies[i].collidesWith(rightMain)&& player.collidesWith(rightMain)) || enemies[i].collidesWith(topMain) && player.collidesWith(topMain)){
              enemies[i].move(player);
-            
+            }else if(enemies[i].collidesWith(leftMain)&&player.collidesWith(rightMain)){
+                enemies[i].MoveCoord(2000,720);
+            }else if(enemies[i].collidesWith(rightMain)&&player.collidesWith(leftMain)){
+                enemies[i].MoveCoord(1960,720);
+            }else if(enemies[i].collidesWith(leftMain)&&player.collidesWith(topMain)){
+                enemies[i].MoveCoord(950, 1500);
+            }else if(enemies[i].collidesWith(rightMain)&&player.collidesWith(topMain)){
+                enemies[i].MoveCoord(2980, 1485);
+            }
         }
       
 
@@ -239,6 +257,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
         shapeBatch.setColor(Color.YELLOW);
 
+      
         // test draw of gun
         // pistol.draw(shapeBatch, player);
         // player.draw(shapeBatch);
