@@ -36,6 +36,7 @@ public class Enemies extends Entity {
         this.yDirection = 0;
         this.damage = damage;
         this.pic = new Texture("zombie.jpg");
+        this.pic2 = new Texture("badlogic.jpg");
     }
 
     public Rectangle getBounds() {
@@ -153,7 +154,7 @@ public class Enemies extends Entity {
      * @param batch the SpriteBatch being used to draw
      */
     public void deadDraw(SpriteBatch batch) {
-        
+        batch.draw(pic2, super.getX(), super.getY(), super.getWidth(), super.getHeight());
     }
     
     public void attack() {

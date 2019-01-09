@@ -6,6 +6,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import java.util.ArrayList;
@@ -29,8 +30,8 @@ public abstract class Weapon {
     private boolean isClipEmpty;
     private boolean canShoot;
     
-    
-//    private ArrayList<Bullet> bullets;
+    private BitmapFont text;
+
     
     public Weapon(float rateOfFire, float x, float y, int width, int height, int clipSize, float reloadTime, int totalAmmo) {
         this.rateOfFire = rateOfFire;
@@ -64,11 +65,6 @@ public abstract class Weapon {
         this.y = player.getY() + player.getHeight();
     }
     
-
-//    public ArrayList<Bullet> getList() {
-//        return this.bullets;
-//    }
-    
 //    //Shoot
 //    public void shoot(Bullet bullet) {
 //        if (this.isClipEmpty == false || this.canShoot == true) {
@@ -85,19 +81,23 @@ public abstract class Weapon {
 //        //Allow the gun to shoot
 //        //this.canShoot = true;
 //    }
-
-
-//    public void moveBullets(Player player, float cursorX, float cursorY) {
-//        for (Bullet bullet: this.bullets) {
-//            if(bullet.getIsAlive() == false) {
-//                bullet.move(player, cursorX, cursorY);
-//                bullet.setAlive();
-//            }
-//        }
-//    }
-
-//    public abstract void addBullet();
+    
+    // draw ammo top-left of screen
+    public void drawAmmo(SpriteBatch batch) {
         
+    }
+    
+    public void calculateAmmo() {
+        // calculate bullets needed for full clip
+        int bulletsMissing = this.clipSize - this.bulletsInClip;
+        // check if there is still enough ammo
+        if (this.totalAmmo - bulletsMissing >= 0) {
+            this.bulletsInClip = this.bulletsInClip + bulletsMissing;
+            this.totalAmmo = this.totalAmmo - bulletsMissing;
+        } else {
+            System.out.println("NOT ENOUGH AMMO!");
+        }
+    }
     
     //Reload
     public void reload() {
