@@ -269,13 +269,7 @@ public class MyGdxGame extends ApplicationAdapter {
             walls[z].draw(shapeBatch);
         }
 
-        shapeBatch.setColor(Color.YELLOW);
-
-         leftMain.draw(shapeBatch);
-         shapeBatch.setColor(Color.BLUE);
-
-         rightMain.draw(shapeBatch);
-        // test draw of gun
+    
         // pistol.draw(shapeBatch, player);
         
         // player.draw(shapeBatch);
@@ -301,7 +295,7 @@ public class MyGdxGame extends ApplicationAdapter {
             }
             
             // bullet collision with walls
-            for (int i = 0; i < 22; i++) {
+            for (int i = 0; i < 21; i++) {
                 // if a bullet collides with a wall
                 if(walls[i].getBounds().contains(bullet.getShape())) {
                     bullet.setCollided();   
