@@ -87,6 +87,16 @@ public abstract class Weapon {
         
     }
     
+    public void calculateInitialAmmo() {
+        if (this.totalAmmo - this.clipSize >= 0) {
+            this.bulletsInClip = this.clipSize;
+            this.totalAmmo = this.totalAmmo - this.clipSize;
+        } else {
+            this.bulletsInClip = this.bulletsInClip + this.totalAmmo;
+            this.totalAmmo = 0;
+        }
+    }
+    
     public void calculateAmmo() {
         // calculate bullets needed for full clip
         int bulletsMissing = this.clipSize - this.bulletsInClip;
