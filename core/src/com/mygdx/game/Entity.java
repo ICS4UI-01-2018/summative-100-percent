@@ -5,6 +5,8 @@
  */
 package com.mygdx.game;
 
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 
@@ -22,6 +24,8 @@ public abstract class Entity {
     private int height;
     private Rectangle entity;
 
+    private BitmapFont text;
+    
     public Entity(int HP, float speed, float x, float y, int width, int height) {
         this.HP = HP;
         this.speed = speed;
@@ -31,6 +35,8 @@ public abstract class Entity {
         this.height = height;
         entity = new Rectangle(x, y, width, height);
         this.speed = speed;
+        
+        this.text = new BitmapFont();
     }
 
     public void setSpeed(float x){
@@ -105,6 +111,10 @@ public abstract class Entity {
      * @param shapeBatch 
      */
     public abstract void draw(ShapeRenderer shapeBatch);
+    
+    public void drawHP(SpriteBatch batch) {
+        text.draw(batch, String.valueOf(this.HP), (this.x) + ((this.width)/2), this.y + this.height + 10);
+    }
     
     public void setXLeft() {
         // move left

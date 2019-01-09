@@ -80,10 +80,6 @@ public class Player extends Entity {
         return this.armor;
     }
 
-    public void shoot(Weapon weapon) {
-
-    }
-
     public void reload() {
 
     }
@@ -98,10 +94,6 @@ public class Player extends Entity {
 
     public void dead() {
 
-    }
-
-    public void setX() {
-        //  player.
     }
 
     @Override
@@ -151,27 +143,22 @@ public class Player extends Entity {
     public void move() {
         // move left if A is pressed
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-
             super.setXLeft();
-
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
             // else move right if D is pressed
             super.setXRight();
-
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
             // else move up if W is press
             super.setYUp();
-
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.S)) {
             // else move down if S is pressed
             super.setYDown();
-
         }
     }
 }

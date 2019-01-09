@@ -160,7 +160,7 @@ public class MyGdxGame extends ApplicationAdapter {
         // currently set to only slow down to a certain speed (also speed can't go negative or it will glitch) 
         for (int i = 0; i < enemies.length; i++) {
             if (player.collidesWithZ(enemies[i])) {
-                player.setHP(5);
+                
                 //  System.out.println(player.getHP());
 
                 if (enemies[i].getSpeed() - 0.15 > 0.7) {
@@ -277,6 +277,7 @@ public class MyGdxGame extends ApplicationAdapter {
          rightMain.draw(shapeBatch);
         // test draw of gun
         // pistol.draw(shapeBatch, player);
+        
         // player.draw(shapeBatch);
         // enemies[1].draw(shapeBatch);
         
@@ -291,23 +292,28 @@ public class MyGdxGame extends ApplicationAdapter {
 
         // update bullets
         for (M1911Bullet bullet : pistol.getList()) {
-            
             bullet.move(player, cursorXPositions.get(pistol.getList().indexOf(bullet)), cursorYPositions.get(pistol.getList().indexOf(bullet)));
+            // bullet is shot
             bullet.setAlive();
+            // draw bullet if it hasn't collided with a wall or zombie
+            if(bullet.getCollided() == false) {
+                bullet.drawBullet(shapeBatch);
+            }
             
-            bullet.drawBullet(shapeBatch);
+            // bullet collision with walls
+            for (int i = 0; i < 22; i++) {
+                // if a bullet collides with a wall
+                if(walls[i].getBounds().contains(bullet.getShape())) {
+                    bullet.setCollided();   
+                }
+            }
             
-//            // bullet collision with walls
-//            for (int i = 0; i < 22; i++) {
-//                // if a bullet collides with a wall
-//                if(walls[i].getBounds().contains(bullet.getShape())) {
-//                    // remove it from the bullet list
-//                    pistol.getList().remove(bullet);
-//                    break;
-//                }
-//                
-//            }
-            
+            // bullet collision with zombies
+            for (int i = 0; i < 2; i++) {
+                if(enemies[i].getBounds().contains(bullet.getShape())) {
+                    bullet.setCollided();
+                }
+            }
         }
 
         
@@ -327,6 +333,12 @@ public class MyGdxGame extends ApplicationAdapter {
  
         player.draw(batch, cursorPosition.x, cursorPosition.y);
 
+        player.drawHP(batch);
+        
+        enemies[0].drawHP(batch);
+        enemies[1].drawHP(batch);
+
+        
         pistol.draw(batch, player, cursorPosition.x, cursorPosition.y);
 
         batch.end();

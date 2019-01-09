@@ -27,6 +27,8 @@ public abstract class Bullet {
     
     private Rectangle bullet;
 
+    private boolean collided;
+    
     public Bullet(float speed, float x, float y, int damage, float radius) {
         //Set variables
         this.speed = speed;
@@ -41,6 +43,8 @@ public abstract class Bullet {
         
         // create rectangle to deal with collision later
         bullet = new Rectangle(x, y, radius, radius);
+        
+        this.collided = false;
     }
 
     // pass in Player and cursor coordinates
@@ -108,4 +112,14 @@ public abstract class Bullet {
         return bullet;
     }
 
+    public boolean getCollided() {
+        return this.collided;
+    }
+    
+    public void setCollided() {
+        this.collided = true;
+        // set damage to 0 so that you cannot damage through walls
+        this.damage = 0;
+    }
+    
 }

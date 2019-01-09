@@ -39,12 +39,10 @@ public class Enemies extends Entity {
     }
 
     public boolean collidesWith(Wall p) {
-
         return super.getRect().overlaps(p.getBounds());
     }
 
     public boolean collidesWith(Enemies p) {
-
         return super.getRect().overlaps(p.getBounds());
     }
     
