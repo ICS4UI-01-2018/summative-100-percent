@@ -52,11 +52,11 @@ public class MyGdxGame extends ApplicationAdapter {
         topMain = new Room(750,1550,2460,700);
         
         
-        enemies[0] = new Enemies(100, (float) 3, (float) Math.random()*(600 - 300)+300, (float)Math.random() *(500 - 200)+200, 30, 30, 0, 0);
-        enemies[1] = new Enemies(100, (float) 3, (float) Math.random()*(600 - 300)+300, (float) Math.random() *(500 - 200)+200, 30, 30, 0, 0);
-         enemies[2] = new Enemies(100, (float) 3, (float) Math.random()*(600 - 300)+300, (float) Math.random() *(500 - 200)+200, 30, 30, 0, 0);
-          enemies[3] = new Enemies(100, (float) 3, (float) Math.random()*(600 - 300)+300, (float) Math.random() *(500 - 200)+200, 30, 30, 0, 0);
- enemies[4] = new Enemies(100, (float) 3, (float) Math.random()*(600 - 300)+300, (float) Math.random() *(500 - 200)+200, 30, 30, 0, 0);// x are 300-600 and y are 200-500
+        enemies[0] = new Enemies(100, (float) 3, (float) Math.random()*(600 - 300)+300, (float)Math.random() *(500 - 200)+200, 30, 30, 0, 0,2);
+        enemies[1] = new Enemies(100, (float) 3, (float) Math.random()*(600 - 300)+300, (float) Math.random() *(500 - 200)+200, 30, 30, 0, 0,2);
+         enemies[2] = new Enemies(100, (float) 3, (float) Math.random()*(600 - 300)+300, (float) Math.random() *(500 - 200)+200, 30, 30, 0, 0,2);
+          enemies[3] = new Enemies(100, (float) 3, (float) Math.random()*(600 - 300)+300, (float) Math.random() *(500 - 200)+200, 30, 30, 0, 0,2);
+            enemies[4] = new Enemies(100, (float) 3, (float) Math.random()*(600 - 300)+300, (float) Math.random() *(500 - 200)+200, 30, 30, 0, 0,2);// x are 300-600 and y are 200-500
         // centre gun on player
         System.out.println(enemies.length);
         pistol = new M1911(1, player.getX() + (25), player.getY() + (37), 50, 75, 12, (float) 2.5, 36);

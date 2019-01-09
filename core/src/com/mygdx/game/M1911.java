@@ -39,6 +39,9 @@ public class M1911 extends Weapon {
         
     }
 
+    // draw ammo count top left
+    
+    
     public ArrayList<M1911Bullet> getList() {
         return this.bullets;
     }

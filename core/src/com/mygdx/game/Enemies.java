@@ -20,18 +20,23 @@ public class Enemies extends Entity {
     private int xDirection;
     private int yDirection;
 
-    // image file
+    private int damage;
+    
+    // alive image
     private Texture pic;
 
+    // dead image
+    private Texture pic2;
+    
     // might not night xDirection and yDirection
-    public Enemies(int HP, float speed, float x, float y, int width, int height, int xDirection, int yDirection) {
+    public Enemies(int HP, float speed, float x, float y, int width, int height, int xDirection, int yDirection, int damage) {
         super(HP, speed, x, y, width, height);
         this.isDead = false;
         this.xDirection = 0;
         this.yDirection = 0;
-        this.pic = new Texture("badlogic.jpg");
-        // this.canMove = true;
-
+        this.damage = damage;
+        this.pic = new Texture("zombie.jpg");
+        this.pic2 = new Texture("badlogic.jpg");
     }
 
     public Rectangle getBounds() {
@@ -117,7 +122,7 @@ public class Enemies extends Entity {
     /**
      * Follows the centre of the player.
      *
-     * @param batch
+     * @param batch the SpriteBatch being used to draw
      * @param player the Player being chased
      */
     public void draw(SpriteBatch batch, Player player) {
@@ -168,10 +173,29 @@ public class Enemies extends Entity {
 
     }
 
+    /**
+     * 
+     * @param batch the SpriteBatch being used to draw
+     */
+    public void deadDraw(SpriteBatch batch) {
+        batch.draw(pic2, super.getX(), super.getY(), super.getWidth(), super.getHeight());
+    }
+    
     public void attack() {
 
     }
 
+    /**
+     * Sets the zombie into a dead state.
+     */
+    public void setDead() {
+        super.setHPZero();
+        // set damage to 0 so that player doesn't damage from a dead zombie
+        this.damage = 0;
+        this.isDead = true;
+    }
+    
+    
     /**
      *
      * @return
