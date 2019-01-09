@@ -47,16 +47,16 @@ public class MyGdxGame extends ApplicationAdapter {
     @Override
     public void create() {
         player = new Player(100, (float) 5, 600, 500, 100, 100, 0, 1);
-        leftMain = new Room(100,20,1880,1500);
-        rightMain = new Room(1980,20,1880,1500);
-        topMain = new Room(750,1480,2460,700);
+        leftMain = new Room(100,20,1850,1500);
+        rightMain = new Room(1950,20,1880,1500);
+        topMain = new Room(750,1550,2460,700);
         
         
-        enemies[0] = new Enemies(100, (float) 2, (float) Math.random()*(600 - 300)+300, (float)Math.random() *(500 - 200)+200, 30, 30, 0, 0);
-        enemies[1] = new Enemies(100, (float) 2, (float) Math.random()*(600 - 300)+300, (float) Math.random() *(500 - 200)+200, 30, 30, 0, 0);
-         enemies[2] = new Enemies(100, (float) 2, (float) Math.random()*(600 - 300)+300, (float) Math.random() *(500 - 200)+200, 30, 30, 0, 0);
-          enemies[3] = new Enemies(100, (float) 2, (float) Math.random()*(600 - 300)+300, (float) Math.random() *(500 - 200)+200, 30, 30, 0, 0);
- enemies[4] = new Enemies(100, (float) 2, (float) Math.random()*(600 - 300)+300, (float) Math.random() *(500 - 200)+200, 30, 30, 0, 0);// x are 300-600 and y are 200-500
+        enemies[0] = new Enemies(100, (float) 3, (float) Math.random()*(600 - 300)+300, (float)Math.random() *(500 - 200)+200, 30, 30, 0, 0);
+        enemies[1] = new Enemies(100, (float) 3, (float) Math.random()*(600 - 300)+300, (float) Math.random() *(500 - 200)+200, 30, 30, 0, 0);
+         enemies[2] = new Enemies(100, (float) 3, (float) Math.random()*(600 - 300)+300, (float) Math.random() *(500 - 200)+200, 30, 30, 0, 0);
+          enemies[3] = new Enemies(100, (float) 3, (float) Math.random()*(600 - 300)+300, (float) Math.random() *(500 - 200)+200, 30, 30, 0, 0);
+ enemies[4] = new Enemies(100, (float) 3, (float) Math.random()*(600 - 300)+300, (float) Math.random() *(500 - 200)+200, 30, 30, 0, 0);// x are 300-600 and y are 200-500
         // centre gun on player
         System.out.println(enemies.length);
         pistol = new M1911(1, player.getX() + (25), player.getY() + (37), 50, 75, 12, (float) 2.5, 36);
@@ -95,6 +95,7 @@ public class MyGdxGame extends ApplicationAdapter {
         walls[17] = new Wall(3130, 1500, 80, 700);// right large
         walls[18] = new Wall(1150, 1800, 1560, 80);
         walls[19] = new Wall(750, 2200, 2460, 80);
+        walls[20] = new Wall(20,20,80,1000);
 
         // x y width 
         cam.position.x = player.getX();
@@ -126,17 +127,29 @@ public class MyGdxGame extends ApplicationAdapter {
 
         shapeBatch.begin(ShapeRenderer.ShapeType.Filled);
 
+        // enemy smart tracking 
         for (int i = 0; i < enemies.length; i++) {
             if((enemies[i].collidesWith(leftMain) && player.collidesWith(leftMain)) || (enemies[i].collidesWith(rightMain)&& player.collidesWith(rightMain)) || enemies[i].collidesWith(topMain) && player.collidesWith(topMain)){
              enemies[i].move(player);
+             // in same room 
             }else if(enemies[i].collidesWith(leftMain)&&player.collidesWith(rightMain)){
                 enemies[i].MoveCoord(2000,720);
+                // left to right 
             }else if(enemies[i].collidesWith(rightMain)&&player.collidesWith(leftMain)){
-                enemies[i].MoveCoord(1960,720);
+                enemies[i].MoveCoord(1960,850);
+                // right to left 
             }else if(enemies[i].collidesWith(leftMain)&&player.collidesWith(topMain)){
-                enemies[i].MoveCoord(950, 1500);
+                enemies[i].MoveCoord(950, 1560);
+               // left to top 
             }else if(enemies[i].collidesWith(rightMain)&&player.collidesWith(topMain)){
-                enemies[i].MoveCoord(2980, 1485);
+                enemies[i].MoveCoord(3000, 1560);
+                // right to top
+            }else if(enemies[i].collidesWith(topMain)&&player.collidesWith(leftMain)){
+                enemies[i].MoveCoord(950, 1520);
+                // top to left 
+            }else if(enemies[i].collidesWith(topMain)&&player.collidesWith(rightMain)){
+                enemies[i].MoveCoord(3000, 1520);
+                // top to right
             }
         }
       
@@ -187,7 +200,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
         }
         // for loop running through array of walls 
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 21; i++) {
             // if player touches a wall 
             if (player.collidesWith(walls[i])) {
                 // if player hits top of wall
@@ -206,6 +219,7 @@ public class MyGdxGame extends ApplicationAdapter {
                 if (player.getX() <= walls[i].getX() + walls[i].getwidth() && player.getX() >= walls[i].getX()) {
                     player.setXR();
                 }
+                // if player hits bottom left corners (glitching) 
                 if(player.getY() <= walls[i].getY() + walls[i].getheight() && player.getY() > walls[i].getY() && player.getX() <= walls[i].getX() + walls[i].getwidth() && player.getX() >= walls[i].getX()){
                     player.setXR();
                     player.setYT();
@@ -214,7 +228,7 @@ public class MyGdxGame extends ApplicationAdapter {
         }
         // zombie collision   
         // for loop runs through wall array    
-        for (int g = 0; g < 20; g++) {
+        for (int g = 0; g < 21; g++) {
             // nested for loop runs through enemiy array 
             for (int m = 0; m < enemies.length; m++) {
                 // if an enemy hits a wall 
@@ -251,13 +265,16 @@ public class MyGdxGame extends ApplicationAdapter {
 
         //drawing the array of walls 
         shapeBatch.setColor(Color.GRAY);
-        for (int z = 0; z < 20; z++) {
+        for (int z = 0; z < 21; z++) {
             walls[z].draw(shapeBatch);
         }
 
         shapeBatch.setColor(Color.YELLOW);
 
-      
+         leftMain.draw(shapeBatch);
+         shapeBatch.setColor(Color.BLUE);
+
+         rightMain.draw(shapeBatch);
         // test draw of gun
         // pistol.draw(shapeBatch, player);
         // player.draw(shapeBatch);
