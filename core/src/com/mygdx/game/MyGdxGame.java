@@ -128,35 +128,10 @@ public class MyGdxGame extends ApplicationAdapter {
 
         // reload using R
         if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
-            // reload gun
-
+            // check if gun can be reloaded (if bulletsInClip == clipSize), dont' reload
         }
 
-        // enemy smart tracking 
-//        for (int i = 0; i < enemies.length; i++) {
-//            if((enemies[i].collidesWith(leftMain) && player.collidesWith(leftMain)) || (enemies[i].collidesWith(rightMain)&& player.collidesWith(rightMain)) || enemies[i].collidesWith(topMain) && player.collidesWith(topMain)){
-//             enemies[i].move(player);
-//             // in same room 
-//            }else if(enemies[i].collidesWith(leftMain)&&player.collidesWith(rightMain)){
-//                enemies[i].MoveCoord(2000,720);
-//                // left to right 
-//            }else if(enemies[i].collidesWith(rightMain)&&player.collidesWith(leftMain)){
-//                enemies[i].MoveCoord(1960,850);
-//                // right to left 
-//            }else if(enemies[i].collidesWith(leftMain)&&player.collidesWith(topMain)){
-//                enemies[i].MoveCoord(950, 1560);
-//               // left to top 
-//            }else if(enemies[i].collidesWith(rightMain)&&player.collidesWith(topMain)){
-//                enemies[i].MoveCoord(3000, 1560);
-//                // right to top
-//            }else if(enemies[i].collidesWith(topMain)&&player.collidesWith(leftMain)){
-//                enemies[i].MoveCoord(950, 1520);
-//                // top to left 
-//            }else if(enemies[i].collidesWith(topMain)&&player.collidesWith(rightMain)){
-//                enemies[i].MoveCoord(3000, 1520);
-//                // top to right
-//            }
-//        }
+        // zombie AI
         for (Enemies enemy : enemies) {
             // if it's alive
             if (enemy.getIsDead() == false) {
@@ -315,7 +290,7 @@ public class MyGdxGame extends ApplicationAdapter {
         // shooting code
         if (Gdx.input.justTouched()) {
             pistol.addBullet(testBulletInfo);
-            // store cursor coordinates into corresponding lists
+            // store cursor coordinates into corresponding array lists
             cursorXPositions.add(cursorPosition.x);
             cursorYPositions.add(cursorPosition.y);
 
@@ -323,6 +298,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
         // update bullets
         for (M1911Bullet bullet : pistol.getList()) {
+            // move bullet from player position to where the cursor clicked
             bullet.move(player, cursorXPositions.get(pistol.getList().indexOf(bullet)), cursorYPositions.get(pistol.getList().indexOf(bullet)));
             // bullet is shot
             bullet.setAlive();
@@ -355,6 +331,7 @@ public class MyGdxGame extends ApplicationAdapter {
                     }
                 }
             }
+            
             // MIDDLE LINE
 //        shapeBatch.setColor(Color.MAGENTA);
 //        shapeBatch.rect(viewport.getWorldWidth() / 2 - 2, 0, 4, viewport.getWorldHeight());

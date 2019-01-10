@@ -120,7 +120,7 @@ public class Enemies extends Entity {
     }
 
     /**
-     * Follows the centre of the player.
+     * Draws the zombie facing towards the centre of the player.
      *
      * @param batch the SpriteBatch being used to draw
      * @param player the Player being chased
