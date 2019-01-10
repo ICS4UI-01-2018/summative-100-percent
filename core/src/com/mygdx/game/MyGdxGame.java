@@ -203,9 +203,8 @@ public class MyGdxGame extends ApplicationAdapter {
                 }
             }
         }
-     
-
         
+        // zombie to zombie collision
         for (Enemies enemy : enemies) {
             for (Enemies enemy2 : enemies) {
                 if (enemy.getIsDead() == false && enemy2.getIsDead() == false) {
@@ -236,6 +235,8 @@ public class MyGdxGame extends ApplicationAdapter {
 
             }
         }
+        
+        // player to wall collision
         // for loop running through array of walls 
         for (int i = 0; i < 21; i++) {
             // if player touches a wall 
@@ -374,13 +375,11 @@ public class MyGdxGame extends ApplicationAdapter {
                 enemy.deadDraw(batch);
             }
         }
-        
+        // Player drawings
         player.draw(batch, cursorPosition.x, cursorPosition.y);
-
         player.drawHP(batch);
 
-        //enemies[0].drawHP(batch);
-        //enemies[1].drawHP(batch);
+        // gun drawing
         pistol.draw(batch, player, cursorPosition.x, cursorPosition.y);
 
         batch.end();
