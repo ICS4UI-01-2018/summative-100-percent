@@ -59,6 +59,10 @@ public class Player extends Entity {
         // zombie collision detection
         return super.getRect().overlaps(p.getBounds());
     }
+    
+    public Boolean collidesWith(Room p){
+        return super.getRect().overlaps(p.getBounds());
+    }
 
     public float getRight() {
         return super.getX() + super.getWidth();
