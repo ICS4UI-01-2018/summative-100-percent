@@ -104,7 +104,10 @@ public abstract class Weapon {
         if (this.totalAmmo - bulletsMissing >= 0) {
             this.bulletsInClip = this.bulletsInClip + bulletsMissing;
             this.totalAmmo = this.totalAmmo - bulletsMissing;
-        } else {
+        } else if (this.totalAmmo - bulletsMissing < 0) {
+            this.bulletsInClip = this.bulletsInClip + this.totalAmmo;
+            this.totalAmmo = 0;
+        } else if (this.totalAmmo == 0){
             System.out.println("NOT ENOUGH AMMO!");
         }
     }
