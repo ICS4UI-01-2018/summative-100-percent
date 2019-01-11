@@ -36,7 +36,7 @@ public class M1911 extends Weapon {
     public void addBullet(M1911Bullet bullet) {
         // add bullet
         this.bullets.add(new M1911Bullet(bullet.getSpeed(), bullet.getX(), bullet.getY(), bullet.getDamage(), bullet.getRadius()));
-        
+        super.decreaseBulletCount();
     }
 
     // draw ammo count top left

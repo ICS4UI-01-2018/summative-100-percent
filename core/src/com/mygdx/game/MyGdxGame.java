@@ -45,6 +45,8 @@ public class MyGdxGame extends ApplicationAdapter {
     private ArrayList<Float> cursorXPositions;
     private ArrayList<Float> cursorYPositions;
 
+    private boolean initialAmmoCalculated;
+    
     // add in walls here and be able to call them in a for loop
     @Override
     public void create() {
@@ -60,7 +62,7 @@ public class MyGdxGame extends ApplicationAdapter {
 //        enemies[0] = new Enemies(100, (float) 2, (float) 300, (float) 200, 30, 30, 0, 0);
 //        enemies[1] = new Enemies(100, (float) 2, (float) 500, (float) 450, 30, 30, 0, 0);
         // centre gun on player
-        pistol = new M1911(1, player.getX() + (25), player.getY() + (37), 50, 75, 12, (float) 2.5, 36);
+        pistol = new M1911(1, player.getX() + (25), player.getY() + (37), 50, 75, 12, (float) 2.5, 48);
         testBulletInfo = new M1911Bullet(10, player.getX() + (player.getWidth() / 2), player.getY() + (player.getHeight() / 2), 12, 10);
 
         cursorXPositions = new ArrayList<Float>();
@@ -101,6 +103,8 @@ public class MyGdxGame extends ApplicationAdapter {
         // x y width 
         cam.position.x = player.getX();
         cam.position.y = player.getY();
+        
+        initialAmmoCalculated = false;
     }
 
     @Override
@@ -115,6 +119,12 @@ public class MyGdxGame extends ApplicationAdapter {
         cursorPosition.z = 0;
         cam.unproject(cursorPosition);
 
+        // calculated initial ammo
+        if (initialAmmoCalculated == false) {
+            pistol.calculateInitialAmmo();
+            initialAmmoCalculated = true;
+        }
+        
         if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.D)) {
             player.move();
         }
@@ -129,6 +139,9 @@ public class MyGdxGame extends ApplicationAdapter {
         // reload using R
         if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
             // check if gun can be reloaded (if bulletsInClip == clipSize), dont' reload
+            if(pistol.getBulletsInClip() != pistol.getclipSize()) {
+                pistol.calculateAmmo();
+            }
         }
 
         // zombie AI
@@ -287,13 +300,19 @@ public class MyGdxGame extends ApplicationAdapter {
         // pistol.draw(shapeBatch, player);
         // player.draw(shapeBatch);
         // enemies[1].draw(shapeBatch);
+        
+
         // shooting code
         if (Gdx.input.justTouched()) {
-            pistol.addBullet(testBulletInfo);
-            // store cursor coordinates into corresponding array lists
-            cursorXPositions.add(cursorPosition.x);
-            cursorYPositions.add(cursorPosition.y);
-
+            
+            // if there are bullets in the clip
+            if(pistol.getBulletsInClip() != 0) {
+                pistol.addBullet(testBulletInfo);
+                // store cursor coordinates into corresponding array lists
+                cursorXPositions.add(cursorPosition.x);
+                cursorYPositions.add(cursorPosition.y);
+            }
+            
         }
 
         // update bullets
@@ -359,6 +378,8 @@ public class MyGdxGame extends ApplicationAdapter {
         // gun drawing
         pistol.draw(batch, player, cursorPosition.x, cursorPosition.y);
 
+        pistol.drawAmmo(batch, player);
+        
         batch.end();
     }
 }

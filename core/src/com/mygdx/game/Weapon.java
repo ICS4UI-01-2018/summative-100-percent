@@ -8,6 +8,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import java.util.ArrayList;
 
@@ -40,12 +41,18 @@ public abstract class Weapon {
         this.width = width;
         this.height = height;
         this.clipSize = clipSize;
+        this.bulletsInClip = 0;
         this.reloadTime = reloadTime;
         this.totalAmmo = totalAmmo;
         this.isClipEmpty = false;
         this.canShoot = false;
         
-        
+        // font information
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("VCR_OSD_MONO_1.001.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = 60;
+        this.text = generator.generateFont(parameter); // font size 12 pixels
+
 //        this.bullets = new ArrayList<Bullet>();
     }
 
@@ -82,9 +89,14 @@ public abstract class Weapon {
 //        //this.canShoot = true;
 //    }
     
-    // draw ammo top-left of screen
-    public void drawAmmo(SpriteBatch batch) {
-        
+    // draw ammo top-left of screen from centre of player
+    public void drawAmmo(SpriteBatch batch, Player player) {
+        // bullets in clip
+        text.draw(batch, String.valueOf(this.bulletsInClip), player.getX() + (player.getWidth()/2) - 500, player.getY() + (player.getHeight()) + 500);
+        // '/'
+        text.draw(batch, "/", player.getX() + (player.getWidth()/2) - 380, player.getY() + player.getHeight() + 500);
+        // total ammo
+        text.draw(batch, String.valueOf(this.totalAmmo), player.getX() + player.getWidth()/2 - 300, player.getY() + player.getHeight() + 500);
     }
     
     public void calculateInitialAmmo() {
@@ -108,7 +120,7 @@ public abstract class Weapon {
             this.bulletsInClip = this.bulletsInClip + this.totalAmmo;
             this.totalAmmo = 0;
         } else if (this.totalAmmo == 0){
-            System.out.println("NOT ENOUGH AMMO!");
+            // NOT ENOUGH AMMO
         }
     }
     
@@ -130,6 +142,10 @@ public abstract class Weapon {
         this.bulletsInClip = this.clipSize;
     }
 
+    public void decreaseBulletCount() {
+        this.bulletsInClip -= 1;
+    }
+    
     //Get is clip empty
     public boolean isClipEmpty() {
         return this.isClipEmpty;
