@@ -9,6 +9,6 @@ package com.mygdx.game;
  *
  * @author prylz2189
  */
-public class Barricades {
+public class Bullets {
     
 }

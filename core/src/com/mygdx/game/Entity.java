@@ -5,6 +5,8 @@
  */
 package com.mygdx.game;
 
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 
@@ -22,6 +24,8 @@ public abstract class Entity {
     private int height;
     private Rectangle entity;
 
+    private BitmapFont text;
+    
     public Entity(int HP, float speed, float x, float y, int width, int height) {
         this.HP = HP;
         this.speed = speed;
@@ -30,14 +34,39 @@ public abstract class Entity {
         this.width = width;
         this.height = height;
         entity = new Rectangle(x, y, width, height);
+        this.speed = speed;
+        
+        this.text = new BitmapFont();
     }
 
+    public void setSpeed(float x){
+        this.speed = this.speed + x;
+    }
+
+    /**
+     * 
+     * @return the integer representing the HP.
+     */
     public int getHP() {
         return this.HP;
     }
+    public void setHP(int x){
+        HP = this.HP-x;
+    }
 
+
+    /**
+     * 
+     * @return the float representing the speed. 
+     */
     public float getSpeed() {
         return this.speed;
+    }
+    
+    public Rectangle getRect(){
+        entity.x = this.x;
+        entity.y = this.y;
+        return entity;
     }
 
     public float getX() {
@@ -48,18 +77,44 @@ public abstract class Entity {
         return this.y;
     }
 
+    /**
+     * 
+     * @return the integer representing the width.
+     */
+    public int getHeight(){
+        return this.height;
+    }
+    
     public int getWidth() {
         return this.width;
     }
-
-    public int getHeight() {
-        return this.height;
+    // if it hits left side 
+    public void setXL(){
+       x = getX()-6;
+    }
+    // if it hits right side 
+    public void setXR(){
+        x = getX()+6;
+    }
+    // if it hits top 
+    public void setYT(){
+        y = getY()+6;
+    }
+    // if it hits bottom 
+    public void setYB(){
+       y = getY()-6; 
     }
 
-    // each subclass needs their own move() method
-    // public abstract void move();
-
+    // each subclass needs their own draw(ShapeRenderer shapeBatch) method
+    /**
+     * 
+     * @param shapeBatch 
+     */
     public abstract void draw(ShapeRenderer shapeBatch);
+    
+    public void drawHP(SpriteBatch batch) {
+        text.draw(batch, String.valueOf(this.HP), (this.x) + ((this.width)/2), this.y + this.height + 10);
+    }
     
     public void setXLeft() {
         // move left
@@ -74,7 +129,6 @@ public abstract class Entity {
     public void setYUp() {
         // move up
         this.y = this.y + this.speed;
-
     }
 
     public void setYDown() {
