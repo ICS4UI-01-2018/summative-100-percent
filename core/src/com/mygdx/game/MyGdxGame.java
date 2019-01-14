@@ -53,11 +53,11 @@ public class MyGdxGame extends ApplicationAdapter {
         player = new Player(100, (float) 5, 600, 500, 100, 100, 0, 1);
         leftMain = new Room(100, 20, 1850, 1500);
         rightMain = new Room(1950, 20, 1880, 1500);
-        topMain = new Room(750, 1550, 2460, 700);
+        topMain = new Room(750, 1500, 2460, 700);
 
         enemies = new ArrayList<Enemies>();
         enemies.add(new Enemies(100, (float) 2, (float) 300, (float) 200, 30, 30, 0, 0, 5));
-        enemies.add(new Enemies(100, (float) 2, (float) 500, (float) 450, 30, 30, 0, 0, 5));
+//        enemies.add(new Enemies(100, (float) 2, (float) 500, (float) 450, 30, 30, 0, 0, 5));
 
 //        enemies[0] = new Enemies(100, (float) 2, (float) 300, (float) 200, 30, 30, 0, 0);
 //        enemies[1] = new Enemies(100, (float) 2, (float) 500, (float) 450, 30, 30, 0, 0);
@@ -173,12 +173,12 @@ public class MyGdxGame extends ApplicationAdapter {
             }
         }
 
-        // move zombies if they aren't dead
-        for (Enemies enemy : enemies) {
-            if (enemy.getIsDead() == false) {
-                enemy.move(player);
-            }
-        }
+//        // move zombies if they aren't dead
+//        for (Enemies enemy : enemies) {
+//            if (enemy.getIsDead() == false) {
+//                enemy.move(player);
+//            }
+//        }
 
         pistol.move(player);
 
@@ -286,8 +286,8 @@ public class MyGdxGame extends ApplicationAdapter {
         // update camera
         cam.update();
 
-        shapeBatch.setColor(Color.RED);
-        shapeBatch.rect(0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
+//        shapeBatch.setColor(Color.RED);
+//        shapeBatch.rect(0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
 
         //drawing the array of walls 
         shapeBatch.setColor(Color.GRAY);
@@ -295,6 +295,9 @@ public class MyGdxGame extends ApplicationAdapter {
             walls[z].draw(shapeBatch);
         }
 
+//        shapeBatch.setColor(Color.BLUE);
+//        topMain.draw(shapeBatch);
+        
         shapeBatch.setColor(Color.YELLOW);
 
         // pistol.draw(shapeBatch, player);
