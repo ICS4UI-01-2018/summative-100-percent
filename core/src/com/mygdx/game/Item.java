@@ -29,4 +29,9 @@ public abstract class Item {
         item = new Rectangle (x, y, width, height);
     }
     
+    public void setCollided() {
+        this.isCollided = true;
+    }
+    
+    
 }
