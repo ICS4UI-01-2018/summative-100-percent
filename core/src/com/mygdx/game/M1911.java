@@ -22,7 +22,7 @@ public class M1911 extends Weapon {
     public M1911(int rateOfFire, float x, float y, int width, int height, int clipSize, float reloadTime, int totalAmmo) {
         //Send variables to super class
         super(rateOfFire, x, y, width, height, clipSize, reloadTime, totalAmmo);
-        this.pic = new Texture("pistol.jpg");
+        this.pic = new Texture("m1911.png");
         this.bullets = new ArrayList<M1911Bullet>();
     }
 
