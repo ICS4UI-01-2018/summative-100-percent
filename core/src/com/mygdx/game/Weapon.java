@@ -33,6 +33,7 @@ public abstract class Weapon {
     
     private BitmapFont text;
 
+    private float time;
     
     public Weapon(float rateOfFire, float x, float y, int width, int height, int clipSize, float reloadTime, int totalAmmo) {
         this.rateOfFire = rateOfFire;
@@ -110,6 +111,9 @@ public abstract class Weapon {
     }
     
     public void calculateAmmo() {
+//        // delay using reloadTime
+//        float timePast = Gdx.graphics.getDeltaTime();
+
         // calculate bullets needed for full clip
         int bulletsMissing = this.clipSize - this.bulletsInClip;
         // check if there is still enough ammo
@@ -121,6 +125,19 @@ public abstract class Weapon {
             this.totalAmmo = 0;
         } else if (this.totalAmmo == 0){
             // NOT ENOUGH AMMO
+        }
+    }
+    
+    public void calculateTime(float deltaTime) {
+        if(this.time < this.reloadTime) {
+            this.time = this.time + deltaTime;
+            System.out.println(this.time);
+        }else{
+            // reload gun once time is greater than reloadTime
+            this.calculateAmmo();
+            System.out.println("GUN RELOADED");
+            // reset time
+            this.time = 0;
         }
     }
     
