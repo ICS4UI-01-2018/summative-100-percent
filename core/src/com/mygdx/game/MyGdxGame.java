@@ -7,27 +7,39 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import java.util.ArrayList;
 
 public class MyGdxGame extends ApplicationAdapter {
 
-    private SpriteBatch batch;
+    public SpriteBatch batch;
     private OrthographicCamera cam;
     private ShapeRenderer shapeBatch;
     private FitViewport viewport;
     private Wall wall;
     private Wall[] walls = new Wall[25];
-
+    private boolean MainMenu;
+    private boolean Instructions;
     private ArrayList<Enemies> enemies;
 //    private Enemies[] enemies = new Enemies[2];
     private Texture img;
-
+    
     private M1911 pistol;
     private M1911Bullet testBulletInfo;
 
@@ -40,7 +52,15 @@ public class MyGdxGame extends ApplicationAdapter {
     private Room topMain;
 
     private Vector3 cursorPosition = new Vector3();
-
+    
+   
+    private BitmapFont font;
+    private Skin skin;
+    private Stage stage;
+    private Table table;
+    private TextButton startButton;
+    private TextButton instructionsButton;    
+    
     // mouse clicks that correspond to each bullet
     private ArrayList<Float> cursorXPositions;
     private ArrayList<Float> cursorYPositions;
@@ -48,11 +68,13 @@ public class MyGdxGame extends ApplicationAdapter {
     // add in walls here and be able to call them in a for loop
     @Override
     public void create() {
+        
+        
         player = new Player(100, (float) 5, 600, 500, 100, 100, 0, 1);
         leftMain = new Room(100, 20, 1850, 1500);
         rightMain = new Room(1950, 20, 1880, 1500);
         topMain = new Room(750, 1550, 2460, 700);
-
+   
         enemies = new ArrayList<Enemies>();
         enemies.add(new Enemies(100, (float) 2, (float) 300, (float) 200, 30, 30, 0, 0, 5));
         enemies.add(new Enemies(100, (float) 2, (float) 500, (float) 450, 30, 30, 0, 0, 5));
@@ -62,17 +84,57 @@ public class MyGdxGame extends ApplicationAdapter {
         // centre gun on player
         pistol = new M1911(1, player.getX() + (25), player.getY() + (37), 50, 75, 12, (float) 2.5, 36);
         testBulletInfo = new M1911Bullet(10, player.getX() + (player.getWidth() / 2), player.getY() + (player.getHeight() / 2), 12, 10);
-
+        //MAINMENU
+        Instructions = false;
+        MainMenu = true;
+        font = new BitmapFont();     
+        font.setColor(Color.RED);
+        skin = new Skin(Gdx.files.internal("uiskin.json"));
+        stage = new Stage(new ScreenViewport());
+        table = new Table();
+        table.setWidth(stage.getWidth());
+        table.align(Align.center| Align.top);
+        
+        table.setPosition(0, Gdx.graphics.getHeight());
+        startButton = new TextButton("New Game", skin);
+        instructionsButton = new TextButton("Instructions", skin);
+//        final Dialog dialog = new Dialog("GAME BEGINNING", skin);
+//        
+//        startButton.addListener(new ClickListener(){
+//        @Override 
+//        public void clicked(InputEvent event, float x, float y){
+//        dialog.show(stage);
+//        Timer.schedule(new Timer.Task(){
+//         @Override
+//         public void run(){
+//             dialog.hide();
+//         }
+//        },5);
+//        }      
+//        });
+        
+        table.padTop(160);
+        table.add(startButton). padBottom(30);
+        table.row();
+        table.add(instructionsButton);
+        stage.addActor(table);
+        Gdx.input.setInputProcessor(stage);
+        
+        
+        
+        
+        
+        
         cursorXPositions = new ArrayList<Float>();
         cursorYPositions = new ArrayList<Float>();
-
+       
         batch = new SpriteBatch();
         shapeBatch = new ShapeRenderer();
         cam = new OrthographicCamera();
         viewport = new FitViewport(2000, 1600, cam);
         viewport.apply();
         cam.update();
-
+        
         walls[0] = new Wall(100, 20, 1800, 80);
         walls[1] = new Wall(100, 1500, 650, 80); // top
         walls[2] = new Wall(1150, 1500, 900, 80); // top 
@@ -103,10 +165,41 @@ public class MyGdxGame extends ApplicationAdapter {
         cam.position.y = player.getY();
     }
 
+    
     @Override
     public void render() {
-        // if startScreen == true
-
+        if (MainMenu == true){
+        // main menu drawings
+        
+        cursorPosition.x = Gdx.input.getX();
+        cursorPosition.y = Gdx.input.getY();
+        cursorPosition.z = 0;
+        cam.unproject(cursorPosition);
+        Gdx.gl.glClearColor(0,0,0,1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        stage.act(Gdx.graphics.getDeltaTime());
+        stage.draw();
+        batch.begin();
+        font.getData().setScale(2,2);
+        font.setColor(Color.RED);
+        font.draw(batch, "ZOMBIE SHOOTER", 195, 400);
+        batch.end();
+        
+        
+        
+        
+        
+        
+            
+        } else if(MainMenu == false){
+        // game drawings
+            
+            
+        
+        
+        
+        
+        super.render();
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -352,13 +445,16 @@ public class MyGdxGame extends ApplicationAdapter {
                 enemy.deadDraw(batch);
             }
         }
+        
         // Player drawings
         player.draw(batch, cursorPosition.x, cursorPosition.y);
         player.drawHP(batch);
 
         // gun drawing
         pistol.draw(batch, player, cursorPosition.x, cursorPosition.y);
-
+        
         batch.end();
+        }
     }
 }
+
