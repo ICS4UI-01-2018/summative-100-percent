@@ -50,7 +50,7 @@ public class MyGdxGame extends ApplicationAdapter {
     public void create() {
         player = new Player(100, (float) 5, 600, 500, 100, 100, 0, 1);
         leftMain = new Room(100, 20, 1850, 1500);
-        rightMain = new Room(1950, 20, 1880, 1500);
+        rightMain = new Room(1950, 20, 1880, 1500+60);
         topMain = new Room(750, 1550, 2460, 700);
 
         enemies = new ArrayList<Enemies>();
@@ -118,6 +118,7 @@ public class MyGdxGame extends ApplicationAdapter {
         if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.D)) {
             player.move();
         }
+       
 
         shapeBatch.setProjectionMatrix(cam.combined);
         // start drawing mode
@@ -233,10 +234,20 @@ public class MyGdxGame extends ApplicationAdapter {
                     player.setXR();
                 }
                 // if player hits bottom left corners (glitching) 
-                if (player.getY() <= walls[i].getY() + walls[i].getheight() && player.getY() > walls[i].getY() && player.getX() <= walls[i].getX() + walls[i].getwidth() && player.getX() >= walls[i].getX()) {
-                    player.setXR();
-                    player.setYT();
-                }
+//                if(player.getY() <= walls[i].getY() + walls[i].getheight() && player.getY() > walls[i].getY() && player.getX() <= walls[i].getX() + walls[i].getwidth() && player.getX() >= walls[i].getX()){
+//                    player.setXR();
+//                    player.setYT();
+//                }
+//                // if player hits bottom right corners 
+//                if((player.getY() <= walls[i].getY() + walls[i].getheight() && player.getY() > walls[i].getY()) && player.getX() + player.getWidth() >= walls[i].getX() && player.getX() + player.getWidth() <= walls[i].getX() + walls[i].getwidth()){
+//                    player.setXL();
+//                    player.setYT();
+//                }
+//                // if player hits top left corners 
+//                 if(player.getX() <= walls[i].getX() + walls[i].getwidth() && player.getX() >= walls[i].getX() && player.getY() + player.getHeight() >= walls[i].getY() && player.getY() + player.getHeight() <= walls[i].getY() + walls[i].getheight()){
+//                    player.setXR();
+//                    player.setYB();
+//                }
             }
         }
         // zombie collision   
@@ -267,6 +278,17 @@ public class MyGdxGame extends ApplicationAdapter {
             }
 
         }
+        
+        // if player wall glitches respawn in rooms 
+         if((player.collidesWith(topMain) != true) && (player.collidesWith(leftMain) != true) && (player.collidesWith(rightMain) != true)){
+             double random = Math.random();
+             player.calculateHP(10);
+             if(random <=0.5){
+            player.setXY(800,900);
+             }else{
+                 player.setXY(3000,900);
+             }
+        }
         // set camera position on player
         cam.position.x = player.getX();
         cam.position.y = player.getY();
@@ -275,6 +297,12 @@ public class MyGdxGame extends ApplicationAdapter {
 
         shapeBatch.setColor(Color.RED);
         shapeBatch.rect(0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
+        
+        topMain.draw(shapeBatch);
+        shapeBatch.setColor(Color.BLUE);
+        rightMain.draw(shapeBatch);
+        shapeBatch.setColor(Color.ORANGE);
+         leftMain.draw(shapeBatch);
 
         //drawing the array of walls 
         shapeBatch.setColor(Color.GRAY);
