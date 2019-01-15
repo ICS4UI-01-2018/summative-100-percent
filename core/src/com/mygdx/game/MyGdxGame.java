@@ -111,6 +111,8 @@ public class MyGdxGame extends ApplicationAdapter {
 
     @Override
     public void render() {
+        timePast = Gdx.graphics.getDeltaTime();
+
         // if startScreen == true
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -138,20 +140,18 @@ public class MyGdxGame extends ApplicationAdapter {
 
         shapeBatch.begin(ShapeRenderer.ShapeType.Filled);
 
+        pistol.calculateTime(timePast);
+
         // reload using R
         if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
-            // check if gun can be reloaded (if bulletsInClip == clipSize), dont' reload
+            // check if gun can be reloaded (if bulletsInClip == clipSize), don't reload
             if (pistol.getBulletsInClip() != pistol.getclipSize()) {
-                // start adding time
-                timePast = Gdx.graphics.getDeltaTime();
+                // find time needed to reach inorder to reload gun
+                timePast = Gdx.graphics.getDeltaTime() + pistol.getReloadTime();
                 
-                pistol.calculateTime(timePast);
+                // pistol.calculateTime(timePast);
 
-//                while (timePast < pistol.getReloadTime()) {
-//                    timePast = timePast + timePast;
-//                    System.out.println(timePast);
-//                }
-//                pistol.calculateAmmo();
+
             }
         }
 

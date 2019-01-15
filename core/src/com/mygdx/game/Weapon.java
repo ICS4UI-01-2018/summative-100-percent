@@ -128,17 +128,21 @@ public abstract class Weapon {
         }
     }
     
-    public void calculateTime(float deltaTime) {
-        if(this.time < this.reloadTime) {
+    public float calculateTime(float deltaTime) {
+//        if(this.time < this.reloadTime) {
             this.time = this.time + deltaTime;
             System.out.println(this.time);
-        }else{
-            // reload gun once time is greater than reloadTime
-            this.calculateAmmo();
-            System.out.println("GUN RELOADED");
-            // reset time
-            this.time = 0;
-        }
+            return this.time;
+//        }
+//        else{
+//            // reload gun once time is greater than reloadTime
+//            this.calculateAmmo();
+//            System.out.println("GUN RELOADED");
+//            // reset time
+//            this.time = 0;
+//        }
+
+
     }
     
     //Reload
