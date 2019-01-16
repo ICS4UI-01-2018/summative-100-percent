@@ -47,7 +47,8 @@ public class MyGdxGame extends ApplicationAdapter {
 
     private boolean initialAmmoCalculated;
 
-    private float timePast;
+    private float aimedTime;
+    private float time;
 
     // add in walls here and be able to call them in a for loop
     @Override
@@ -64,7 +65,7 @@ public class MyGdxGame extends ApplicationAdapter {
 //        enemies[0] = new Enemies(100, (float) 2, (float) 300, (float) 200, 30, 30, 0, 0);
 //        enemies[1] = new Enemies(100, (float) 2, (float) 500, (float) 450, 30, 30, 0, 0);
         // centre gun on player
-        pistol = new M1911(1, player.getX() + (25), player.getY() + (37), 50, 75, 12, (float) 2.0, 48);
+        pistol = new M1911(1, player.getX() + (25), player.getY() + (37), 50, 75, 12, (float) 0.7, 48);
         testBulletInfo = new M1911Bullet(10, player.getX() + (player.getWidth() / 2), player.getY() + (player.getHeight() / 2), 12, 10);
 
         cursorXPositions = new ArrayList<Float>();
@@ -111,10 +112,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
     @Override
     public void render() {
-        timePast = Gdx.graphics.getDeltaTime();
-
         // if startScreen == true
-
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -127,6 +125,8 @@ public class MyGdxGame extends ApplicationAdapter {
         if (initialAmmoCalculated == false) {
             pistol.calculateInitialAmmo();
             initialAmmoCalculated = true;
+            this.time = Gdx.graphics.getDeltaTime();
+            this.aimedTime = Gdx.graphics.getDeltaTime();
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.D)) {
@@ -140,18 +140,28 @@ public class MyGdxGame extends ApplicationAdapter {
 
         shapeBatch.begin(ShapeRenderer.ShapeType.Filled);
 
-        pistol.calculateTime(timePast);
+        // update time counter
+        pistol.calculateTime(time);
 
         // reload using R
         if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
-            // check if gun can be reloaded (if bulletsInClip == clipSize), don't reload
-            if (pistol.getBulletsInClip() != pistol.getclipSize()) {
+            // check if gun can be reloaded 
+            if ((pistol.getBulletsInClip() != pistol.getclipSize()) && (pistol.getReloading() == false) && (pistol.totalAmmo() != 0)) {
+                // set gun reloading to true
+                pistol.setReloading();
                 // find time needed to reach inorder to reload gun
-                timePast = Gdx.graphics.getDeltaTime() + pistol.getReloadTime();
-                
-                // pistol.calculateTime(timePast);
+                this.aimedTime = pistol.getCalculatedTime() + pistol.getReloadTime();
+            }
+        }
 
-
+        // if gun is reloading
+        if (pistol.getReloading() == true) {
+            if (pistol.getCalculatedTime() < this.aimedTime) {
+                System.out.println("NOT LONG ENOUGH");
+            } else if (pistol.getCalculatedTime() > this.aimedTime) {
+                System.out.println("RELOADED");
+                pistol.calculateAmmo();
+                pistol.stopReloading();
             }
         }
 
@@ -313,9 +323,8 @@ public class MyGdxGame extends ApplicationAdapter {
         // enemies[1].draw(shapeBatch);
         // shooting code
         if (Gdx.input.justTouched()) {
-
             // if there are bullets in the clip
-            if (pistol.getBulletsInClip() != 0) {
+            if (pistol.getBulletsInClip() != 0 && (pistol.getReloading() == false)) {
                 pistol.addBullet(testBulletInfo);
                 // store cursor coordinates into corresponding array lists
                 cursorXPositions.add(cursorPosition.x);

@@ -29,12 +29,12 @@ public abstract class Weapon {
     private float reloadTime;
     private int totalAmmo;
     private boolean isClipEmpty;
-    private boolean canShoot;
-    
+    private boolean reloading;
+
     private BitmapFont text;
 
     private float time;
-    
+
     public Weapon(float rateOfFire, float x, float y, int width, int height, int clipSize, float reloadTime, int totalAmmo) {
         this.rateOfFire = rateOfFire;
         this.x = x;
@@ -46,15 +46,15 @@ public abstract class Weapon {
         this.reloadTime = reloadTime;
         this.totalAmmo = totalAmmo;
         this.isClipEmpty = false;
-        this.canShoot = false;
-        
+        this.reloading = false;
+
         // font information
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("VCR_OSD_MONO_1.001.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 60;
         this.text = generator.generateFont(parameter); // font size 12 pixels
 
-//        this.bullets = new ArrayList<Bullet>();
+        this.time = 0;
     }
 
     //Get number of bullets in clip
@@ -69,37 +69,20 @@ public abstract class Weapon {
 
     // move gun
     public void move(Player player) {
-        this.x = player.getX() + (player.getWidth()/2) - (this.width/2);
+        this.x = player.getX() + (player.getWidth() / 2) - (this.width / 2);
         this.y = player.getY() + player.getHeight();
     }
-    
-//    //Shoot
-//    public void shoot(Bullet bullet) {
-//        if (this.isClipEmpty == false || this.canShoot == true) {
-//            //If the clip isnt empty subtract one bullet
-//
-//            this.totalAmmo = this.totalAmmo - 1;
-//            bullet.bulletIsShot();
-//        }
-//       
-//        //Dont allow gun to fire too often
-//        //  while(Gdx.graphics.getDeltaTime() <= setTime + this.rateOfFire){
-//        //  this.canShoot = false;
-//        //}
-//        //Allow the gun to shoot
-//        //this.canShoot = true;
-//    }
-    
+
     // draw ammo top-left of screen from centre of player
     public void drawAmmo(SpriteBatch batch, Player player) {
         // bullets in clip
-        text.draw(batch, String.valueOf(this.bulletsInClip), player.getX() + (player.getWidth()/2) - 500, player.getY() + (player.getHeight()) + 500);
+        text.draw(batch, String.valueOf(this.bulletsInClip), player.getX() + (player.getWidth() / 2) - 500, player.getY() + (player.getHeight()) + 500);
         // '/'
-        text.draw(batch, "/", player.getX() + (player.getWidth()/2) - 380, player.getY() + player.getHeight() + 500);
+        text.draw(batch, "/", player.getX() + (player.getWidth() / 2) - 380, player.getY() + player.getHeight() + 500);
         // total ammo
-        text.draw(batch, String.valueOf(this.totalAmmo), player.getX() + player.getWidth()/2 - 300, player.getY() + player.getHeight() + 500);
+        text.draw(batch, String.valueOf(this.totalAmmo), player.getX() + player.getWidth() / 2 - 300, player.getY() + player.getHeight() + 500);
     }
-    
+
     public void calculateInitialAmmo() {
         if (this.totalAmmo - this.clipSize >= 0) {
             this.bulletsInClip = this.clipSize;
@@ -109,11 +92,8 @@ public abstract class Weapon {
             this.totalAmmo = 0;
         }
     }
-    
-    public void calculateAmmo() {
-//        // delay using reloadTime
-//        float timePast = Gdx.graphics.getDeltaTime();
 
+    public void calculateAmmo() {
         // calculate bullets needed for full clip
         int bulletsMissing = this.clipSize - this.bulletsInClip;
         // check if there is still enough ammo
@@ -123,83 +103,64 @@ public abstract class Weapon {
         } else if (this.totalAmmo - bulletsMissing < 0) {
             this.bulletsInClip = this.bulletsInClip + this.totalAmmo;
             this.totalAmmo = 0;
-        } else if (this.totalAmmo == 0){
+        } else if (this.totalAmmo == 0) {
             // NOT ENOUGH AMMO
         }
     }
-    
-    public float calculateTime(float deltaTime) {
-//        if(this.time < this.reloadTime) {
-            this.time = this.time + deltaTime;
-            System.out.println(this.time);
-            return this.time;
-//        }
-//        else{
-//            // reload gun once time is greater than reloadTime
-//            this.calculateAmmo();
-//            System.out.println("GUN RELOADED");
-//            // reset time
-//            this.time = 0;
-//        }
 
-
+    public void calculateTime(float deltaTime) {
+        this.time = this.time + deltaTime;
     }
     
-    //Reload
-    public void reload() {
-        //Record time
-        float setTime = Gdx.graphics.getDeltaTime();
-        //If reload time has passed
-        while (Gdx.graphics.getDeltaTime() <= setTime + this.reloadTime) {
-            this.canShoot = false;
-        }
-        //Allow the gun to shoot
-        this.canShoot = true;
-        //Find missing bullets
-        int bulletsMissing = this.clipSize - this.bulletsInClip;
-        //Subtract missing bullets from total ammo
-        this.totalAmmo = this.totalAmmo - bulletsMissing;
-        //Refill clip
-        this.bulletsInClip = this.clipSize;
+    public float getCalculatedTime() {
+        return this.time;
     }
 
     public void decreaseBulletCount() {
         this.bulletsInClip -= 1;
     }
-    
+
     //Get is clip empty
     public boolean isClipEmpty() {
         return this.isClipEmpty;
     }
 
     //Get can weapon shoot
-    public boolean getCanShoot() {
-        return this.canShoot;
+    public boolean getReloading() {
+        return this.reloading;
+    }
+
+    public void setReloading() {
+        this.reloading = true;
+    }
+
+    public void stopReloading() {
+        this.reloading = false;
     }
 
     public float getX() {
         return this.x;
     }
-    
+
     public float getY() {
         return this.y;
     }
-    
+
     public int getWidth() {
         return this.width;
     }
-    
+
     public int getHeight() {
         return this.height;
     }
-    
+
     public void draw(ShapeRenderer shapeBatch, Player player) {
-        shapeBatch.rect(this.x , this.y , this.width, this.height);
+        shapeBatch.rect(this.x, this.y, this.width, this.height);
     }
 
     // each gun will have their own sprite draw method (different images)
     public abstract void draw(SpriteBatch batch, Player player, float cursorX, float cursorY);
-    
+
     //Get rate of fire
     public float getRateOfFire() {
         return this.rateOfFire;
@@ -214,7 +175,5 @@ public abstract class Weapon {
     public int getclipSize() {
         return this.clipSize;
     }
-
-    
 
 }
