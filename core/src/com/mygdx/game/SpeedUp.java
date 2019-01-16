@@ -9,6 +9,18 @@ package com.mygdx.game;
  *
  * @author phub1604
  */
-public class SpeedUp {
+public class SpeedUp extends Item {
+    
+    // speed increase 
+    private float value;
+    
+    public SpeedUp (float x, float y, int width, int height, float value) {
+        super(x, y, width, height);
+        this.value = value;
+    }
+    
+    public float getValue() {
+        return this.value;
+    }
     
 }

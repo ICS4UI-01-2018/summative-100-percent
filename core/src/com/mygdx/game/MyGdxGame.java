@@ -45,6 +45,9 @@ public class MyGdxGame extends ApplicationAdapter {
     private ArrayList<Float> cursorXPositions;
     private ArrayList<Float> cursorYPositions;
 
+    // item Arrat Lists
+    private ArrayList<SpeedUp> speeds;
+    
     private boolean initialAmmoCalculated;
 
     private float aimedTime;

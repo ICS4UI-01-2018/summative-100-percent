@@ -5,6 +5,7 @@
  */
 package com.mygdx.game;
 
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 
 /**
@@ -33,5 +34,13 @@ public abstract class Item {
         this.isCollided = true;
     }
     
+    public Rectangle getRect() {
+        item.x = this.x;
+        item.y = this.y;
+        return item;
+    }
     
+    public void draw (ShapeRenderer shapeBatch) {
+        shapeBatch.rect(this.x, this.y, this.width, this.height);
+    }
 }
