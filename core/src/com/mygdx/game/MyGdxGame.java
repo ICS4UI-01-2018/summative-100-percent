@@ -100,8 +100,14 @@ public class MyGdxGame extends ApplicationAdapter {
         instructionsButton = new TextButton("Instructions", skin);
 //        final Dialog dialog = new Dialog("GAME BEGINNING", skin);
 //        
-//        startButton.addListener(new ClickListener(){
-//        @Override 
+        startButton.addListener(new ClickListener(){
+        @Override 
+        public void clicked(InputEvent event, float x, float y){
+            System.out.println("Button CLicked");
+            MainMenu = false;
+            
+        }
+        });
 //        public void clicked(InputEvent event, float x, float y){
 //        dialog.show(stage);
 //        Timer.schedule(new Timer.Task(){
