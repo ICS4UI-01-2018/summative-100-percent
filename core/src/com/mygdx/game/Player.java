@@ -55,6 +55,11 @@ public class Player extends Entity {
         // wall collision detection
         return super.getRect().overlaps(p.getBounds());
     }
+    
+     public boolean collidesWith(AmmoBox a) {
+        // wall collision detection
+        return super.getRect().overlaps(a.getBounds());
+    }
 
     public boolean collidesWithZ(Enemies p) {
         // zombie collision detection

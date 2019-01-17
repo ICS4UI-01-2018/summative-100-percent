@@ -38,7 +38,7 @@ public class MyGdxGame extends ApplicationAdapter {
     private Room leftMain;
     private Room rightMain;
     private Room topMain;
-
+    
     private Vector3 cursorPosition = new Vector3();
 
     // mouse clicks that correspond to each bullet
@@ -52,6 +52,8 @@ public class MyGdxGame extends ApplicationAdapter {
         leftMain = new Room(100, 20, 1850, 1500);
         rightMain = new Room(1950, 20, 1880, 1500+60);
         topMain = new Room(750, 1550, 2460, 700);
+        
+      //  ammoBox = new AmmoBox((float)300,(float)300,150,150,true,30);
 
         enemies = new ArrayList<Enemies>();
         enemies.add(new Enemies(100, (float) 2, (float) 300, (float) 200, 30, 30, 0, 0, 5));
@@ -97,6 +99,8 @@ public class MyGdxGame extends ApplicationAdapter {
         walls[18] = new Wall(1150, 1800, 1560, 80);
         walls[19] = new Wall(750, 2200, 2460, 80);
         walls[20] = new Wall(20, 20, 80, 1000);
+        
+        
 
         // x y width 
         cam.position.x = player.getX();
@@ -298,11 +302,11 @@ public class MyGdxGame extends ApplicationAdapter {
         shapeBatch.setColor(Color.RED);
         shapeBatch.rect(0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
         
-        topMain.draw(shapeBatch);
-        shapeBatch.setColor(Color.BLUE);
-        rightMain.draw(shapeBatch);
-        shapeBatch.setColor(Color.ORANGE);
-         leftMain.draw(shapeBatch);
+//        topMain.draw(shapeBatch);
+//        shapeBatch.setColor(Color.BLUE);
+//        rightMain.draw(shapeBatch);
+//        shapeBatch.setColor(Color.ORANGE);
+//         leftMain.draw(shapeBatch);
 
         //drawing the array of walls 
         shapeBatch.setColor(Color.GRAY);
@@ -353,7 +357,11 @@ public class MyGdxGame extends ApplicationAdapter {
                         // set bullet to collided state
                         bullet.setCollided();
                         // if zombie HP is less than or equal to 0
+            
                         if (enemy.getHP() <= 0) {
+              
+                               
+                            // }
                             enemy.setDead();
                         }
                     }
@@ -364,6 +372,9 @@ public class MyGdxGame extends ApplicationAdapter {
 //        shapeBatch.setColor(Color.MAGENTA);
 //        shapeBatch.rect(viewport.getWorldWidth() / 2 - 2, 0, 4, viewport.getWorldHeight());
         }
+        shapeBatch.setColor(Color.BLUE);
+     //   ammoBox.draw(shapeBatch);
+        
         shapeBatch.end();
 
         // sprite drawings
