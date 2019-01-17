@@ -20,18 +20,40 @@ public abstract class Item {
     private int height;
     private boolean isCollided;
     private Rectangle item;
+    private float value;
     
-    public Item(float x, float y, int width, int height) {
+    public Item(float x, float y, int width, int height, float value) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+        this.value = value;
         this.isCollided = false;
         item = new Rectangle (x, y, width, height);
     }
     
+    public boolean getCollided() {
+        return this.isCollided;
+    }
+    
     public void setCollided() {
         this.isCollided = true;
+    }
+    
+    public float getX() {
+        return this.x;
+    }
+    
+    public float getY() {
+        return this.y;
+    }
+    
+    public int getWidth() {
+        return this.width;
+    }
+    
+    public int getHeight() {
+        return this.height;
     }
     
     public Rectangle getRect() {
@@ -40,7 +62,18 @@ public abstract class Item {
         return item;
     }
     
+    
+    
     public void draw (ShapeRenderer shapeBatch) {
         shapeBatch.rect(this.x, this.y, this.width, this.height);
+    }
+    
+    public float getValue() {
+        return this.value;
+    }
+    
+    public void setPosition(Enemies enemy) {
+        this.x = enemy.getX();
+        this.y = enemy.getY();
     }
 }

@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import java.util.ArrayList;
@@ -47,7 +46,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
     // item Arrat Lists
     private ArrayList<SpeedUp> speeds;
-    
+
     private boolean initialAmmoCalculated;
 
     private float aimedTime;
@@ -58,8 +57,10 @@ public class MyGdxGame extends ApplicationAdapter {
     public void create() {
         player = new Player(100, (float) 5, 600, 500, 100, 100, 0, 1);
         leftMain = new Room(100, 20, 1850, 1500);
-        rightMain = new Room(1950, 20, 1880, 1500);
+        rightMain = new Room(1950, 20, 1880, 1500 + 60);
         topMain = new Room(750, 1500, 2460, 700);
+
+        speeds = new ArrayList<SpeedUp>();
 
         enemies = new ArrayList<Enemies>();
         enemies.add(new Enemies(100, (float) 2, (float) 300, (float) 200, 30, 30, 0, 0, 5));
@@ -69,7 +70,7 @@ public class MyGdxGame extends ApplicationAdapter {
 //        enemies[1] = new Enemies(100, (float) 2, (float) 500, (float) 450, 30, 30, 0, 0);
         // centre gun on player
         pistol = new M1911(1, player.getX() + (25), player.getY() + (37), 50, 75, 12, (float) 0.7, 48);
-        testBulletInfo = new M1911Bullet(10, player.getX() + (player.getWidth() / 2), player.getY() + (player.getHeight() / 2), 12, 10);
+        testBulletInfo = new M1911Bullet(10, player.getX() + (player.getWidth() / 2), player.getY() + (player.getHeight() / 2), 55, 10);
 
         cursorXPositions = new ArrayList<Float>();
         cursorYPositions = new ArrayList<Float>();
@@ -367,7 +368,21 @@ public class MyGdxGame extends ApplicationAdapter {
                         // if zombie HP is less than or equal to 0
                         if (enemy.getHP() <= 0) {
                             enemy.setDead();
+                            // create an item
+                            // generate random number
+                            // add item
+                            speeds.add(new SpeedUp(enemy.getX(), enemy.getY(), 40, 30, 10));
                         }
+                    }
+                }
+            }
+
+            // item collisions with players
+            for (SpeedUp item : this.speeds) {
+                if (player.getRect().contains(item.getRect())) {
+                    if (item.getCollided() == false) {
+                        player.increaseSpeed(item);
+                        item.setCollided();
                     }
                 }
             }
@@ -400,6 +415,13 @@ public class MyGdxGame extends ApplicationAdapter {
         pistol.draw(batch, player, cursorPosition.x, cursorPosition.y);
 
         pistol.drawAmmo(batch, player);
+
+        // draw items
+        for (SpeedUp item : this.speeds) {
+            if (item.getCollided() == false) {
+                item.draw(batch);
+            }
+        }
 
         batch.end();
     }

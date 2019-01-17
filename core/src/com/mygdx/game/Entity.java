@@ -49,6 +49,10 @@ public abstract class Entity {
 
     }
 
+    public void increaseSpeed(SpeedUp item) {
+        this.speed = this.speed + item.getValue();
+    }
+    
     public void setSpeed(float x) {
         this.speed = this.speed + x;
     }

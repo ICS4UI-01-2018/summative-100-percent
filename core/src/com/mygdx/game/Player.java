@@ -41,6 +41,8 @@ public class Player extends Entity {
         this.angle = 0;
     }
 
+    
+    
     public Rectangle getBounds() {
         return super.getRect();
     }
