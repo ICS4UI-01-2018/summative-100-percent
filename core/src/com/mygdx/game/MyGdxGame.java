@@ -368,10 +368,14 @@ public class MyGdxGame extends ApplicationAdapter {
                         // if zombie HP is less than or equal to 0
                         if (enemy.getHP() <= 0) {
                             enemy.setDead();
+                            // 50 % to spawn item
+                            // generate random number to decide which item
                             // create an item
-                            // generate random number
                             // add item
                             speeds.add(new SpeedUp(enemy.getX(), enemy.getY(), 40, 30, 10));
+                            
+                            // add another zombie
+                            
                         }
                     }
                 }
