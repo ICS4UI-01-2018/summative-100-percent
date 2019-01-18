@@ -176,4 +176,8 @@ public abstract class Weapon {
         return this.clipSize;
     }
 
+    public void addAmmo(AmmoBox item) {
+        this.totalAmmo = this.totalAmmo + (int)item.getValue();
+    }
+    
 }

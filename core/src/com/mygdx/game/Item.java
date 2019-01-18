@@ -5,6 +5,7 @@
  */
 package com.mygdx.game;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 
@@ -31,6 +32,8 @@ public abstract class Item {
         this.isCollided = false;
         item = new Rectangle (x, y, width, height);
     }
+    
+    public abstract void draw(SpriteBatch batch);
     
     public boolean getCollided() {
         return this.isCollided;

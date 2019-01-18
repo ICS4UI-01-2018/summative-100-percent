@@ -46,7 +46,8 @@ public class MyGdxGame extends ApplicationAdapter {
 
     // item Arrat Lists
     private ArrayList<SpeedUp> speeds;
-
+    private ArrayList<AmmoBox> ammos;
+    
     private boolean initialAmmoCalculated;
 
     private float aimedTime;
@@ -61,7 +62,8 @@ public class MyGdxGame extends ApplicationAdapter {
         topMain = new Room(750, 1500, 2460, 700);
 
         speeds = new ArrayList<SpeedUp>();
-
+        ammos = new ArrayList<AmmoBox>();
+        
         enemies = new ArrayList<Enemies>();
         enemies.add(new Enemies(100, (float) 2, (float) 300, (float) 200, 30, 30, 0, 0, 5));
 //        enemies.add(new Enemies(100, (float) 2, (float) 500, (float) 450, 30, 30, 0, 0, 5));
@@ -371,8 +373,10 @@ public class MyGdxGame extends ApplicationAdapter {
                             // 50 % to spawn item
                             // generate random number to decide which item
                             // create an item
+                            
                             // add item
-                            speeds.add(new SpeedUp(enemy.getX(), enemy.getY(), 40, 30, 10));
+                            ammos.add(new AmmoBox(enemy.getX(), enemy.getY(), 50, 40, 12));
+                           // speeds.add(new SpeedUp(enemy.getX(), enemy.getY(), 40, 30, 10));
                             
                             // add another zombie
                             
@@ -390,7 +394,17 @@ public class MyGdxGame extends ApplicationAdapter {
                     }
                 }
             }
-
+            // ammo boxes
+            for (AmmoBox item : this.ammos) {
+                if (player.getRect().contains(item.getRect())) {
+                    if (item.getCollided () == false) {
+                        // add ammo to gun
+                        pistol.addAmmo(item);
+                        item.setCollided();
+                    }
+                }
+            }
+            
             // MIDDLE LINE
 //        shapeBatch.setColor(Color.MAGENTA);
 //        shapeBatch.rect(viewport.getWorldWidth() / 2 - 2, 0, 4, viewport.getWorldHeight());
@@ -421,12 +435,21 @@ public class MyGdxGame extends ApplicationAdapter {
         pistol.drawAmmo(batch, player);
 
         // draw items
+        // speedups
         for (SpeedUp item : this.speeds) {
             if (item.getCollided() == false) {
                 item.draw(batch);
             }
         }
-
+        // ammo boxes
+        for (AmmoBox item : this.ammos) {
+            if (item.getCollided() == false) {
+                item.draw(batch);
+            }
+        }
+        
+        
+        
         batch.end();
     }
 }
