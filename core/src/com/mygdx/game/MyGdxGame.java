@@ -48,7 +48,12 @@ public class MyGdxGame extends ApplicationAdapter {
     private ArrayList<SpeedUp> speeds;
     private ArrayList<AmmoBox> ammos;
     private ArrayList<HealthUp> healths;
-    
+
+    // 
+    private int randomItemChance;
+    // corresponds to which item will be created
+    private int randomItem;
+    private int randomZombie;
 
     private boolean initialAmmoCalculated;
 
@@ -58,6 +63,7 @@ public class MyGdxGame extends ApplicationAdapter {
     // add in walls here and be able to call them in a for loop
     @Override
     public void create() {
+
         player = new Player(100, (float) 5, 600, 500, 100, 100, 0, 1);
         leftMain = new Room(100, 20, 1850, 1500);
         rightMain = new Room(1950, 20, 1880, 1500 + 60);
@@ -71,7 +77,13 @@ public class MyGdxGame extends ApplicationAdapter {
         enemies = new ArrayList<Enemies>();
         enemies.add(new Enemies(100, (float) 2, (float) 300, (float) 200, 30, 30, 0, 0, 5));
         enemies.add(new Enemies(100, (float) 2, (float) 500, (float) 450, 30, 30, 0, 0, 5));
-
+        enemies.add(new Enemies(100, (float) 2, (float) 500, (float) 450, 30, 30, 0, 0, 5));
+        enemies.add(new Enemies(100, (float) 2, (float) 500, (float) 450, 30, 30, 0, 0, 5));
+        enemies.add(new Enemies(100, (float) 2, (float) 300, (float) 200, 30, 30, 0, 0, 5));
+        enemies.add(new Enemies(100, (float) 2, (float) 500, (float) 450, 30, 30, 0, 0, 5));
+        enemies.add(new Enemies(100, (float) 2, (float) 500, (float) 450, 30, 30, 0, 0, 5));
+        enemies.add(new Enemies(100, (float) 2, (float) 500, (float) 450, 30, 30, 0, 0, 5));
+        
 //        enemies[0] = new Enemies(100, (float) 2, (float) 300, (float) 200, 30, 30, 0, 0);
 //        enemies[1] = new Enemies(100, (float) 2, (float) 500, (float) 450, 30, 30, 0, 0);
         // centre gun on player
@@ -374,17 +386,26 @@ public class MyGdxGame extends ApplicationAdapter {
                         // if zombie HP is less than or equal to 0
                         if (enemy.getHP() <= 0) {
                             enemy.setDead();
+                            this.randomItemChance = (int) (Math.random() * (1 - 0 + 1) + 0);
+                            System.out.println(randomItemChance);
                             // 50 % to spawn item
+                            if (this.randomItemChance == 1) {
+                                // generate a random number to decide which item will be created
+                                this.randomItem = (int) (Math.random() * (2 - 0 + 1) + 0);
+
+                                if (this.randomItem == 0) {
+                                    healths.add(new HealthUp(enemy.getX(), enemy.getY(), 50, 40, 20));
+                                } else if (this.randomItem == 1) {
+                                    ammos.add(new AmmoBox(enemy.getX(), enemy.getY(), 50, 40, 12));
+                                } else if (this.randomItem == 2) {
+                                    speeds.add(new SpeedUp(enemy.getX(), enemy.getY(), 40, 30, 10));
+                                }
+                            }
                             // generate random number to decide which item
                             // create an item
 
                             // add item
-                            healths.add(new HealthUp(enemy.getX(), enemy.getY(), 50, 40, 20));
-
-                            //ammos.add(new AmmoBox(enemy.getX(), enemy.getY(), 50, 40, 12));
-                            // speeds.add(new SpeedUp(enemy.getX(), enemy.getY(), 40, 30, 10));
-
-                            // add another zombie
+                            
                         }
                     }
                 }
@@ -411,15 +432,14 @@ public class MyGdxGame extends ApplicationAdapter {
             }
             // healthups
             for (HealthUp item : this.healths) {
-                if(player.getRect().contains(item.getRect())) {
-                    if(item.getCollided() == false) {
+                if (player.getRect().contains(item.getRect())) {
+                    if (item.getCollided() == false) {
                         player.increaseHP(item);
                         item.setCollided();
                     }
                 }
             }
-            
-            
+
             // MIDDLE LINE
 //        shapeBatch.setColor(Color.MAGENTA);
 //        shapeBatch.rect(viewport.getWorldWidth() / 2 - 2, 0, 4, viewport.getWorldHeight());
@@ -463,7 +483,7 @@ public class MyGdxGame extends ApplicationAdapter {
             }
         }
         // healthups
-        for(HealthUp item : this.healths) {
+        for (HealthUp item : this.healths) {
             if (item.getCollided() == false) {
                 item.draw(batch);
             }
