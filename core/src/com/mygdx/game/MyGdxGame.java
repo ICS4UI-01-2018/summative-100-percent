@@ -33,7 +33,7 @@ public class MyGdxGame extends ApplicationAdapter {
     private ShapeRenderer shapeBatch;
     private FitViewport viewport;
     private Wall wall;
-    private Wall[] walls = new Wall[25];
+    private Wall[] walls = new Wall[21];
     private boolean MainMenu;
     private boolean Instructions;
     private ArrayList<Enemies> enemies;
@@ -60,7 +60,8 @@ public class MyGdxGame extends ApplicationAdapter {
     private Table table;
     private TextButton startButton;
     private TextButton instructionsButton;    
-    
+    private Texture background;
+    private Texture wallPat;
     // mouse clicks that correspond to each bullet
     private ArrayList<Float> cursorXPositions;
     private ArrayList<Float> cursorYPositions;
@@ -71,10 +72,12 @@ public class MyGdxGame extends ApplicationAdapter {
         
         
         player = new Player(100, (float) 5, 600, 500, 100, 100, 0, 1);
-        leftMain = new Room(100, 20, 1850, 1500);
+        leftMain = new Room(100, 20, 1850, 1600);
         rightMain = new Room(1950, 20, 1880, 1500+60);
         topMain = new Room(750, 1550, 2460, 700);
-   
+        
+        background = new Texture("abstract-geometric-background-triangles-and-lines-loop-4k-4096x2304_ekm8_sfzx__F0000.png");
+        wallPat = new Texture("Metal-Pattern-Background-Blue.jpg");
         enemies = new ArrayList<Enemies>();
         enemies.add(new Enemies(100, (float) 2, (float) 300, (float) 200, 30, 30, 0, 0, 5));
         enemies.add(new Enemies(100, (float) 2, (float) 500, (float) 450, 30, 30, 0, 0, 5));
@@ -108,6 +111,7 @@ public class MyGdxGame extends ApplicationAdapter {
             
         }
         });
+        
 //        public void clicked(InputEvent event, float x, float y){
 //        dialog.show(stage);
 //        Timer.schedule(new Timer.Task(){
@@ -185,8 +189,10 @@ public class MyGdxGame extends ApplicationAdapter {
         cam.unproject(cursorPosition);
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+       
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
+       
         batch.begin();
         font.getData().setScale(2,2);
         font.setColor(Color.RED);
@@ -227,12 +233,12 @@ public class MyGdxGame extends ApplicationAdapter {
         // filled shapes
 
         shapeBatch.begin(ShapeRenderer.ShapeType.Filled);
-
+        
         // reload using R
         if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
             // check if gun can be reloaded (if bulletsInClip == clipSize), dont' reload
         }
-
+            System.out.println(player.getX() + " " + player.getY());
         // zombie AI
         for (Enemies enemy : enemies) {
             // if it's alive
@@ -241,11 +247,13 @@ public class MyGdxGame extends ApplicationAdapter {
                     enemy.move(player);
                     // in same room 
                 } else if (enemy.collidesWith(leftMain) && player.collidesWith(rightMain)) {
-                    enemy.MoveCoord(2000, 720);
+                    enemy.MoveCoord(1950, 735);
                     // left to right 
+                  
                 } else if (enemy.collidesWith(rightMain) && player.collidesWith(leftMain)) {
-                    enemy.MoveCoord(1960, 850);
+                    enemy.MoveCoord(1940, 735);
                     // right to left 
+                  
                 } else if (enemy.collidesWith(leftMain) && player.collidesWith(topMain)) {
                     enemy.MoveCoord(950, 1560);
                     // left to top 
@@ -263,11 +271,11 @@ public class MyGdxGame extends ApplicationAdapter {
         }
 
         // move zombies if they aren't dead
-        for (Enemies enemy : enemies) {
-            if (enemy.getIsDead() == false) {
-                enemy.move(player);
-            }
-        }
+//        for (Enemies enemy : enemies) {
+//            if (enemy.getIsDead() == false) {
+//                enemy.move(player);
+//            }
+//        }
 
         pistol.move(player);
 
@@ -334,21 +342,6 @@ public class MyGdxGame extends ApplicationAdapter {
                 if (player.getX() <= walls[i].getX() + walls[i].getwidth() && player.getX() >= walls[i].getX()) {
                     player.setXR();
                 }
-                // if player hits bottom left corners (glitching) 
-//                if(player.getY() <= walls[i].getY() + walls[i].getheight() && player.getY() > walls[i].getY() && player.getX() <= walls[i].getX() + walls[i].getwidth() && player.getX() >= walls[i].getX()){
-//                    player.setXR();
-//                    player.setYT();
-//                }
-//                // if player hits bottom right corners 
-//                if((player.getY() <= walls[i].getY() + walls[i].getheight() && player.getY() > walls[i].getY()) && player.getX() + player.getWidth() >= walls[i].getX() && player.getX() + player.getWidth() <= walls[i].getX() + walls[i].getwidth()){
-//                    player.setXL();
-//                    player.setYT();
-//                }
-//                // if player hits top left corners 
-//                 if(player.getX() <= walls[i].getX() + walls[i].getwidth() && player.getX() >= walls[i].getX() && player.getY() + player.getHeight() >= walls[i].getY() && player.getY() + player.getHeight() <= walls[i].getY() + walls[i].getheight()){
-//                    player.setXR();
-//                    player.setYB();
-//                }
             }
         }
         // zombie collision   
@@ -358,7 +351,7 @@ public class MyGdxGame extends ApplicationAdapter {
             for (Enemies enemy : enemies) {
                 // if an enemy hits a wall 
                 if (enemy.collidesWith(walls[g])) {
-                    System.out.println(walls[g].getBounds().contains(player.getRect()));
+                   // System.out.println(walls[g].getBounds().contains(player.getRect()));
                     // if enemy hits top of wall
                     if (enemy.getY() <= walls[g].getY() + walls[g].getheight() && enemy.getY() > walls[g].getY()) {
                         enemy.setYT();
@@ -396,23 +389,31 @@ public class MyGdxGame extends ApplicationAdapter {
         // update camera
         cam.update();
 
-        shapeBatch.setColor(Color.RED);
-        shapeBatch.rect(0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
+      //  shapeBatch.setColor(Color.RED);
+       // shapeBatch.rect(0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
         
-//        topMain.draw(shapeBatch);
+//       topMain.draw(shapeBatch);
 //        shapeBatch.setColor(Color.BLUE);
-//        rightMain.draw(shapeBatch);
+//       rightMain.draw(shapeBatch);
 //        shapeBatch.setColor(Color.ORANGE);
-//         leftMain.draw(shapeBatch);
-
+//        leftMain.draw(shapeBatch);
+        batch.begin();
+        batch.draw(background, -1000, -1000,7168,4032);
+       
+        
+      
         //drawing the array of walls 
         shapeBatch.setColor(Color.GRAY);
         for (int z = 0; z < 21; z++) {
-            walls[z].draw(shapeBatch);
+          //  walls[z].draw(shapeBatch);
+            
+            batch.draw(wallPat, walls[z].getX(),walls[z].getY(),walls[z].getwidth(),walls[z].getheight());
         }
-
-        shapeBatch.setColor(Color.YELLOW);
-
+         batch.end();
+        shapeBatch.setColor(Color.GRAY);
+         for (int z = 0; z < 21; z++) {
+             
+         }
         // pistol.draw(shapeBatch, player);
         // player.draw(shapeBatch);
         // enemies[1].draw(shapeBatch);
@@ -477,7 +478,8 @@ public class MyGdxGame extends ApplicationAdapter {
         // sprite drawings
         batch.setProjectionMatrix(cam.combined);
         batch.begin();
-
+         
+                
         // draw zombies
         for (Enemies enemy : enemies) {
             // if they are alive
@@ -499,5 +501,14 @@ public class MyGdxGame extends ApplicationAdapter {
         batch.end();
         }
     }
+    @Override
+        public void resize(int width, int height){
+            viewport.update(width, height);
+            stage.getViewport().update(width,height);
+        }
+
 }
+
+
+
 

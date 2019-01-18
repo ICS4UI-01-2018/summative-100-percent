@@ -20,7 +20,7 @@ public class AmmoBox {
     private float y;
     private boolean full;
     private float ammoAmt;
-    // creating the wall object
+    // not in use 
     public AmmoBox(float x, float y, int width, int height, boolean full, float ammoAmt){
         this.full = true;
         this.ammoAmt = 30;
