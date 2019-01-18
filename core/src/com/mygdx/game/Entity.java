@@ -53,6 +53,10 @@ public abstract class Entity {
         this.speed = this.speed + item.getValue();
     }
     
+    public void increaseHP(HealthUp item) {
+        this.HP = this.HP + (int)item.getValue();
+    }
+    
     public void setSpeed(float x) {
         this.speed = this.speed + x;
     }

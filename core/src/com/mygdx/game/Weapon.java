@@ -180,4 +180,6 @@ public abstract class Weapon {
         this.totalAmmo = this.totalAmmo + (int)item.getValue();
     }
     
+    
+    
 }

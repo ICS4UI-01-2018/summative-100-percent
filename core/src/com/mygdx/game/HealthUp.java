@@ -12,19 +12,18 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  *
  * @author phub1604
  */
-public class AmmoBox extends Item {
+public class HealthUp extends Item{
     
     private Texture pic;
     
-    public AmmoBox (float x, float y, int width, int height, float value) {
+    public HealthUp(float x, float y, int width, int height, float value) {
         super(x, y, width, height, value);
-        this.pic = new Texture("ammo.png");
+        this.pic = new Texture("health.png");
     }
-    
+
     @Override
     public void draw(SpriteBatch batch) {
-        batch.draw(this.pic, super.getX(), super.getY(), super.getWidth(), super.getHeight());
-    }    
-    
+        batch.draw(pic, super.getX(), super.getY(), super.getWidth(), super.getHeight());
+    }
     
 }

@@ -47,7 +47,9 @@ public class MyGdxGame extends ApplicationAdapter {
     // item Arrat Lists
     private ArrayList<SpeedUp> speeds;
     private ArrayList<AmmoBox> ammos;
+    private ArrayList<HealthUp> healths;
     
+
     private boolean initialAmmoCalculated;
 
     private float aimedTime;
@@ -61,12 +63,14 @@ public class MyGdxGame extends ApplicationAdapter {
         rightMain = new Room(1950, 20, 1880, 1500 + 60);
         topMain = new Room(750, 1500, 2460, 700);
 
+        // item ArrayLists
         speeds = new ArrayList<SpeedUp>();
         ammos = new ArrayList<AmmoBox>();
-        
+        this.healths = new ArrayList<HealthUp>();
+
         enemies = new ArrayList<Enemies>();
         enemies.add(new Enemies(100, (float) 2, (float) 300, (float) 200, 30, 30, 0, 0, 5));
-//        enemies.add(new Enemies(100, (float) 2, (float) 500, (float) 450, 30, 30, 0, 0, 5));
+        enemies.add(new Enemies(100, (float) 2, (float) 500, (float) 450, 30, 30, 0, 0, 5));
 
 //        enemies[0] = new Enemies(100, (float) 2, (float) 300, (float) 200, 30, 30, 0, 0);
 //        enemies[1] = new Enemies(100, (float) 2, (float) 500, (float) 450, 30, 30, 0, 0);
@@ -373,13 +377,14 @@ public class MyGdxGame extends ApplicationAdapter {
                             // 50 % to spawn item
                             // generate random number to decide which item
                             // create an item
-                            
+
                             // add item
-                            ammos.add(new AmmoBox(enemy.getX(), enemy.getY(), 50, 40, 12));
-                           // speeds.add(new SpeedUp(enemy.getX(), enemy.getY(), 40, 30, 10));
-                            
+                            healths.add(new HealthUp(enemy.getX(), enemy.getY(), 50, 40, 20));
+
+                            //ammos.add(new AmmoBox(enemy.getX(), enemy.getY(), 50, 40, 12));
+                            // speeds.add(new SpeedUp(enemy.getX(), enemy.getY(), 40, 30, 10));
+
                             // add another zombie
-                            
                         }
                     }
                 }
@@ -397,13 +402,23 @@ public class MyGdxGame extends ApplicationAdapter {
             // ammo boxes
             for (AmmoBox item : this.ammos) {
                 if (player.getRect().contains(item.getRect())) {
-                    if (item.getCollided () == false) {
+                    if (item.getCollided() == false) {
                         // add ammo to gun
                         pistol.addAmmo(item);
                         item.setCollided();
                     }
                 }
             }
+            // healthups
+            for (HealthUp item : this.healths) {
+                if(player.getRect().contains(item.getRect())) {
+                    if(item.getCollided() == false) {
+                        player.increaseHP(item);
+                        item.setCollided();
+                    }
+                }
+            }
+            
             
             // MIDDLE LINE
 //        shapeBatch.setColor(Color.MAGENTA);
@@ -447,9 +462,13 @@ public class MyGdxGame extends ApplicationAdapter {
                 item.draw(batch);
             }
         }
-        
-        
-        
+        // healthups
+        for(HealthUp item : this.healths) {
+            if (item.getCollided() == false) {
+                item.draw(batch);
+            }
+        }
+
         batch.end();
     }
 }
