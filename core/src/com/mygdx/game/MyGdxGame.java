@@ -188,34 +188,34 @@ public class MyGdxGame extends ApplicationAdapter {
             }
         }
 
-//        // zombie AI
-//        for (Enemies enemy : enemies) {
-//            // if it's alive
-//            if (enemy.getIsDead() == false) {
-//                if ((enemy.collidesWith(leftMain) && player.collidesWith(leftMain)) || (enemy.collidesWith(rightMain) && player.collidesWith(rightMain)) || enemy.collidesWith(topMain) && player.collidesWith(topMain)) {
-//                    enemy.move(player);
-//                    // in same room 
-//                } else if (enemy.collidesWith(leftMain) && player.collidesWith(rightMain)) {
-//                    enemy.MoveCoord(2000, 720);
-//                    // left to right 
-//                } else if (enemy.collidesWith(rightMain) && player.collidesWith(leftMain)) {
-//                    enemy.MoveCoord(1960, 850);
-//                    // right to left 
-//                } else if (enemy.collidesWith(leftMain) && player.collidesWith(topMain)) {
-//                    enemy.MoveCoord(950, 1560);
-//                    // left to top 
-//                } else if (enemy.collidesWith(rightMain) && player.collidesWith(topMain)) {
-//                    enemy.MoveCoord(3000, 1560);
-//                    // right to top
-//                } else if (enemy.collidesWith(topMain) && player.collidesWith(leftMain)) {
-//                    enemy.MoveCoord(950, 1520);
-//                    // top to left 
-//                } else if (enemy.collidesWith(topMain) && player.collidesWith(rightMain)) {
-//                    enemy.MoveCoord(3000, 1520);
-//                    // top to right
-//                }
-//            }
-//        }
+        // zombie AI
+        for (Enemies enemy : enemies) {
+            // if it's alive
+            if (enemy.getIsDead() == false) {
+                if ((enemy.collidesWith(leftMain) && player.collidesWith(leftMain)) || (enemy.collidesWith(rightMain) && player.collidesWith(rightMain)) || enemy.collidesWith(topMain) && player.collidesWith(topMain)) {
+                    enemy.move(player);
+                    // in same room 
+                } else if (enemy.collidesWith(leftMain) && player.collidesWith(rightMain)) {
+                    enemy.MoveCoord(2000, 720);
+                    // left to right 
+                } else if (enemy.collidesWith(rightMain) && player.collidesWith(leftMain)) {
+                    enemy.MoveCoord(1960, 850);
+                    // right to left 
+                } else if (enemy.collidesWith(leftMain) && player.collidesWith(topMain)) {
+                    enemy.MoveCoord(950, 1560);
+                    // left to top 
+                } else if (enemy.collidesWith(rightMain) && player.collidesWith(topMain)) {
+                    enemy.MoveCoord(3000, 1560);
+                    // right to top
+                } else if (enemy.collidesWith(topMain) && player.collidesWith(leftMain)) {
+                    enemy.MoveCoord(950, 1520);
+                    // top to left 
+                } else if (enemy.collidesWith(topMain) && player.collidesWith(rightMain)) {
+                    enemy.MoveCoord(3000, 1520);
+                    // top to right
+                }
+            }
+        }
 
 //        // move zombies if they aren't dead
 //        for (Enemies enemy : enemies) {
