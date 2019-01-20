@@ -91,9 +91,6 @@ public class MyGdxGame extends ApplicationAdapter {
         enemies.add(new Enemies(100, (float) 2, (float) 500, (float) 450, 120, 120, 5));
         enemies.add(new Enemies(100, (float) 2, (float) 500, (float) 450, 120, 120, 5));
         enemies.add(new Enemies(100, (float) 2, (float) 300, (float) 200, 120, 120, 5));
-        enemies.add(new Enemies(100, (float) 2, (float) 500, (float) 450, 120, 120, 5));
-        enemies.add(new Enemies(100, (float) 2, (float) 500, (float) 450, 120, 120, 5));
-        enemies.add(new Enemies(100, (float) 2, (float) 500, (float) 450, 120, 120, 5));
 
         // centre gun on player
         pistol = new M1911(1, player.getX() + (25), player.getY() + (37), 50, 75, 12, (float) 0.15, 48);
@@ -234,9 +231,12 @@ public class MyGdxGame extends ApplicationAdapter {
                     enemy.setSpeed((float) -0.15);
                 }
                 // decrease HP only if its zombie first time hitting
-                
-                player.calculateHP(enemy.getDamage());
-
+                if (enemy.getHitPlayer() == false) {
+                    player.calculateHP(enemy.getDamage());
+                    enemy.setHitPlayer();
+                }
+            } else {
+                enemy.setNotHitPlayer();
             }
 
         }

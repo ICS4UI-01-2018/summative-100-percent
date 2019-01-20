@@ -17,25 +17,35 @@ import com.badlogic.gdx.math.Rectangle;
 public class Enemies extends Entity {
 
     private boolean isDead;
-    
-
     private int damage;
-    
     // alive image
     private Texture pic;
-
     // dead image
     private Texture pic2;
     
-    // might not night xDirection and yDirection
+    private boolean hitPlayer;
+    
     public Enemies(int HP, float speed, float x, float y, int width, int height, int damage) {
         super(HP, speed, x, y, width, height);
         this.isDead = false;
         this.damage = damage;
         this.pic = new Texture("zombie.png");
         this.pic2 = new Texture("badlogic.jpg");
+        this.hitPlayer = false;
     }
 
+    public void setHitPlayer() {
+        this.hitPlayer = true;
+    }
+    
+    public void setNotHitPlayer() {
+        this.hitPlayer = false;
+    }
+    
+    public boolean getHitPlayer() {
+        return this.hitPlayer;
+    }
+    
     public Rectangle getBounds() {
         return super.getRect();
     }
@@ -52,24 +62,6 @@ public class Enemies extends Entity {
         return super.getRect().overlaps(p.getBounds());
     }
 
-//    public void setDirectionToPlayer(Player player) {
-//        // if Enemy is left of Player
-//        if(super.getX() < player.getX()) {
-//            xDirection = 1;
-//        } else if(super.getX() > player.getX()) {
-//            // else if enemy is right of Player
-//            xDirection = -1;
-//        }
-//        
-//        // if Enemy is below Player
-//        if(super.getY() < player.getY()) {
-//            yDirection = 1;
-//        } else if(super.getY() > player.getY()) {
-//            // else if enemy is above Player
-//            yDirection = -1;
-//        }
-//        
-//    }
     public void move(Player player) {
         // if Enemies is left of player
         if (super.getX() + (super.getWidth() / 2) < player.getX() + (player.getWidth() / 2)) {
@@ -167,7 +159,6 @@ public class Enemies extends Entity {
             // else if directly on centre of Player
             batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, 180, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
         }
-
     }
 
     /**
@@ -176,10 +167,6 @@ public class Enemies extends Entity {
      */
     public void deadDraw(SpriteBatch batch) {
         batch.draw(pic2, super.getX(), super.getY(), super.getWidth(), super.getHeight());
-    }
-    
-    public void attack() {
-
     }
 
     /**
