@@ -17,8 +17,7 @@ import com.badlogic.gdx.math.Rectangle;
 public class Enemies extends Entity {
 
     private boolean isDead;
-    private int xDirection;
-    private int yDirection;
+    
 
     private int damage;
     
@@ -29,11 +28,9 @@ public class Enemies extends Entity {
     private Texture pic2;
     
     // might not night xDirection and yDirection
-    public Enemies(int HP, float speed, float x, float y, int width, int height, int xDirection, int yDirection, int damage) {
+    public Enemies(int HP, float speed, float x, float y, int width, int height, int damage) {
         super(HP, speed, x, y, width, height);
         this.isDead = false;
-        this.xDirection = 0;
-        this.yDirection = 0;
         this.damage = damage;
         this.pic = new Texture("zombie.png");
         this.pic2 = new Texture("badlogic.jpg");
@@ -204,4 +201,8 @@ public class Enemies extends Entity {
         return this.isDead;
     }
 
+    public int getDamage() {
+        return this.damage;
+    }
+    
 }

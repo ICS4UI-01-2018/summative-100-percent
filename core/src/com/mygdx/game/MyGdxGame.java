@@ -54,18 +54,28 @@ public class MyGdxGame extends ApplicationAdapter {
     // corresponds to which item will be created
     private int randomItem;
     private int randomZombieLocation;
-    private int randomZombieType;
-    
+    private int spawn;
+
+    // variables used when spawning new zombies
+    private float tempSpeed;
+    private int tempWidth;
+    private int tempHeight;
+    // used to scale zombie attributes
+    private int multiplier;
+
+    // used for starting the game
     private boolean initialAmmoCalculated;
 
+    // reloading variables
     private float aimedTime;
     private float time;
 
     // add in walls here and be able to call them in a for loop
     @Override
     public void create() {
+        this.multiplier = 1;
 
-        player = new Player(100, (float) 5, 600, 500, 100, 100, 0, 1);
+        player = new Player(100, (float) 4.5, 600, 500, 200, 200, 0, 1);
         leftMain = new Room(100, 20, 1850, 1500);
         rightMain = new Room(1950, 20, 1880, 1500 + 60);
         topMain = new Room(750, 1500, 2460, 700);
@@ -76,20 +86,18 @@ public class MyGdxGame extends ApplicationAdapter {
         this.healths = new ArrayList<HealthUp>();
 
         enemies = new ArrayList<Enemies>();
-        enemies.add(new Enemies(100, (float) 2, (float) 300, (float) 200, 100, 100, 0, 0, 5));
-        enemies.add(new Enemies(100, (float) 2, (float) 500, (float) 450, 30, 30, 0, 0, 5));
-        enemies.add(new Enemies(100, (float) 2, (float) 500, (float) 450, 30, 30, 0, 0, 5));
-        enemies.add(new Enemies(100, (float) 2, (float) 500, (float) 450, 30, 30, 0, 0, 5));
-        enemies.add(new Enemies(100, (float) 2, (float) 300, (float) 200, 30, 30, 0, 0, 5));
-        enemies.add(new Enemies(100, (float) 2, (float) 500, (float) 450, 30, 30, 0, 0, 5));
-        enemies.add(new Enemies(100, (float) 2, (float) 500, (float) 450, 30, 30, 0, 0, 5));
-        enemies.add(new Enemies(100, (float) 2, (float) 500, (float) 450, 30, 30, 0, 0, 5));
-        
-//        enemies[0] = new Enemies(100, (float) 2, (float) 300, (float) 200, 30, 30, 0, 0);
-//        enemies[1] = new Enemies(100, (float) 2, (float) 500, (float) 450, 30, 30, 0, 0);
+        enemies.add(new Enemies(100, (float) 2, (float) 300, (float) 200, 120, 120, 5));
+        enemies.add(new Enemies(100, (float) 2, (float) 500, (float) 450, 120, 120, 5));
+        enemies.add(new Enemies(100, (float) 2, (float) 500, (float) 450, 120, 120, 5));
+        enemies.add(new Enemies(100, (float) 2, (float) 500, (float) 450, 120, 120, 5));
+        enemies.add(new Enemies(100, (float) 2, (float) 300, (float) 200, 120, 120, 5));
+        enemies.add(new Enemies(100, (float) 2, (float) 500, (float) 450, 120, 120, 5));
+        enemies.add(new Enemies(100, (float) 2, (float) 500, (float) 450, 120, 120, 5));
+        enemies.add(new Enemies(100, (float) 2, (float) 500, (float) 450, 120, 120, 5));
+
         // centre gun on player
         pistol = new M1911(1, player.getX() + (25), player.getY() + (37), 50, 75, 12, (float) 0.15, 48);
-        testBulletInfo = new M1911Bullet(10, player.getX() + (player.getWidth() / 2), player.getY() + (player.getHeight() / 2), 34, 10);
+        testBulletInfo = new M1911Bullet(25, player.getX() + (player.getWidth() / 2), player.getY() + (player.getHeight() / 2), 55, 10);
 
         cursorXPositions = new ArrayList<Float>();
         cursorYPositions = new ArrayList<Float>();
@@ -167,7 +175,7 @@ public class MyGdxGame extends ApplicationAdapter {
         pistol.calculateTime(time);
 
         // reload using R
-        if (Gdx.input.isKeyJustPressed(Input.Keys.R) ) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
             // check if gun can be reloaded 
             if ((pistol.getBulletsInClip() != pistol.getclipSize()) && (pistol.getReloading() == false) && (pistol.totalAmmo() != 0)) {
                 // set gun reloading to true
@@ -180,9 +188,8 @@ public class MyGdxGame extends ApplicationAdapter {
         // if gun is reloading
         if (pistol.getReloading() == true) {
             if (pistol.getCalculatedTime() < this.aimedTime) {
-                System.out.println("NOT LONG ENOUGH");
+
             } else if (pistol.getCalculatedTime() > this.aimedTime) {
-                System.out.println("RELOADED");
                 pistol.calculateAmmo();
                 pistol.stopReloading();
             }
@@ -217,12 +224,6 @@ public class MyGdxGame extends ApplicationAdapter {
             }
         }
 
-//        // move zombies if they aren't dead
-//        for (Enemies enemy : enemies) {
-//            if (enemy.getIsDead() == false) {
-//                enemy.move(player);
-//            }
-//        }
         pistol.move(player);
 
         // zombies set to slowdown  when hit player 
@@ -232,7 +233,12 @@ public class MyGdxGame extends ApplicationAdapter {
                 if (enemy.getSpeed() - 0.15 > 0.7) {
                     enemy.setSpeed((float) -0.15);
                 }
+                // decrease HP only if its zombie first time hitting
+                
+                player.calculateHP(enemy.getDamage());
+
             }
+
         }
 
         // zombie to zombie collision
@@ -352,6 +358,7 @@ public class MyGdxGame extends ApplicationAdapter {
                 // store cursor coordinates into corresponding array lists
                 cursorXPositions.add(cursorPosition.x);
                 cursorYPositions.add(cursorPosition.y);
+
             }
 
         }
@@ -376,7 +383,7 @@ public class MyGdxGame extends ApplicationAdapter {
             }
 
             // bullet collision with zombies
-            for (Enemies enemy : enemies) {
+            for (Enemies enemy : this.enemies) {
                 // only collide with zombie if it's alive
                 if (enemy.getIsDead() == false) {
                     if (enemy.getBounds().contains(bullet.getShape())) {
@@ -386,6 +393,14 @@ public class MyGdxGame extends ApplicationAdapter {
                         bullet.setCollided();
                         // if zombie HP is less than or equal to 0
                         if (enemy.getHP() <= 0) {
+                            this.multiplier = this.multiplier + 1;
+
+                            // get dead zombies info
+                            this.tempSpeed = enemy.getSpeed();
+                            this.tempWidth = enemy.getWidth();
+                            this.tempHeight = enemy.getHeight();
+
+                            // zombie dies
                             enemy.setDead();
                             this.randomItemChance = (int) (Math.random() * (1 - 0 + 1) + 0);
                             System.out.println(randomItemChance);
@@ -396,46 +411,66 @@ public class MyGdxGame extends ApplicationAdapter {
                                 // depending on which number, spawn Item on zombie position
                                 if (this.randomItem == 0) {
                                     // spawn HealthUp
-                                    healths.add(new HealthUp(enemy.getX(), enemy.getY(), 50, 40, 20));
+                                    healths.add(new HealthUp(enemy.getX(), enemy.getY(), 50, 40, 10));
                                 } else if (this.randomItem == 1) {
                                     // spawn AmmoBox
-                                    ammos.add(new AmmoBox(enemy.getX(), enemy.getY(), 50, 40, 12));
+                                    ammos.add(new AmmoBox(enemy.getX(), enemy.getY(), 50, 40, 48));
                                 } else if (this.randomItem == 2) {
-                                    // spawn SppedUp
-                                    speeds.add(new SpeedUp(enemy.getX(), enemy.getY(), 40, 30, (float)0.5));
+                                    // spawn SpeedUp
+                                    speeds.add(new SpeedUp(enemy.getX(), enemy.getY(), 40, 30, (float) 0.5));
                                 }
                             }
                             // generate random number from 0 to 1 for zombie location
                             this.randomZombieLocation = (int) (Math.random() * (1 - 0 + 1) + 0);
                             // generate random number from 
                             // spawn a new zombie depending on where 
-                            if(enemy.collidesWith(topMain)) {
+                            if (enemy.collidesWith(topMain)) {
                                 // leftMain
-                                if(this.randomZombieLocation == 1) {
-                                    
-                                } else if(this.randomZombieLocation == 2) {
+                                if (this.randomZombieLocation == 0) {
+                                    this.spawn = 1;
+                                } else if (this.randomZombieLocation == 1) {
                                     // rightMain
+                                    this.spawn = 2;
                                 }
-                                
-                            } else if(enemy.collidesWith(leftMain)) {
+
+                            } else if (enemy.collidesWith(leftMain)) {
                                 // topMain
-                                if(this.randomZombieLocation == 1) {
-                                    
-                                } else if(this.randomZombieLocation == 2) {
+                                if (this.randomZombieLocation == 0) {
+                                    this.spawn = 3;
+                                } else if (this.randomZombieLocation == 1) {
                                     // rightMain
+                                    this.spawn = 2;
                                 }
-                            } else if(enemy.collidesWith(rightMain)) {
+                            } else if (enemy.collidesWith(rightMain)) {
                                 // leftMain
-                                if(this.randomZombieLocation == 1) {
-                                    
-                                } else if(this.randomZombieLocation == 2) {
+                                if (this.randomZombieLocation == 0) {
+                                    this.spawn = 1;
+                                } else if (this.randomZombieLocation == 1) {
                                     // topMain
+                                    this.spawn = 3;
                                 }
-                            } 
+                            }
                         }
                     }
                 }
             }
+
+            // spawn new zombies (tankier, faster, stronger)
+            // leftMain
+            if (this.spawn == 1) {
+                enemies.add(new Enemies(100 + (this.multiplier * 5), (float) (this.tempSpeed + 0.75), (float) 975, (float) 760, this.tempWidth, this.tempHeight, 5 + (this.multiplier * 2)));
+                System.out.println("left");
+            } else if (this.spawn == 2) {
+                // rightMain
+                enemies.add(new Enemies(100 + (this.multiplier * 5), (float) (this.tempSpeed + 0.75), (float) 2515, (float) 790, this.tempWidth, this.tempHeight, 5 + (this.multiplier * 2)));
+                System.out.println("right");
+            } else if (this.spawn == 3) {
+                // topMain
+                enemies.add(new Enemies(100 + (this.multiplier * 5), (float) (this.tempSpeed + 0.75), (float) 1605, (float) 2000, this.tempWidth, this.tempHeight, 5 + (this.multiplier * 2)));
+                System.out.println("top");
+            }
+            // reset variable to prevent unneccessary spawns
+            this.spawn = 0;
 
             // item collisions with players
             for (SpeedUp item : this.speeds) {
@@ -466,9 +501,6 @@ public class MyGdxGame extends ApplicationAdapter {
                 }
             }
 
-            // MIDDLE LINE
-//        shapeBatch.setColor(Color.MAGENTA);
-//        shapeBatch.rect(viewport.getWorldWidth() / 2 - 2, 0, 4, viewport.getWorldHeight());
         }
         shapeBatch.end();
 
@@ -480,7 +512,7 @@ public class MyGdxGame extends ApplicationAdapter {
         for (Enemies enemy : enemies) {
             // if they are alive
             if (enemy.getIsDead() == false) {
-                enemy.draw(batch, player);          
+                enemy.draw(batch, player);
                 enemy.drawHP(batch);
             } else {
                 enemy.deadDraw(batch);
@@ -516,10 +548,10 @@ public class MyGdxGame extends ApplicationAdapter {
         }
 
         // gun reloading
-        if(pistol.getReloading() == true) {
+        if (pistol.getReloading() == true) {
             pistol.drawReloading(batch, player);
         }
-        
+
         batch.end();
     }
 }

@@ -51,10 +51,17 @@ public abstract class Entity {
 
     public void increaseSpeed(SpeedUp item) {
         this.speed = this.speed + item.getValue();
+        // max speed of 10
+        if(this.speed > 10) {
+            this.speed = 10;
+        }
     }
     
     public void increaseHP(HealthUp item) {
         this.HP = this.HP + (int)item.getValue();
+        if(this.HP > 200) {
+            this.HP = 200;
+        }
     }
     
     public void setSpeed(float x) {
@@ -110,25 +117,25 @@ public abstract class Entity {
     public int getWidth() {
         return this.width;
     }
-
+// 6, 6, 6, 6, 6
     // if it hits left side 
     public void setXL() {
-        x = getX() - 6;
+        this.x = this.getX() - this.speed;
     }
 
     // if it hits right side 
     public void setXR() {
-        x = getX() + 6;
+        this.x = this.getX() + this.speed;
     }
 
     // if it hits top 
     public void setYT() {
-        y = getY() + 6;
+        this.y = this.getY() + this.speed;
     }
 
     // if it hits bottom 
     public void setYB() {
-        y = getY() - 6;
+        this.y = this.getY() - this.speed;
     }
 
     // each subclass needs their own draw(ShapeRenderer shapeBatch) method
