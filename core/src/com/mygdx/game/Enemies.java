@@ -22,30 +22,30 @@ public class Enemies extends Entity {
     private Texture pic;
     // dead image
     private Texture pic2;
-    
+
     private boolean hitPlayer;
-    
+
     public Enemies(int HP, float speed, float x, float y, int width, int height, int damage) {
         super(HP, speed, x, y, width, height);
         this.isDead = false;
         this.damage = damage;
-        this.pic = new Texture("zombie.png");
-        this.pic2 = new Texture("badlogic.jpg");
+        this.pic = new Texture("zombie2.png");
+        this.pic2 = new Texture("blood.png");
         this.hitPlayer = false;
     }
 
     public void setHitPlayer() {
         this.hitPlayer = true;
     }
-    
+
     public void setNotHitPlayer() {
         this.hitPlayer = false;
     }
-    
+
     public boolean getHitPlayer() {
         return this.hitPlayer;
     }
-    
+
     public Rectangle getBounds() {
         return super.getRect();
     }
@@ -57,8 +57,8 @@ public class Enemies extends Entity {
     public boolean collidesWith(Enemies p) {
         return super.getRect().overlaps(p.getBounds());
     }
-    
-    public Boolean collidesWith(Room p){
+
+    public Boolean collidesWith(Room p) {
         return super.getRect().overlaps(p.getBounds());
     }
 
@@ -81,10 +81,10 @@ public class Enemies extends Entity {
             super.setYDown();
         }
     }
-    
+
     public void MoveCoord(int x, int y) {
         // if Enemies is left of player
-        if (super.getX() + (super.getWidth() / 2) < x){
+        if (super.getX() + (super.getWidth() / 2) < x) {
             // move right
             super.setXRight();
         } else if (super.getX() + (super.getWidth() / 2) > x) {
@@ -102,9 +102,8 @@ public class Enemies extends Entity {
         }
     }
 
-
-@Override
-        public void draw(ShapeRenderer shapeBatch) {
+    @Override
+    public void draw(ShapeRenderer shapeBatch) {
         shapeBatch.rect(super.getX(), super.getY(), super.getWidth(), super.getHeight());
     }
 
@@ -120,49 +119,49 @@ public class Enemies extends Entity {
         if (player.getX() + (player.getWidth() / 2) > super.getX() + (super.getWidth() / 2) && player.getY() + (player.getHeight() / 2) > super.getY() + (super.getHeight() / 2)) {
             float angle = (float) Math.atan(((player.getY() + player.getHeight() / 2) - (super.getY() + super.getHeight() / 2)) / ((player.getX() + player.getWidth() / 2) - (super.getX() + super.getWidth() / 2)));
             angle = Math.abs((float) Math.toDegrees(angle));
-            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, (angle) - 90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
+            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), (float)1.7, (float)1.7, (angle) - 90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
 
         } else if (player.getX() + (player.getWidth() / 2) < super.getX() + (super.getWidth() / 2) && player.getY() + (player.getHeight() / 2) > super.getY() + (super.getHeight() / 2)) {
             // else if in quadrant 2
             float angle = (float) Math.atan(((player.getY() + player.getHeight() / 2) - (super.getY() + super.getHeight() / 2)) / ((super.getX() + super.getWidth() / 2) - (player.getX() + player.getWidth() / 2)));
             angle = Math.abs((float) Math.toDegrees(angle));
-            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, 90 - (angle), 0, 0, pic.getWidth(), pic.getHeight(), false, false);
+            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), (float)1.7, (float)1.7, 90 - (angle), 0, 0, pic.getWidth(), pic.getHeight(), false, false);
 
         } else if (player.getX() + (player.getWidth() / 2) < super.getX() + (super.getWidth() / 2) && player.getY() + (player.getHeight() / 2) < super.getY() + (super.getHeight() / 2)) {
             // else if in quadrant 3
             float angle = (float) Math.atan(((super.getY() + super.getHeight() / 2) - (player.getY() + player.getHeight() / 2)) / ((super.getX() + super.getWidth() / 2) - (player.getX() + player.getWidth() / 2)));
             angle = Math.abs((float) Math.toDegrees(angle));
-            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, angle + 90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
+            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), (float)1.7, (float)1.7, angle + 90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
 
         } else if (player.getX() + (player.getWidth() / 2) > super.getX() + (super.getWidth() / 2) && player.getY() + (player.getHeight() / 2) < super.getY() + (super.getHeight() / 2)) {
             // else if in quadrant 4
             float angle = (float) Math.atan(((super.getY() + super.getHeight() / 2) - (player.getY() + player.getHeight() / 2)) / ((player.getX() + player.getWidth() / 2) - (super.getX() + super.getWidth() / 2)));
             angle = Math.abs((float) Math.toDegrees(angle));
-            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, 270 - angle, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
+            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), (float)1.7, (float)1.7, 270 - angle, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
 
         } else if (player.getX() + (player.getWidth() / 2) == super.getX() + (super.getWidth() / 2) && player.getY() + (player.getHeight() / 2) > super.getY() + (super.getHeight() / 2)) {
             // else if directly above
-            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, 0, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
+            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), (float)1.7, (float)1.7, 0, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
 
         } else if (player.getX() + (player.getWidth() / 2) == super.getX() + (super.getWidth() / 2) && player.getY() + (player.getHeight() / 2) < super.getY() + (super.getHeight() / 2)) {
             // else if directly below
-            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, 180, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
+            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), (float)1.7, (float)1.7, 180, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
 
         } else if (player.getX() + (player.getWidth() / 2) > super.getX() + (super.getWidth() / 2) && player.getY() + (player.getHeight() / 2) == super.getY() + (super.getHeight() / 2)) {
             // else if directly right
-            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, -90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
+            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), (float)1.7, (float)1.7, -90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
 
         } else if (player.getX() + (player.getWidth() / 2) < super.getX() + (super.getWidth() / 2) && player.getY() + (player.getHeight() / 2) == super.getY() + (super.getHeight() / 2)) {
             // else if directly left
-            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, 90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
+            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), (float)1.7, (float)1.7, 90, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
         } else if (player.getX() + (player.getWidth() / 2) == super.getX() + (super.getWidth() / 2) && player.getY() + (player.getHeight() / 2) == super.getY() + (super.getHeight() / 2)) {
             // else if directly on centre of Player
-            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), 1, 1, 180, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
+            batch.draw(pic, super.getX(), super.getY(), super.getWidth() / 2, super.getHeight() / 2, super.getWidth(), super.getHeight(), (float)1.7, (float)1.7, 180, 0, 0, pic.getWidth(), pic.getHeight(), false, false);
         }
     }
 
     /**
-     * 
+     *
      * @param batch the SpriteBatch being used to draw
      */
     public void deadDraw(SpriteBatch batch) {
@@ -178,8 +177,7 @@ public class Enemies extends Entity {
         this.damage = 0;
         this.isDead = true;
     }
-    
-    
+
     /**
      *
      * @return
@@ -191,5 +189,5 @@ public class Enemies extends Entity {
     public int getDamage() {
         return this.damage;
     }
-    
+
 }

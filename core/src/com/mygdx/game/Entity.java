@@ -59,8 +59,8 @@ public abstract class Entity {
     
     public void increaseHP(HealthUp item) {
         this.HP = this.HP + (int)item.getValue();
-        if(this.HP > 200) {
-            this.HP = 200;
+        if(this.HP > 500) {
+            this.HP = 500;
         }
     }
     

@@ -75,7 +75,7 @@ public class MyGdxGame extends ApplicationAdapter {
     public void create() {
         this.multiplier = 1;
 
-        player = new Player(100, (float) 4.5, 600, 500, 200, 200, 0, 1);
+        player = new Player(100, (float) 4.5, 600, 500, 150, 150, 0, 1);
         leftMain = new Room(100, 20, 1850, 1500);
         rightMain = new Room(1950, 20, 1880, 1500 + 60);
         topMain = new Room(750, 1500, 2460, 700);
@@ -86,11 +86,11 @@ public class MyGdxGame extends ApplicationAdapter {
         this.healths = new ArrayList<HealthUp>();
 
         enemies = new ArrayList<Enemies>();
-        enemies.add(new Enemies(100, (float) 2, (float) 300, (float) 200, 120, 120, 5));
-        enemies.add(new Enemies(100, (float) 2, (float) 500, (float) 450, 120, 120, 5));
-        enemies.add(new Enemies(100, (float) 2, (float) 500, (float) 450, 120, 120, 5));
-        enemies.add(new Enemies(100, (float) 2, (float) 500, (float) 450, 120, 120, 5));
-        enemies.add(new Enemies(100, (float) 2, (float) 300, (float) 200, 120, 120, 5));
+        enemies.add(new Enemies(100, (float) 2, (float) 300, (float) 200, 100, 100, 1));
+        enemies.add(new Enemies(100, (float) 2, (float) 500, (float) 450, 100, 100, 1));
+        enemies.add(new Enemies(100, (float) 2, (float) 500, (float) 450, 100, 100, 1));
+        enemies.add(new Enemies(100, (float) 2, (float) 500, (float) 450, 100, 100, 1));
+        enemies.add(new Enemies(100, (float) 2, (float) 300, (float) 200, 100, 100, 1));
 
         // centre gun on player
         pistol = new M1911(1, player.getX() + (25), player.getY() + (37), 50, 75, 12, (float) 0.15, 48);
@@ -458,15 +458,15 @@ public class MyGdxGame extends ApplicationAdapter {
             // spawn new zombies (tankier, faster, stronger)
             // leftMain
             if (this.spawn == 1) {
-                enemies.add(new Enemies(100 + (this.multiplier * 5), (float) (this.tempSpeed + 0.75), (float) 975, (float) 760, this.tempWidth, this.tempHeight, 5 + (this.multiplier * 2)));
+                enemies.add(new Enemies(100 + (this.multiplier * 2), (float) (this.tempSpeed + 0.25), (float) 975, (float) 760, this.tempWidth, this.tempHeight, 1 + this.multiplier));
                 System.out.println("left");
             } else if (this.spawn == 2) {
                 // rightMain
-                enemies.add(new Enemies(100 + (this.multiplier * 5), (float) (this.tempSpeed + 0.75), (float) 2515, (float) 790, this.tempWidth, this.tempHeight, 5 + (this.multiplier * 2)));
+                enemies.add(new Enemies(100 + (this.multiplier * 2), (float) (this.tempSpeed + 0.25), (float) 2515, (float) 790, this.tempWidth, this.tempHeight, 1 + this.multiplier));
                 System.out.println("right");
             } else if (this.spawn == 3) {
                 // topMain
-                enemies.add(new Enemies(100 + (this.multiplier * 5), (float) (this.tempSpeed + 0.75), (float) 1605, (float) 2000, this.tempWidth, this.tempHeight, 5 + (this.multiplier * 2)));
+                enemies.add(new Enemies(100 + (this.multiplier * 2), (float) (this.tempSpeed + 0.25), (float) 1605, (float) 2000, this.tempWidth, this.tempHeight, 1 + this.multiplier));
                 System.out.println("top");
             }
             // reset variable to prevent unneccessary spawns
@@ -506,6 +506,13 @@ public class MyGdxGame extends ApplicationAdapter {
             // GAME OVER
         }
         
+//        shapeBatch.setColor(Color.RED);
+//        for(Enemies enemy: enemies) {
+//            enemy.draw(shapeBatch);
+//        }
+//        shapeBatch.setColor(Color.BLUE);
+//        player.draw(shapeBatch);
+        
         shapeBatch.end();
 
         // sprite drawings
@@ -527,7 +534,7 @@ public class MyGdxGame extends ApplicationAdapter {
         player.drawHP(batch);
 
         // gun drawing
-        pistol.draw(batch, player, cursorPosition.x, cursorPosition.y);
+        // pistol.draw(batch, player, cursorPosition.x, cursorPosition.y);
 
         pistol.drawAmmo(batch, player);
 
