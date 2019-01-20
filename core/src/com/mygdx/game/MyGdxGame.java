@@ -500,8 +500,12 @@ public class MyGdxGame extends ApplicationAdapter {
                     }
                 }
             }
-
         }
+        
+        if(player.getHP() <= 0) {
+            // GAME OVER
+        }
+        
         shapeBatch.end();
 
         // sprite drawings
