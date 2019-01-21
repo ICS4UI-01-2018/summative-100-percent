@@ -35,7 +35,7 @@ public class Enemies extends Entity {
         this.xDirection = 0;
         this.yDirection = 0;
         this.damage = damage;
-        this.pic = new Texture("zombie.jpg");
+        this.pic = new Texture("Zombie.jpg");
         this.pic2 = new Texture("badlogic.jpg");
     }
 
