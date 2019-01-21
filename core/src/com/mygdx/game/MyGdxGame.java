@@ -74,7 +74,7 @@ public class MyGdxGame extends ApplicationAdapter {
         player = new Player(100, (float) 5, 600, 500, 100, 100, 0, 1);
         leftMain = new Room(100, 20, 1850, 1600);
         rightMain = new Room(1950, 20, 1880, 1500+60);
-        topMain = new Room(750, 1550, 2460, 700);
+        topMain = new Room(550, 1550, 2460+400, 700+400);
         
         background = new Texture("abstract-geometric-background-triangles-and-lines-loop-4k-4096x2304_ekm8_sfzx__F0000.png");
         wallPat = new Texture("Metal-Pattern-Background-Blue.jpg");
@@ -146,7 +146,7 @@ public class MyGdxGame extends ApplicationAdapter {
         cam.update();
         
         walls[0] = new Wall(100, 20, 1800, 80);
-        walls[1] = new Wall(100, 1500, 650, 80); // top
+        walls[1] = new Wall(100, 1500, 450, 80); // top
         walls[2] = new Wall(1150, 1500, 900, 80); // top 
         walls[3] = new Wall(20, 20, 80, 630);
         walls[4] = new Wall(20, 950, 80, 630);
@@ -157,17 +157,17 @@ public class MyGdxGame extends ApplicationAdapter {
         //
         walls[7] = new Wall(1980, 20, 1800, 80);
         walls[8] = new Wall(1980, 1500, 650, 80); // top 1
-        walls[9] = new Wall(3130, 1500, 650, 80); // top2 
+        walls[9] = new Wall(3130+200, 1500, 450, 80); // top2 
         walls[10] = new Wall(1900, 20, 80, 630);
         walls[11] = new Wall(1900, 950, 80, 630);
         walls[12] = new Wall(3780, 20, 80, 630 + 920);
         walls[13] = new Wall(3780, 950, 80, 630);
-        walls[14] = new Wall(750, 1500, 80, 700);//left large 
-        walls[15] = new Wall(1150, 1500, 80, 300); // left small 
+        walls[14] = new Wall(550, 1500, 80, 900);//left large 
+        walls[15] = new Wall(1150, 1500, 1560, 300); // left small 
         walls[16] = new Wall(2630, 1500, 80, 300);// right small
-        walls[17] = new Wall(3130, 1500, 80, 700);// right large
+        walls[17] = new Wall(3330, 1500, 80, 900);// right large
         walls[18] = new Wall(1150, 1800, 1560, 80);
-        walls[19] = new Wall(750, 2200, 2460, 80);
+        walls[19] = new Wall(550, 2200+200, 2460+400, 80);
         walls[20] = new Wall(20, 20, 80, 1000);
         
         
@@ -391,10 +391,10 @@ public class MyGdxGame extends ApplicationAdapter {
 
       //  shapeBatch.setColor(Color.RED);
        // shapeBatch.rect(0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
-        
-//       topMain.draw(shapeBatch);
 //        shapeBatch.setColor(Color.BLUE);
-//       rightMain.draw(shapeBatch);
+//       topMain.draw(shapeBatch);
+        
+   //    rightMain.draw(shapeBatch);
 //        shapeBatch.setColor(Color.ORANGE);
 //        leftMain.draw(shapeBatch);
         batch.begin();
@@ -407,13 +407,17 @@ public class MyGdxGame extends ApplicationAdapter {
         for (int z = 0; z < 21; z++) {
           //  walls[z].draw(shapeBatch);
             
-            batch.draw(wallPat, walls[z].getX(),walls[z].getY(),walls[z].getwidth(),walls[z].getheight());
+          batch.draw(wallPat, walls[z].getX(),walls[z].getY(),walls[z].getwidth(),walls[z].getheight());
         }
          batch.end();
-        shapeBatch.setColor(Color.GRAY);
-         for (int z = 0; z < 21; z++) {
-             
-         }
+//        shapeBatch.setColor(Color.GRAY);
+//         for (int z = 0; z < 7; z++) {
+//             walls[z].draw(shapeBatch);
+//         }
+//         shapeBatch.setColor(Color.BLUE);
+//         for (int z = 8; z < 21; z++) {
+//             walls[z].draw(shapeBatch);
+       //  }
         // pistol.draw(shapeBatch, player);
         // player.draw(shapeBatch);
         // enemies[1].draw(shapeBatch);
