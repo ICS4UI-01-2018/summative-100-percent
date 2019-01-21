@@ -60,6 +60,10 @@ public class MyGdxGame extends ApplicationAdapter {
     private Table table;
     private TextButton startButton;
     private TextButton instructionsButton;    
+    private TextButton W;
+    private TextButton A;
+    private TextButton S;
+    private TextButton D;
     
     // mouse clicks that correspond to each bullet
     private ArrayList<Float> cursorXPositions;
@@ -98,33 +102,41 @@ public class MyGdxGame extends ApplicationAdapter {
         table.setPosition(0, Gdx.graphics.getHeight());
         startButton = new TextButton("New Game", skin);
         instructionsButton = new TextButton("Instructions", skin);
-//        final Dialog dialog = new Dialog("GAME BEGINNING", skin);
-//        
+
+               
         startButton.addListener(new ClickListener(){
         @Override 
         public void clicked(InputEvent event, float x, float y){
             System.out.println("Button CLicked");
             MainMenu = false;
             
+            
         }
         });
-//        public void clicked(InputEvent event, float x, float y){
-//        dialog.show(stage);
-//        Timer.schedule(new Timer.Task(){
-//         @Override
-//         public void run(){
-//             dialog.hide();
-//         }
-//        },5);
-//        }      
-//        });
-        
+    
         table.padTop(160);
         table.add(startButton). padBottom(30);
         table.row();
         table.add(instructionsButton);
         stage.addActor(table);
         Gdx.input.setInputProcessor(stage);
+        
+       
+        
+        
+        
+        
+        
+        
+        instructionsButton.addListener(new ClickListener(){
+        @Override 
+        public void clicked(InputEvent event, float x, float y){
+            System.out.println("Button CLicked");
+            Instructions = true;
+            MainMenu = false;
+            
+        }
+        });
         
         
         
@@ -194,19 +206,28 @@ public class MyGdxGame extends ApplicationAdapter {
         batch.end();
         
         
+        }else if(Instructions == true){
+ 
+        cursorPosition.x = Gdx.input.getX();
+        cursorPosition.y = Gdx.input.getY();
+        cursorPosition.z = 0;
+        cam.unproject(cursorPosition);
+        Gdx.gl.glClearColor(0,0,0,1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);    
+        stage.act(Gdx.graphics.getDeltaTime());
+        stage.draw();
+        batch.begin();
+        
+        batch.end();    
+            
+            
         
         
         
         
             
-        } else if(MainMenu == false){
+        } else if(MainMenu == false && Instructions == false){
         // game drawings
-            
-            
-        
-        
-        
-        
         super.render();
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -498,6 +519,12 @@ public class MyGdxGame extends ApplicationAdapter {
         
         batch.end();
         }
+    }
+    @Override
+    public void resize(int width, int height){
+        viewport.update(width, height);
+        stage.getViewport().update(width,height);
+        
     }
 }
 
