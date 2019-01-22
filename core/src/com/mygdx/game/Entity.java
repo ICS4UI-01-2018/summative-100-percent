@@ -152,7 +152,7 @@ public abstract class Entity {
     public abstract void draw(ShapeRenderer shapeBatch);
 
     public void drawHP(SpriteBatch batch) {
-        text.draw(batch, String.valueOf(this.HP), (this.x) + ((this.width) / 2), this.y + this.height + 10);
+        text.draw(batch, String.valueOf(this.HP), (this.x) + ((this.width) / 2), this.y + this.height + 40);
     }
 
     public void setXLeft() {

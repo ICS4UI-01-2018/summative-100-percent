@@ -14,7 +14,7 @@ import com.badlogic.gdx.math.Rectangle;
  *
  * @author prylz2189
  */
-public class Enemies extends Entity {
+public class Zombie extends Entity {
 
     private boolean isDead;
     private int damage;
@@ -25,7 +25,7 @@ public class Enemies extends Entity {
 
     private boolean hitPlayer;
 
-    public Enemies(int HP, float speed, float x, float y, int width, int height, int damage) {
+    public Zombie(int HP, float speed, float x, float y, int width, int height, int damage) {
         super(HP, speed, x, y, width, height);
         this.isDead = false;
         this.damage = damage;
@@ -54,7 +54,7 @@ public class Enemies extends Entity {
         return super.getRect().overlaps(p.getBounds());
     }
 
-    public boolean collidesWith(Enemies p) {
+    public boolean collidesWith(Zombie p) {
         return super.getRect().overlaps(p.getBounds());
     }
 

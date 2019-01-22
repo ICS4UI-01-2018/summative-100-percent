@@ -75,7 +75,7 @@ public abstract class Item {
         return this.value;
     }
     
-    public void setPosition(Enemies enemy) {
+    public void setPosition(Zombie enemy) {
         this.x = enemy.getX();
         this.y = enemy.getY();
     }
