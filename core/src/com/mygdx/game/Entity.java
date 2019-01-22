@@ -68,6 +68,11 @@ public abstract class Entity {
         this.speed = this.speed + x;
     }
 
+     public void setXY(float x, float y){
+        this.x = x;
+        this.y = y;
+    }
+
     /**
      *
      * @return the integer representing the HP.
