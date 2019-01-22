@@ -602,6 +602,7 @@ public class MyGdxGame extends ApplicationAdapter {
                 this.spawn = 0;
 
                 // item collisions with players
+                
                 for (SpeedUp item : this.speeds) {
                     if (player.getRect().contains(item.getRect())) {
                         if (item.getCollided() == false) {
@@ -630,9 +631,9 @@ public class MyGdxGame extends ApplicationAdapter {
                     }
                 }
             }
-
+            // game over when player reaches 0 HP
             if (player.getHP() <= 0) {
-                // GAME OVER
+                
             }
 
 //        shapeBatch.setColor(Color.RED);
