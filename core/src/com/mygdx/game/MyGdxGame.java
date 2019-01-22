@@ -308,7 +308,7 @@ public class MyGdxGame extends ApplicationAdapter {
             for (Enemies enemy : enemies) {
                 // if an enemy hits a wall 
                 if (enemy.collidesWith(walls[g])) {
-                    System.out.println(walls[g].getBounds().contains(player.getRect()));
+                    // System.out.println(walls[g].getBounds().contains(player.getRect()));
                     // if enemy hits top of wall
                     if (enemy.getY() <= walls[g].getY() + walls[g].getheight() && enemy.getY() > walls[g].getY()) {
                         enemy.setYT();
@@ -403,7 +403,7 @@ public class MyGdxGame extends ApplicationAdapter {
                             // zombie dies
                             enemy.setDead();
                             this.randomItemChance = (int) (Math.random() * (1 - 0 + 1) + 0);
-                            System.out.println(randomItemChance);
+                            // System.out.println(randomItemChance);
                             // 50 % to spawn item
                             if (this.randomItemChance == 1) {
                                 // generate a random number from 0 to 2
@@ -459,15 +459,15 @@ public class MyGdxGame extends ApplicationAdapter {
             // leftMain
             if (this.spawn == 1) {
                 enemies.add(new Enemies(100 + (this.multiplier * 2), (float) (this.tempSpeed + 0.25), (float) 975, (float) 760, this.tempWidth, this.tempHeight, 1 + this.multiplier));
-                System.out.println("left");
+                
             } else if (this.spawn == 2) {
                 // rightMain
                 enemies.add(new Enemies(100 + (this.multiplier * 2), (float) (this.tempSpeed + 0.25), (float) 2515, (float) 790, this.tempWidth, this.tempHeight, 1 + this.multiplier));
-                System.out.println("right");
+                
             } else if (this.spawn == 3) {
                 // topMain
                 enemies.add(new Enemies(100 + (this.multiplier * 2), (float) (this.tempSpeed + 0.25), (float) 1605, (float) 2000, this.tempWidth, this.tempHeight, 1 + this.multiplier));
-                System.out.println("top");
+                
             }
             // reset variable to prevent unneccessary spawns
             this.spawn = 0;
