@@ -90,9 +90,13 @@ public class MyGdxGame extends ApplicationAdapter {
     private float aimedTime;
     private float time;
 
+    private int killCounter;
+    
     // add in walls here and be able to call them in a for loop
     @Override
     public void create() {
+        killCounter = 0;
+        
         this.multiplier = 1;
 
         player = new Player(100, (float) 4.5, 600, 500, 100, 100, 0, 1);
@@ -522,6 +526,8 @@ public class MyGdxGame extends ApplicationAdapter {
                             // if zombie HP is less than or equal to 0
 
                             if (enemy.getHP() <= 0) {
+                                killCounter = killCounter + 1;
+                                
                                 this.multiplier = this.multiplier + 1;
 
                                 // get dead zombies info
@@ -692,6 +698,9 @@ public class MyGdxGame extends ApplicationAdapter {
                 pistol.drawReloading(batch, player);
             }
 
+            // killCounter
+            pistol.drawKillCounter(batch, player, killCounter);
+            
             batch.end();
         }
     }

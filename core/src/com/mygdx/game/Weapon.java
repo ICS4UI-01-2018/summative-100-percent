@@ -84,20 +84,21 @@ public abstract class Weapon {
         text.draw(batch, String.valueOf(this.totalAmmo), player.getX() + player.getWidth() / 2 - 300, player.getY() + player.getHeight() + 500);
     }
 
-   /**
-    * Display "RELOADING" when the gun is being reloaded.
-    * 
-    * @param batch the SpriteBatch being used to draw.
-    * @param player the Player used as a point 
-    */
+    /**
+     * Display "RELOADING" when the gun is being reloaded.
+     *
+     * @param batch the SpriteBatch being used to draw.
+     * @param player the Player used as a point
+     */
     public void drawReloading(SpriteBatch batch, Player player) {
-        text.draw(batch, "RELOADING", player.getX() + (player.getWidth()/2) - 500, player.getY() + (player.getHeight() + 450));
+        text.draw(batch, "RELOADING", player.getX() + (player.getWidth() / 2) - 500, player.getY() + (player.getHeight() + 450));
     }
 
-    public void drawNoMoreAmmo(SpriteBatch batch) {
-        
+    public void drawKillCounter(SpriteBatch batch, Player player, int counter) {
+        text.draw(batch, "KILLS: ", player.getX() + (player.getWidth() / 2) - 500, player.getY() + (player.getHeight() + 400));
+        text.draw(batch, String.valueOf(counter), player.getX() + (player.getWidth() / 2) - 250, player.getY() + (player.getHeight() + 400));
     }
-    
+
     public void calculateInitialAmmo() {
         if (this.totalAmmo - this.clipSize >= 0) {
             this.bulletsInClip = this.clipSize;
