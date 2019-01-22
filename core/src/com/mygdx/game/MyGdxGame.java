@@ -637,9 +637,9 @@ public class MyGdxGame extends ApplicationAdapter {
                     }
                 }
             }
-            // game over when player reaches 0 HP
+            // game closes when player reaches 0 HP
             if (player.getHP() <= 0) {
-                
+                System.exit(0);
             }
 
 //        shapeBatch.setColor(Color.RED);
