@@ -199,13 +199,13 @@ public class MyGdxGame extends ApplicationAdapter {
         walls[2] = new Wall(1150, 1500, 900, 80); // top 
         walls[3] = new Wall(20, 20, 80, 630);
         walls[4] = new Wall(20, 950, 80, 630);
-        walls[5] = new Wall(1900, 20, 80, 630);
-        walls[6] = new Wall(1900, 950, 80, 630);////
+        walls[5] = new Wall(1900, 20, 80, 630-100);
+        walls[6] = new Wall(1900, 950+100, 80, 630-100);////
         walls[7] = new Wall(1980, 20, 1800, 80);
         walls[8] = new Wall(1980, 1500, 650, 80); // top 1
         walls[9] = new Wall(3130 + 200, 1500, 450, 80); // top2 
-        walls[10] = new Wall(1900, 20, 80, 630);
-        walls[11] = new Wall(1900, 950, 80, 630);
+        walls[10] = new Wall(0, 0,0, 0);
+        walls[11] = new Wall(0, 0,0, 0);
         walls[12] = new Wall(3780, 20, 80, 630 + 920);
         walls[13] = new Wall(3780, 950, 80, 630);
         walls[14] = new Wall(550, 1500, 80, 900);//left large 
