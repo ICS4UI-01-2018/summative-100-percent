@@ -18,47 +18,52 @@ import com.badlogic.gdx.math.Vector3;
  * @author phub1604
  */
 public class Player extends Entity {
-
-    // private HealthBar health
-    private int armor;
-    private int lives;
-
-    // image file
+    
     private Texture pic;
-
-    // private ArrayList<Weapon> weapons;
-    // or
-    // private Weapon weapon;
-    // rotation angle
     private float angle;
 
-    public Player(int HP, float speed, float x, float y, int width, int height, int armor, int lives) {
+    /**
+     * Initializes Player data.
+     * 
+     * @param HP the number of hit points of the Player.
+     * @param speed the speed of the Player.
+     * @param x the x position of the Player.
+     * @param y the y position of the Player.
+     * @param width the width of the Player.
+     * @param height the height of the Player.
+     */
+    public Player(int HP, float speed, float x, float y, int width, int height) {
         super(HP, speed, x, y, width, height);
-        this.armor = armor;
-        this.lives = lives;
-        // this.r = new Rectangle(x, y, width, height);
         this.pic = new Texture("player.jpg");
         this.angle = 0;
     }
-
     
-    
+    /**
+     * Returns the Rectangle of the Player.
+     * 
+     * @return the Rectangle representing the Player.
+     */
     public Rectangle getBounds() {
         return super.getRect();
     }
-
-    // return Player parts in floats
-    public float getLeft() {
-        return super.getX();
-    }
     
+    /**
+     * Returns whether the Player has collided with a Wall.
+     * 
+     * @param p the Wall being checked.
+     * @return returns true if the Player is touching the Wall, false otherwise.
+     */
     public boolean collidesWith(Wall p) {
-        // wall collision detection
         return super.getRect().overlaps(p.getBounds());
     }
     
+    /**
+     * Returns whether the Player has collided with a Zombie.
+     * 
+     * @param p the Zombie being checked.
+     * @return returns true if the Player is touching the Zombie, false otherwise.
+     */
     public boolean collidesWithZ(Zombie p) {
-        // zombie collision detection
         return super.getRect().overlaps(p.getBounds());
     }
     
@@ -78,9 +83,7 @@ public class Player extends Entity {
         return super.getY();
     }
 
-    public int getArmor() {
-        return this.armor;
-    }
+    
 
     public void reload() {
 

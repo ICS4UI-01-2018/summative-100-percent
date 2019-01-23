@@ -103,7 +103,7 @@ public class MyGdxGame extends ApplicationAdapter {
         multiplier = 1;
 
         // create Player
-        player = new Player(100, (float) 4.5, 600, 500, 100, 100, 0, 1);
+        player = new Player(100, (float) 4.5, 600, 500, 100, 100);
 
         // create Rooms
         leftMain = new Room(100, 20, 1850, 1600);
