@@ -48,7 +48,7 @@ public class Player extends Entity {
     }
 
     /**
-     * Returns whether the Player has collided with a Wall.
+     * Returns whether the Player has collided with a Wall or not.
      *
      * @param p the Wall being checked.
      * @return returns true if the Player is touching the Wall, false otherwise.
@@ -58,7 +58,7 @@ public class Player extends Entity {
     }
 
     /**
-     * Returns whether the Player has collided with a Zombie.
+     * Returns whether the Player has collided with a Zombie or not.
      *
      * @param p the Zombie being checked.
      * @return returns true if the Player is touching the Zombie, false
@@ -69,7 +69,7 @@ public class Player extends Entity {
     }
 
     /**
-     * Returns whether the Player has collided with a Room.
+     * Returns whether the Player has collided with a Room or not.
      *
      * @param p the Room being checked.
      * @return returns true if the Player is touching the Room, false otherwise.
