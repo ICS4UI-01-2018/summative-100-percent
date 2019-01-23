@@ -91,7 +91,6 @@ public class MyGdxGame extends ApplicationAdapter {
     // used to display number of kills
     private int killCounter;
 
-    // add in walls here and be able to call them in a for loop
     @Override
     public void create() {
         // by default 0 kills
@@ -234,6 +233,7 @@ public class MyGdxGame extends ApplicationAdapter {
             if (initialAmmoCalculated == false) {
                 pistol.calculateInitialAmmo();
                 initialAmmoCalculated = true;
+                // time variables
                 time = Gdx.graphics.getDeltaTime();
                 aimedTime = Gdx.graphics.getDeltaTime();
             }
