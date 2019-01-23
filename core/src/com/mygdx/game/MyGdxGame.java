@@ -51,7 +51,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
     private Vector3 cursorPosition = new Vector3();
     // menu variables
-    private boolean MainMenu;
+    private boolean mainMenu;
     private BitmapFont font;
     private Skin skin;
     private Stage stage;
@@ -131,7 +131,7 @@ public class MyGdxGame extends ApplicationAdapter {
         bulletInfo = new M1911Bullet(25, player.getX() + (player.getWidth() / 2), player.getY() + (player.getHeight() / 2), 55, 10);
 
         // main menu variables
-        MainMenu = true;
+        mainMenu = true;
         font = new BitmapFont();
         font.setColor(Color.RED);
         skin = new Skin(Gdx.files.internal("uiskin.json"));
@@ -143,14 +143,15 @@ public class MyGdxGame extends ApplicationAdapter {
         table.setPosition(0, Gdx.graphics.getHeight());
         startButton = new TextButton("Play Game", skin);
 
+        // when Play button clicked, move onto game
         startButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("Button CLicked");
-                MainMenu = false;
+                mainMenu = false;
             }
         });
-
+        // Play button
         table.padTop(160);
         table.add(startButton).padBottom(30);
         table.row();
@@ -170,21 +171,21 @@ public class MyGdxGame extends ApplicationAdapter {
 
         // create walls
         walls[0] = new Wall(100, 20, 1800, 80);
-        walls[1] = new Wall(100, 1500, 450, 80); 
-        walls[2] = new Wall(1150, 1500, 900, 80);  
+        walls[1] = new Wall(100, 1500, 450, 80);
+        walls[2] = new Wall(1150, 1500, 900, 80);
         walls[3] = new Wall(20, 20, 80, 630);
         walls[4] = new Wall(20, 950, 80, 630);
-        walls[5] = new Wall(1900, 20, 80, 630-100);
-        walls[6] = new Wall(1900, 950+100, 80, 630-100);
+        walls[5] = new Wall(1900, 20, 80, 630 - 100);
+        walls[6] = new Wall(1900, 950 + 100, 80, 630 - 100);
         walls[7] = new Wall(1980, 20, 1800, 80);
-        walls[8] = new Wall(1980, 1500, 650, 80); 
-        walls[9] = new Wall(3130 + 200, 1500, 450, 80);  
-        walls[10] = new Wall(0, 0,0, 0);
-        walls[11] = new Wall(0, 0,0, 0);
+        walls[8] = new Wall(1980, 1500, 650, 80);
+        walls[9] = new Wall(3130 + 200, 1500, 450, 80);
+        walls[10] = new Wall(0, 0, 0, 0);
+        walls[11] = new Wall(0, 0, 0, 0);
         walls[12] = new Wall(3780, 20, 80, 630 + 920);
         walls[13] = new Wall(3780, 950, 80, 630);
         walls[14] = new Wall(550, 1500, 80, 900);
-        walls[15] = new Wall(1150, 1500, 1560, 300);  
+        walls[15] = new Wall(1150, 1500, 1560, 300);
         walls[16] = new Wall(2630, 1500, 80, 300);
         walls[17] = new Wall(3330, 1500, 80, 900);
         walls[18] = new Wall(1150, 1800, 1560, 80);
@@ -202,7 +203,7 @@ public class MyGdxGame extends ApplicationAdapter {
     @Override
     public void render() {
         // main menu drawings
-        if (MainMenu == true) {
+        if (mainMenu == true) {
             cursorPosition.x = Gdx.input.getX();
             cursorPosition.y = Gdx.input.getY();
             cursorPosition.z = 0;
@@ -219,7 +220,7 @@ public class MyGdxGame extends ApplicationAdapter {
             font.draw(batch, "ZOMBIE SHOOTER", 195, 400);
             batch.end();
 
-        } else if (MainMenu == false) {
+        } else if (mainMenu == false) {
             // game drawings
             super.render();
             Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -299,7 +300,7 @@ public class MyGdxGame extends ApplicationAdapter {
                     }
                 }
             }
-            
+
             // for each Zombie in zombies ArrayList
             for (Zombie zombie : zombies) {
                 // if Player collides with a Zombie, slow Zombie down
@@ -368,7 +369,7 @@ public class MyGdxGame extends ApplicationAdapter {
                     }
                 }
             }
-            
+
             // zombie to wall collision (checks wall array)    
             for (int g = 0; g < 21; g++) {
                 // for each Zombie
@@ -406,7 +407,7 @@ public class MyGdxGame extends ApplicationAdapter {
                     player.setXY(3000, 900);
                 }
             }
-            
+
             // set camera position on player
             cam.position.x = player.getX();
             cam.position.y = player.getY();
