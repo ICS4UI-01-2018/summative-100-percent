@@ -13,37 +13,80 @@ import com.badlogic.gdx.math.Rectangle;
  * @author Starm7481
  */
 public class Room {
-        private Rectangle shape;
+
+    private Rectangle shape;
     private int width;
     private int height;
     private float x;
     private float y;
-    // creating the wall object
-    public Room(float x, float y, int width, int height){
+
+    /**
+     * Initialize Room data.
+     * 
+     * @param x the x position of the Room.
+     * @param y the y position of the Room.
+     * @param width the width of the Room.
+     * @param height the height of the Room.
+     */
+    public Room(float x, float y, int width, int height) {
         this.width = width;
         this.height = height;
         this.x = x;
         this.y = y;
-        shape = new Rectangle(x,y,width,height);
+        shape = new Rectangle(x, y, width, height);
     }
-    // getter methods
-    public float getX(){
+
+    /**
+     * Returns the x position of the Room.
+     * 
+     * @return the float representing the Room's x position.
+     */
+    public float getX() {
         return this.x;
     }
-    public float getY(){
+
+    /**
+     * Returns the y position of the Room.
+     * 
+     * @return the float representing the Room's y position.
+     */
+    public float getY() {
         return this.y;
     }
-    public int getwidth(){
+
+    /**
+     * Returns the width of the Room.
+     * 
+     * @return the integer representing the Room's width.
+     */
+    public int getwidth() {
         return this.width;
     }
-    public int getheight(){
+
+    /**
+     * Returns the height of the Room.
+     * 
+     * @return the integer representing the Room's height.
+     */
+    public int getheight() {
         return this.height;
     }
-     public void draw(ShapeRenderer shapeBatch){
+
+    /**
+     * Draws the shape of the Room.
+     * 
+     * @param shapeBatch the ShapeRenderer being used to draw.
+     */
+    public void draw(ShapeRenderer shapeBatch) {
         shapeBatch.rect(shape.x, shape.y, shape.width, shape.height);
     }
-     
-    public Rectangle getBounds(){
-       return shape;
-   }
+
+    /**
+     * Returns the Rectangle of the Room.
+     * 
+     * @return the Rectangle representing the Room.
+     */
+    public Rectangle getBounds() {
+        return shape;
+    }
 }

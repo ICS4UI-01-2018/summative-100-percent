@@ -25,9 +25,4 @@ public class SpeedUp extends Item {
     public void draw (SpriteBatch batch) {
         batch.draw(pic, super.getX(), super.getY(), super.getWidth(), super.getHeight());
     }
-    
-//    public void addItem(Enemies enemy) {
-//        this.speeds.add(new SpeedUp(enemy.getX(), enemy.getY(), 20, 15, 20));
-//    }
-    
 }
