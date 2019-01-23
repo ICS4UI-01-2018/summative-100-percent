@@ -201,7 +201,8 @@ public abstract class Weapon {
     /**
      * Returns the size of the Weapon's clip.
      *
-     * @return the integer representing the number of bullets able to fit in the Weapon's clip.
+     * @return the integer representing the number of bullets able to fit in the
+     * Weapon's clip.
      */
     public int getclipSize() {
         return this.clipSize;
@@ -209,7 +210,7 @@ public abstract class Weapon {
 
     /**
      * Increases the total number of bullets of the Weapon using an AmmoBox.
-     * 
+     *
      * @param item the AmmoBox that has been picked up by the Player.
      */
     public void addAmmo(AmmoBox item) {

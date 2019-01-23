@@ -12,40 +12,81 @@ import com.badlogic.gdx.math.Rectangle;
  *
  * @author Starm7481
  */
-
 public class Wall {
-    
+
     private Rectangle shape;
     private int width;
     private int height;
     private float x;
     private float y;
-    // creating the wall object
-    public Wall(float x, float y, int width, int height){
+
+    /**
+     * Initialize Wall data.
+     *
+     * @param x the x position of the Wall.
+     * @param y the y position of the Wall.
+     * @param width the width of the Wall.
+     * @param height the height of the Wall.
+     */
+    public Wall(float x, float y, int width, int height) {
         this.width = width;
         this.height = height;
         this.x = x;
         this.y = y;
-           shape = new Rectangle(x,y,width,height);
+        shape = new Rectangle(x, y, width, height);
     }
-    // getter methods
-    public float getX(){
+
+    /**
+     * Returns the x position of the Wall.
+     * 
+     * @return the float representing the Wall's x position.
+     */
+    public float getX() {
         return this.x;
     }
-    public float getY(){
+
+    /**
+     * Returns the y position of the Wall.
+     * 
+     * @return the float representing the Wall's y position.
+     */
+    public float getY() {
         return this.y;
     }
-    public int getwidth(){
+
+    /**
+     * Returns the width of the Wall.
+     * 
+     * @return the integer representing the Wall's width.
+     */
+    public int getwidth() {
         return this.width;
     }
-    public int getheight(){
+
+    /**
+     * Returns the height of the Wall.
+     * 
+     * @return the integer representing the Wall's height.
+     */
+    public int getheight() {
         return this.height;
     }
-     public void draw(ShapeRenderer shapeBatch){
+
+    /**
+     * Draws the shape of the Wall.
+     * 
+     * @param shapeBatch the ShapeRenderer being used to draw the Wall.
+     */
+    public void draw(ShapeRenderer shapeBatch) {
         shapeBatch.rect(shape.x, shape.y, shape.width, shape.height);
     }
-     
-    public Rectangle getBounds(){
-       return shape;
-   }
+
+    /**
+     * Returns the Rectangle of the Wall.
+     * 
+     * @return the Rectangle representing the Wall.
+     */
+    public Rectangle getBounds() {
+        return shape;
+    }
 }

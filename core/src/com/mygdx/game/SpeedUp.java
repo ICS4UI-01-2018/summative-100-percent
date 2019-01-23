@@ -14,15 +14,30 @@ import java.util.ArrayList;
  * @author phub1604
  */
 public class SpeedUp extends Item {
-    
+
     private Texture pic;
-    
-    public SpeedUp (float x, float y, int width, int height, float value) {
+
+    /**
+     * Initialize SpeedUp data.
+     *
+     * @param x the x position of the SpeedUp.
+     * @param y the y position of the SpeedUp.
+     * @param width the width of the SpeedUp.
+     * @param height the height of the SpeedUp.
+     * @param value the value of the SpeedUp.
+     */
+    public SpeedUp(float x, float y, int width, int height, float value) {
         super(x, y, width, height, value);
         this.pic = new Texture("PlayButton.jpg");
     }
-    
-    public void draw (SpriteBatch batch) {
+
+    /**
+     * Draws the SpeedUp.
+     *
+     * @param batch the SpriteBatch being used to draw.
+     */
+    @Override
+    public void draw(SpriteBatch batch) {
         batch.draw(pic, super.getX(), super.getY(), super.getWidth(), super.getHeight());
     }
 }
