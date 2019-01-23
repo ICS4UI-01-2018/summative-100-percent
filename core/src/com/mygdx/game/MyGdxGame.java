@@ -178,7 +178,6 @@ public class MyGdxGame extends ApplicationAdapter {
                 System.out.println("Button CLicked");
                 Instructions = true;
                 MainMenu = false;
-
             }
         });
 
