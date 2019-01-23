@@ -148,7 +148,6 @@ public class MyGdxGame extends ApplicationAdapter {
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("Button CLicked");
                 MainMenu = false;
-
             }
         });
 
@@ -311,9 +310,7 @@ public class MyGdxGame extends ApplicationAdapter {
                     }
                     // decrease Player HP 
                     player.calculateHP(zombie.getDamage());
-                    
-                } 
-
+                }
             }
 
             // zombie to zombie collision
@@ -371,6 +368,7 @@ public class MyGdxGame extends ApplicationAdapter {
                     }
                 }
             }
+            
             // zombie to wall collision (checks wall array)    
             for (int g = 0; g < 21; g++) {
                 // for each Zombie
@@ -408,6 +406,7 @@ public class MyGdxGame extends ApplicationAdapter {
                     player.setXY(3000, 900);
                 }
             }
+            
             // set camera position on player
             cam.position.x = player.getX();
             cam.position.y = player.getY();
@@ -655,5 +654,4 @@ public class MyGdxGame extends ApplicationAdapter {
         viewport.update(width, height);
         stage.getViewport().update(width, height);
     }
-
 }
