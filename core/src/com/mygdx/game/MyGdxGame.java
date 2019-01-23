@@ -31,7 +31,6 @@ public class MyGdxGame extends ApplicationAdapter {
     private OrthographicCamera cam;
     private ShapeRenderer shapeBatch;
     private FitViewport viewport;
-    private Wall wall;
     private Wall[] walls = new Wall[21];
 
     // weapon variables
@@ -79,7 +78,7 @@ public class MyGdxGame extends ApplicationAdapter {
     private float tempSpeed;
     private int tempWidth;
     private int tempHeight;
-    // used to scale zombie attributes
+    // used to scale Zombie HP
     private int multiplier;
 
     // used for starting the game
