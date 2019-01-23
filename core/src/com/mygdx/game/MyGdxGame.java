@@ -52,7 +52,6 @@ public class MyGdxGame extends ApplicationAdapter {
     private Vector3 cursorPosition = new Vector3();
     // menu variables
     private boolean MainMenu;
-    private boolean Instructions;
     private BitmapFont font;
     private Skin skin;
     private Stage stage;
@@ -132,7 +131,6 @@ public class MyGdxGame extends ApplicationAdapter {
         bulletInfo = new M1911Bullet(25, player.getX() + (player.getWidth() / 2), player.getY() + (player.getHeight() / 2), 55, 10);
 
         // main menu variables
-        Instructions = false;
         MainMenu = true;
         font = new BitmapFont();
         font.setColor(Color.RED);
@@ -144,7 +142,6 @@ public class MyGdxGame extends ApplicationAdapter {
 
         table.setPosition(0, Gdx.graphics.getHeight());
         startButton = new TextButton("Play Game", skin);
-        instructionsButton = new TextButton("Instructions", skin);
 
         startButton.addListener(new ClickListener() {
             @Override
@@ -155,31 +152,11 @@ public class MyGdxGame extends ApplicationAdapter {
             }
         });
 
-//        public void clicked(InputEvent event, float x, float y){
-//        dialog.show(stage);
-//        Timer.schedule(new Timer.Task(){
-//         @Override
-//         public void run(){
-//             dialog.hide();
-//         }
-//        },5);
-//        }      
-//        });
         table.padTop(160);
         table.add(startButton).padBottom(30);
         table.row();
-        table.add(instructionsButton);
         stage.addActor(table);
         Gdx.input.setInputProcessor(stage);
-
-        instructionsButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                System.out.println("Button CLicked");
-                Instructions = true;
-                MainMenu = false;
-            }
-        });
 
         // initialize cursor clicks ArrayLists
         cursorXPositions = new ArrayList<Float>();
@@ -243,21 +220,7 @@ public class MyGdxGame extends ApplicationAdapter {
             font.draw(batch, "ZOMBIE SHOOTER", 195, 400);
             batch.end();
 
-        } else if (Instructions == true) {
-
-            cursorPosition.x = Gdx.input.getX();
-            cursorPosition.y = Gdx.input.getY();
-            cursorPosition.z = 0;
-            cam.unproject(cursorPosition);
-            Gdx.gl.glClearColor(0, 0, 0, 1);
-            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-            stage.act(Gdx.graphics.getDeltaTime());
-            stage.draw();
-            batch.begin();
-
-            batch.end();
-
-        } else if (MainMenu == false && Instructions == false) {
+        } else if (MainMenu == false) {
             // game drawings
             super.render();
             Gdx.gl.glClearColor(0, 0, 0, 1);
