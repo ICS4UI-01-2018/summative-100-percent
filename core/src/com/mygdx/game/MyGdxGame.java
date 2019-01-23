@@ -103,7 +103,7 @@ public class MyGdxGame extends ApplicationAdapter {
         multiplier = 1;
 
         // create Player
-        player = new Player(100, (float) 4.5, 600, 500, 100, 100);
+        player = new Player(200, (float) 4.5, 600, 500, 100, 100);
 
         // create Rooms
         leftMain = new Room(100, 20, 1850, 1600);
@@ -143,7 +143,7 @@ public class MyGdxGame extends ApplicationAdapter {
         table.align(Align.center | Align.top);
 
         table.setPosition(0, Gdx.graphics.getHeight());
-        startButton = new TextButton("New Game", skin);
+        startButton = new TextButton("Play Game", skin);
         instructionsButton = new TextButton("Instructions", skin);
 
         startButton.addListener(new ClickListener() {
@@ -195,23 +195,23 @@ public class MyGdxGame extends ApplicationAdapter {
 
         // create walls
         walls[0] = new Wall(100, 20, 1800, 80);
-        walls[1] = new Wall(100, 1500, 450, 80); // top
-        walls[2] = new Wall(1150, 1500, 900, 80); // top 
+        walls[1] = new Wall(100, 1500, 450, 80); 
+        walls[2] = new Wall(1150, 1500, 900, 80);  
         walls[3] = new Wall(20, 20, 80, 630);
         walls[4] = new Wall(20, 950, 80, 630);
         walls[5] = new Wall(1900, 20, 80, 630-100);
-        walls[6] = new Wall(1900, 950+100, 80, 630-100);////
+        walls[6] = new Wall(1900, 950+100, 80, 630-100);
         walls[7] = new Wall(1980, 20, 1800, 80);
-        walls[8] = new Wall(1980, 1500, 650, 80); // top 1
-        walls[9] = new Wall(3130 + 200, 1500, 450, 80); // top2 
+        walls[8] = new Wall(1980, 1500, 650, 80); 
+        walls[9] = new Wall(3130 + 200, 1500, 450, 80);  
         walls[10] = new Wall(0, 0,0, 0);
         walls[11] = new Wall(0, 0,0, 0);
         walls[12] = new Wall(3780, 20, 80, 630 + 920);
         walls[13] = new Wall(3780, 950, 80, 630);
-        walls[14] = new Wall(550, 1500, 80, 900);//left large 
-        walls[15] = new Wall(1150, 1500, 1560, 300); // left small 
-        walls[16] = new Wall(2630, 1500, 80, 300);// right small
-        walls[17] = new Wall(3330, 1500, 80, 900);// right large
+        walls[14] = new Wall(550, 1500, 80, 900);
+        walls[15] = new Wall(1150, 1500, 1560, 300);  
+        walls[16] = new Wall(2630, 1500, 80, 300);
+        walls[17] = new Wall(3330, 1500, 80, 900);
         walls[18] = new Wall(1150, 1800, 1560, 80);
         walls[19] = new Wall(550, 2200 + 200, 2460 + 400, 80);
         walls[20] = new Wall(20, 20, 80, 1000);
@@ -338,9 +338,7 @@ public class MyGdxGame extends ApplicationAdapter {
                     }
                 }
             }
-
-            // move gun
-            // pistol.move(player);
+            
             // for each Zombie in zombies ArrayList
             for (Zombie zombie : zombies) {
                 // if Player collides with a Zombie, slow Zombie down
@@ -349,15 +347,10 @@ public class MyGdxGame extends ApplicationAdapter {
                     if (zombie.getSpeed() - 0.15 > 0.7) {
                         zombie.setSpeed((float) -0.15);
                     }
-                    // decrease HP only if its zombie first time hitting
-                    if (zombie.getHitPlayer() == false) {
-                        player.calculateHP(zombie.getDamage());
-                        zombie.setHitPlayer();
-                    }
-                } else {
-                    // else not colliding, not hitting player
-                    zombie.setNotHitPlayer();
-                }
+                    // decrease Player HP 
+                    player.calculateHP(zombie.getDamage());
+                    
+                } 
 
             }
 
@@ -587,14 +580,14 @@ public class MyGdxGame extends ApplicationAdapter {
                 // spawn new zombies depending on spawn variable (tankier, faster, stronger)
                 // leftMain
                 if (spawn == 1) {
-                    zombies.add(new Zombie(100 + (multiplier * 2), (float) (tempSpeed + 0.25), (float) 975, (float) 760, tempWidth, tempHeight, 1 + multiplier));
+                    zombies.add(new Zombie(100 + (multiplier * 2), (float) (tempSpeed + 0.25), (float) 975, (float) 760, tempWidth, tempHeight, 1));
                 } else if (spawn == 2) {
                     // rightMain
-                    zombies.add(new Zombie(100 + (multiplier * 2), (float) (tempSpeed + 0.25), (float) 2515, (float) 790, tempWidth, tempHeight, 1 + multiplier));
+                    zombies.add(new Zombie(100 + (multiplier * 2), (float) (tempSpeed + 0.25), (float) 2515, (float) 790, tempWidth, tempHeight, 1));
 
                 } else if (spawn == 3) {
                     // topMain
-                    zombies.add(new Zombie(100 + (multiplier * 2), (float) (tempSpeed + 0.25), (float) 1605, (float) 2000, tempWidth, tempHeight, 1 + multiplier));
+                    zombies.add(new Zombie(100 + (multiplier * 2), (float) (tempSpeed + 0.25), (float) 1605, (float) 2200, tempWidth, tempHeight, 1));
 
                 }
 

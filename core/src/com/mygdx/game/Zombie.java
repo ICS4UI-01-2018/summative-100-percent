@@ -18,7 +18,6 @@ public class Zombie extends Entity {
 
     private boolean isDead;
     private int damage;
-    private boolean hitPlayer;
     // alive image
     private Texture pic;
     // dead image
@@ -41,30 +40,6 @@ public class Zombie extends Entity {
         this.damage = damage;
         this.pic = new Texture("zombie2.png");
         this.pic2 = new Texture("blood.png");
-        this.hitPlayer = false;
-    }
-
-    /**
-     * Sets hitPlayer to true.
-     */
-    public void setHitPlayer() {
-        this.hitPlayer = true;
-    }
-
-    /**
-     * Sets hitPlayer to false.
-     */
-    public void setNotHitPlayer() {
-        this.hitPlayer = false;
-    }
-
-    /**
-     * Returns whether if the Zombie hit the Player or not.
-     *
-     * @return returns true if the Zombie touched the Player, false otherwise.
-     */
-    public boolean getHitPlayer() {
-        return this.hitPlayer;
     }
 
     /**
