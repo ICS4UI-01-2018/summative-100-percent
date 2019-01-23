@@ -22,7 +22,7 @@ public class Room {
 
     /**
      * Initialize Room data.
-     * 
+     *
      * @param x the x position of the Room.
      * @param y the y position of the Room.
      * @param width the width of the Room.
@@ -38,7 +38,7 @@ public class Room {
 
     /**
      * Returns the x position of the Room.
-     * 
+     *
      * @return the float representing the Room's x position.
      */
     public float getX() {
@@ -47,7 +47,7 @@ public class Room {
 
     /**
      * Returns the y position of the Room.
-     * 
+     *
      * @return the float representing the Room's y position.
      */
     public float getY() {
@@ -56,7 +56,7 @@ public class Room {
 
     /**
      * Returns the width of the Room.
-     * 
+     *
      * @return the integer representing the Room's width.
      */
     public int getwidth() {
@@ -65,7 +65,7 @@ public class Room {
 
     /**
      * Returns the height of the Room.
-     * 
+     *
      * @return the integer representing the Room's height.
      */
     public int getheight() {
@@ -74,7 +74,7 @@ public class Room {
 
     /**
      * Draws the shape of the Room.
-     * 
+     *
      * @param shapeBatch the ShapeRenderer being used to draw.
      */
     public void draw(ShapeRenderer shapeBatch) {
@@ -83,7 +83,7 @@ public class Room {
 
     /**
      * Returns the Rectangle of the Room.
-     * 
+     *
      * @return the Rectangle representing the Room.
      */
     public Rectangle getBounds() {

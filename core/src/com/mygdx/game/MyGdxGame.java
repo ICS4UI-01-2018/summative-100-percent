@@ -341,7 +341,6 @@ public class MyGdxGame extends ApplicationAdapter {
 
             // move gun
             // pistol.move(player);
-
             // for each Zombie in zombies ArrayList
             for (Zombie zombie : zombies) {
                 // if Player collides with a Zombie, slow Zombie down

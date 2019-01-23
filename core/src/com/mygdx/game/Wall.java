@@ -38,7 +38,7 @@ public class Wall {
 
     /**
      * Returns the x position of the Wall.
-     * 
+     *
      * @return the float representing the Wall's x position.
      */
     public float getX() {
@@ -47,7 +47,7 @@ public class Wall {
 
     /**
      * Returns the y position of the Wall.
-     * 
+     *
      * @return the float representing the Wall's y position.
      */
     public float getY() {
@@ -56,7 +56,7 @@ public class Wall {
 
     /**
      * Returns the width of the Wall.
-     * 
+     *
      * @return the integer representing the Wall's width.
      */
     public int getwidth() {
@@ -65,7 +65,7 @@ public class Wall {
 
     /**
      * Returns the height of the Wall.
-     * 
+     *
      * @return the integer representing the Wall's height.
      */
     public int getheight() {
@@ -74,7 +74,7 @@ public class Wall {
 
     /**
      * Draws the shape of the Wall.
-     * 
+     *
      * @param shapeBatch the ShapeRenderer being used to draw the Wall.
      */
     public void draw(ShapeRenderer shapeBatch) {
@@ -83,7 +83,7 @@ public class Wall {
 
     /**
      * Returns the Rectangle of the Wall.
-     * 
+     *
      * @return the Rectangle representing the Wall.
      */
     public Rectangle getBounds() {

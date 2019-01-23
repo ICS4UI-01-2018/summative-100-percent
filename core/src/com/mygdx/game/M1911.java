@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * @author prylz2189
  */
 public class M1911 extends Weapon {
-    
+
     private ArrayList<M1911Bullet> bullets;
 
     /**
@@ -31,7 +31,7 @@ public class M1911 extends Weapon {
 
     /**
      * Creates a Bullet.
-     * 
+     *
      * @param bullet the Bullet information that is being made.
      */
     public void addBullet(M1911Bullet bullet) {
@@ -42,7 +42,7 @@ public class M1911 extends Weapon {
 
     /**
      * Returns the ArrayList of M1911Bullets.
-     * 
+     *
      * @return the ArrayList representing the M1911Bullets.
      */
     public ArrayList<M1911Bullet> getList() {
