@@ -66,19 +66,19 @@ public class Zombie extends Entity {
         // if Enemies is left of player
         if (super.getX() + (super.getWidth() / 2) < player.getX() + (player.getWidth() / 2)) {
             // move right
-            super.setXRight();
+            super.setXR();
         } else if (super.getX() + (super.getWidth() / 2) > player.getX() + (player.getWidth() / 2)) {
             // else if Enemy is right of player, move left
-            super.setXLeft();
+            super.setXL();
         }
 
         // if Enemies is below player
         if (super.getY() + (super.getHeight() / 2) < player.getY() + (player.getHeight() / 2)) {
             // move up
-            super.setYUp();
+            super.setYT();
         } else if (super.getY() + (super.getHeight() / 2) > player.getY() + (player.getHeight() / 2)) {
             // else if Enemy is above player, move down
-            super.setYDown();
+            super.setYB();
         }
     }
 
@@ -86,19 +86,19 @@ public class Zombie extends Entity {
         // if Enemies is left of player
         if (super.getX() + (super.getWidth() / 2) < x) {
             // move right
-            super.setXRight();
+            super.setXR();
         } else if (super.getX() + (super.getWidth() / 2) > x) {
             // else if Enemy is right of player, move left
-            super.setXLeft();
+            super.setXL();
         }
 
         // if Enemies is below player
         if (super.getY() + (super.getHeight() / 2) < y) {
             // move up
-            super.setYUp();
+            super.setYT();
         } else if (super.getY() + (super.getHeight() / 2) > y) {
             // else if Enemy is above player, move down
-            super.setYDown();
+            super.setYB();
         }
     }
 

@@ -150,9 +150,9 @@ public abstract class Bullet {
     }
 
     /**
-     * Returns the rectangle of the Bullet.
+     * Returns the Rectangle of the Bullet.
      *
-     * @return the rectangle representing the Bullet.
+     * @return the Rectangle representing the Bullet.
      */
     public Rectangle getShape() {
         bullet.x = this.x;

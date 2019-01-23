@@ -36,7 +36,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
     // weapon variables
     private M1911 pistol;
-    private M1911Bullet testBulletInfo;
+    private M1911Bullet bulletInfo;
 
     // entity variables
     private Player player;
@@ -128,8 +128,8 @@ public class MyGdxGame extends ApplicationAdapter {
         zombies.add(new Zombie(100, (float) 2, (float) 2500, (float) 200, 100, 100, 1));
 
         // create Weapon and Bullet
-        pistol = new M1911(1, player.getX() + (25), player.getY() + (37), 50, 75, 12, (float) 2.5, 36);
-        testBulletInfo = new M1911Bullet(25, player.getX() + (player.getWidth() / 2), player.getY() + (player.getHeight() / 2), 55, 10);
+        pistol = new M1911(12, (float) 2.5, 36);
+        bulletInfo = new M1911Bullet(25, player.getX() + (player.getWidth() / 2), player.getY() + (player.getHeight() / 2), 55, 10);
 
         // main menu variables
         Instructions = false;
@@ -340,7 +340,7 @@ public class MyGdxGame extends ApplicationAdapter {
             }
 
             // move gun
-            pistol.move(player);
+            // pistol.move(player);
 
             // for each Zombie in zombies ArrayList
             for (Zombie zombie : zombies) {
@@ -476,14 +476,14 @@ public class MyGdxGame extends ApplicationAdapter {
                 // if there are bullets in the clip
                 if (pistol.getBulletsInClip() != 0 && (pistol.getReloading() == false)) {
                     // shoot a bullet
-                    pistol.addBullet(testBulletInfo);
+                    pistol.addBullet(bulletInfo);
                     // store cursor coordinates into corresponding array lists
                     cursorXPositions.add(cursorPosition.x);
                     cursorYPositions.add(cursorPosition.y);
                 }
             }
 
-            shapeBatch.setColor(Color.YELLOW);
+            shapeBatch.setColor(Color.BLACK);
 
             // update bullets
             for (M1911Bullet bullet : pistol.getList()) {
