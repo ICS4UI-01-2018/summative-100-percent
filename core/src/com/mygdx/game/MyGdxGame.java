@@ -124,11 +124,11 @@ public class MyGdxGame extends ApplicationAdapter {
 
         // create Zombies
         zombies = new ArrayList<Zombie>();
-        zombies.add(new Zombie(100, (float) 4, (float) 1705, (float) 2100, 100, 100, 1));
-        zombies.add(new Zombie(100, (float) 4, (float) 2200, (float) 2100, 100, 100, 1));
-        zombies.add(new Zombie(100, (float) 4, (float) 1705, (float) 1350, 100, 100, 1));
-        zombies.add(new Zombie(100, (float) 4, (float) 2500, (float) 1500, 100, 100, 1));
-        zombies.add(new Zombie(100, (float) 4, (float) 2500, (float) 200, 100, 100, 1));
+        zombies.add(new Zombie(100, (float) 3.5, (float) 1705, (float) 2100, 100, 100, 1));
+        zombies.add(new Zombie(100, (float) 3.5, (float) 2200, (float) 2100, 100, 100, 1));
+        zombies.add(new Zombie(100, (float) 3.5, (float) 1705, (float) 1350, 100, 100, 1));
+        zombies.add(new Zombie(100, (float) 3.5, (float) 2500, (float) 1500, 100, 100, 1));
+        zombies.add(new Zombie(100, (float) 3.5, (float) 2500, (float) 200, 100, 100, 1));
 
         // create Weapon and Bullet
         pistol = new M1911(12, (float) 2.5, 36);
