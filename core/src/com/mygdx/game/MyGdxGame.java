@@ -15,9 +15,11 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Timer;
@@ -51,12 +53,16 @@ public class MyGdxGame extends ApplicationAdapter {
     private Vector3 cursorPosition = new Vector3();
     // menu variables
     private boolean mainMenu;
+    private boolean Instructions;
     private BitmapFont font;
     private Skin skin;
     private Stage stage;
     private Table table;
     private TextButton startButton;
-    private TextButton instructionsButton;
+    private TextButton exitButton;
+    private TextButton instructionsBack;
+    private Texture mainmenuBackground;
+    private Texture instructionsBackground;
 
     // ArrayLists that store cursor clicks
     private ArrayList<Float> cursorXPositions;
@@ -130,6 +136,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
         // main menu variables
         mainMenu = true;
+        Instructions = false;
         font = new BitmapFont();
         font.setColor(Color.RED);
         skin = new Skin(Gdx.files.internal("uiskin.json"));
@@ -140,6 +147,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
         table.setPosition(0, Gdx.graphics.getHeight());
         startButton = new TextButton("Play Game", skin);
+        exitButton = new TextButton("Exit Game", skin);
 
         // when Play button clicked, move onto game
         startButton.addListener(new ClickListener() {
@@ -147,14 +155,28 @@ public class MyGdxGame extends ApplicationAdapter {
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("Button CLicked");
                 mainMenu = false;
+                Instructions = true;
             }
         });
         // Play button
-        table.padTop(160);
-        table.add(startButton).padBottom(30);
+        table.padTop(180);
+        table.add(startButton).padBottom(20);
         table.row();
+        //exitbutton
+        table.add(exitButton);
         stage.addActor(table);
         Gdx.input.setInputProcessor(stage);
+
+        //when exit button is clicked, game exits
+        exitButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("Button Clicked");
+                mainMenu = false;
+                Gdx.app.exit();
+            }
+
+        });
 
         // initialize cursor clicks ArrayLists
         cursorXPositions = new ArrayList<Float>();
@@ -211,12 +233,83 @@ public class MyGdxGame extends ApplicationAdapter {
 
             stage.act(Gdx.graphics.getDeltaTime());
             stage.draw();
-
+            
             batch.begin();
+            //title on main menu
+            
             font.getData().setScale(2, 2);
             font.setColor(Color.RED);
             font.draw(batch, "ZOMBIE SHOOTER", 195, 400);
             batch.end();
+
+        } else if (Instructions == true) {
+            //clear screen
+            Gdx.gl.glClearColor(0, 0, 0, 1);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            
+            stage.draw();
+            batch.begin();
+            font.getData().setScale(2, 2);
+            font.draw(batch, "CONTROLS", 240, 450);
+            instructionsBack = new TextButton("Begin Game", skin);
+            instructionsBack.setHeight(50);
+            instructionsBack.setWidth(250);
+            instructionsBack.setPosition(190, 50);
+            stage.addActor(instructionsBack);
+            //drawing textfields
+            TextField wButton = new TextField("             W", skin);
+            TextField sButton = new TextField("             S", skin);
+            TextField dButton = new TextField("             D", skin);
+            TextField aButton = new TextField("             A", skin);
+            TextField rButton = new TextField("             R", skin);
+            TextField mouseClick = new TextField("        Mouse", skin);
+            //drawing labels
+            Label labelwButton = new Label("UP", skin);
+            Label labelsButton = new Label("DOWN", skin);
+            Label labeldButton = new Label("RIGHT", skin);
+            Label labelaButton = new Label("LEFT", skin);
+            Label labelrButton = new Label("RELOAD", skin);
+            Label labelmouseClick = new Label("SHOOT", skin);
+            Table table = new Table();
+            table.defaults().pad(5);
+            //adding the labels and textfields in the table
+            table.add(labelwButton);
+            table.add(wButton).width(120).height(35);
+            table.row();
+            table.add(labelsButton);
+            table.add(sButton).width(120).height(35);
+            table.row();
+            table.add(labeldButton);
+            table.add(dButton).width(120).height(35);
+            table.row();
+            table.add(labelaButton);
+            table.add(aButton).width(120).height(35);
+            table.row();
+            table.add(labelrButton);
+            table.add(rButton).width(120).height(35);
+            table.row();
+            table.add(labelmouseClick);
+            table.add(mouseClick).width(120).height(35);
+            //setting cooridnates for the table
+            table.setOriginX(0);
+            table.setOriginY(0);
+            table.setX(280);
+            table.setY(265);
+
+            stage.addActor(table);
+
+            batch.end();
+//           
+            //starts main game
+            instructionsBack.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    System.out.println("Button CLicked");
+                    mainMenu = false;
+                    Instructions = false;
+
+                }
+            });
 
         } else if (mainMenu == false) {
             // game drawings
