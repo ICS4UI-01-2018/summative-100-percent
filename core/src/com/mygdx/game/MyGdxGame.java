@@ -61,8 +61,7 @@ public class MyGdxGame extends ApplicationAdapter {
     private TextButton startButton;
     private TextButton exitButton;
     private TextButton instructionsBack;
-    private Texture mainmenuBackground;
-    private Texture instructionsBackground;
+    
 
     // ArrayLists that store cursor clicks
     private ArrayList<Float> cursorXPositions;
@@ -230,13 +229,11 @@ public class MyGdxGame extends ApplicationAdapter {
             cam.unproject(cursorPosition);
             Gdx.gl.glClearColor(0, 0, 0, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
             stage.act(Gdx.graphics.getDeltaTime());
             stage.draw();
             
             batch.begin();
             //title on main menu
-            
             font.getData().setScale(2, 2);
             font.setColor(Color.RED);
             font.draw(batch, "ZOMBIE SHOOTER", 195, 400);
@@ -270,6 +267,7 @@ public class MyGdxGame extends ApplicationAdapter {
             Label labelaButton = new Label("LEFT", skin);
             Label labelrButton = new Label("RELOAD", skin);
             Label labelmouseClick = new Label("SHOOT", skin);
+            //new table
             Table table = new Table();
             table.defaults().pad(5);
             //adding the labels and textfields in the table
