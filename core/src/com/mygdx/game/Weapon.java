@@ -18,11 +18,7 @@ import java.util.ArrayList;
  * @author prylz2189
  */
 public abstract class Weapon {
-
-    private float x;
-    private float y;
-    private int width;
-    private int height;
+    
     private int clipSize;
     private int bulletsInClip;
     private float reloadTime;
